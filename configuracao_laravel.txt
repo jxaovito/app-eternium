@@ -1,0 +1,102 @@
+#Inicializar o Projeto:
+composer create-project --prefer-dist laravel/laravel nome-do-projeto
+
+#Entre no projeto e execute:
+php artisan key:generate
+
+#Para iniciar o projeto inicie:
+php artisan serve
+
+#Para trocar a porta do projeto (Por padrão é 8000):
+php artisan serve --port=8001
+
+
+# Processo para tornar modular
+Dentro de app/ crie a pasta chamada `Modules`
+------------------------------------------------------------------------------------------------------
+Dentro de `Modules` crie o primeiro `modulo`, exemplo: `Login`
+Crie a pasta `Login`, ficando `app/Modules/Login
+------------------------------------------------------------------------------------------------------
+Dentro da pasta `Login`, crie:
+Controllers (app/Modules/Login/Controllers)
+Models (app/Modules/Login/Models)
+------------------------------------------------------------------------------------------------------
+Dentro da pasta `Modules`, crie a pasta chamada `Views` (app/Modules/Views)
+Nesta pasta, estará locazalizadas as views do projeto separada pelo módulo
+------------------------------------------------------------------------------------------------------
+Continuando com o módulo `Login`, em `Views` crie a pasta `login` (app/Modules/Views/login)
+------------------------------------------------------------------------------------------------------
+Dentro da pasta login da View, crie o arquivo `index.blade.php` (app/Modules/Views/login/index.blade.php)
+------------------------------------------------------------------------------------------------------
+
+
+#Primeiro Controler:
+No controller de login, crie (app/Modules/Login/Controllers/Login_controller.php):
+
+<?php
+namespace App\Modules\Login\Controllers;
+
+use App\Http\Controllers\Controller;
+
+class LoginController extends Controller
+{
+    public function index()
+    {
+        return view('login.index');
+    }
+}
+
+------------------------------------------------------------------------------------------------------
+#Primeiro Model (Usuário)
+No Model de login, crie (app/modules/Login/Models/Login_model.php)
+<?php
+namespace App\Modules\Login\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Login_model extends Model{
+	protected $table = 'usuario';
+
+	public function get_all_table($table, $email){
+		$this->setTable($table);
+		return $this->where('email', $email)
+					->first();
+	}
+}
+
+------------------------------------------------------------------------------------------------------
+#Configurando diretórios de Views para o Laravel
+Acesse `config` no diretório Raiz do projeto, e acesse `config/view.php` e defina o path:
+'paths' => [
+    resource_path('views'),
+    app_path('Modules/Views'),
+],
+
+
+------------------------------------------------------------------------------------------------------
+#Configurando a rota
+Crie a pasta chamada "app"
+Em `routes` (Diretório raiz do Proejto), acesse web.php, e adicione no final, o seguinte código:
+require __DIR__.'/../routes/app/login.php';
+
+------------------------------------------------------------------------------------------------------
+#Criando Rotas
+Para criar a rota do `login`, crie o arquivo login.php em `routes/app/login.php`
+<?php
+Route::group(['module' => 'Login', 'middleware' => ['web'], 'namespace' => 'App\Modules\Login\Controllers'], function () {
+    Route::get('/', 'Login_controller@index');
+    Route::get('/login', 'Login_controller@index');
+
+	Route::post('/auth', 'Login_controller@auth');
+	Route::get('/logout', 'Login_controller@logout');
+	Route::get('/teste', 'Login_controller@teste')->name('teste');
+    // Outras rotas do módulo de login
+});
+
+------------------------------------------------------------------------------------------------------
+#Trabalhando com a public (img/js/css/fonts/etc)
+Os assets, ficarão no diretório da public, basta criar as pastas que for adicionando como assets
+Ex: img = `public/img/logo.php`
+Ex: css = `public/css/default.css`
+
+Para chamar um arquivo da public, utilize: {{ asset('img/logo.svg') }}
