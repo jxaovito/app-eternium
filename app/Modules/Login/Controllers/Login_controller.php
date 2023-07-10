@@ -14,11 +14,14 @@ class Login_controller extends Controller{
         $this->login_model = new Login_model();
     }
 
-    public function index(){
+    public function index(Request $request){
+    	$dados = $request->all();
+    	$_dados['conexao_id'] = (isset($dados['con']) ? md5($dados['con']) : '');
+
         if(session('usuario_id')){
             return redirect()->route('acesso');
         }
-        return view('login.index');
+        return view('login.index', $_dados);
     }
 
     public function auth(Request $request){
