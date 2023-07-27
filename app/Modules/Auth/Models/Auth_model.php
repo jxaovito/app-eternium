@@ -1,18 +1,14 @@
 <?php
-namespace App\Modules\Login\Models;
+namespace App\Modules\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
-class Login_model extends Model{
-	protected $table = 'usuario';
+class Auth_model extends Model {
+    protected $table = 'usuario';
+    protected $connection = 'mysql_db';
 
-	public function get_all_table($table, $email){
-		$this->setTable($table);
-		return $this->where('email', $email)
-					->first();
-	}
-
-	function get_permissoes_usuario($usuario_id){
+    function get_permissoes_usuario($usuario_id){
 		$this->setTable('auth_modulo');
 		return $this->join('auth_modulo_has_nivel_permissao as amnp', 'amnp.auth_modulo_id', '=', 'auth_modulo.id')
 					->join('auth_nivel_permissao as anp', 'anp.id', '=', 'amnp.auth_nivel_permissao_id')

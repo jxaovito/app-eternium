@@ -35,6 +35,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
+        '0df9ad278f7a9f27dc91a8f5ed3400bc' => __DIR__ . '/../..' . '/app/Helpers/Auth_helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -350,8 +351,8 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -526,6 +527,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\DynamicDatabaseConnection' => __DIR__ . '/../..' . '/app/Http/Middleware/DynamicDatabaseConnection.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -535,6 +537,14 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Modules\\Agenda\\Controllers\\Agenda_controller' => __DIR__ . '/../..' . '/app/Modules/Agenda/Controllers/Agenda_controller.php',
+        'App\\Modules\\Agenda\\Models\\Agenda_db_model' => __DIR__ . '/../..' . '/app/Modules/Agenda/Models/Agenda_db_model.php',
+        'App\\Modules\\Agenda\\Models\\Agenda_model' => __DIR__ . '/../..' . '/app/Modules/Agenda/Models/Agenda_model.php',
+        'App\\Modules\\Auth\\Controllers\\Auth_controller' => __DIR__ . '/../..' . '/app/Modules/Auth/Controllers/Auth_controller.php',
+        'App\\Modules\\Auth\\Models\\Auth_db_model' => __DIR__ . '/../..' . '/app/Modules/Auth/Models/Auth_db_model.php',
+        'App\\Modules\\Auth\\Models\\Auth_model' => __DIR__ . '/../..' . '/app/Modules/Auth/Models/Auth_model.php',
+        'App\\Modules\\Login\\Controllers\\Login_controller' => __DIR__ . '/../..' . '/app/Modules/Login/Controllers/Login_controller.php',
+        'App\\Modules\\Login\\Models\\Login_model' => __DIR__ . '/../..' . '/app/Modules/Login/Models/Login_model.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

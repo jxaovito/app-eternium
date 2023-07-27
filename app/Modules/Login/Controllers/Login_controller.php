@@ -3,49 +3,31 @@
 namespace App\Modules\Login\Controllers;
 
 use App\Modules\Login\Models\Login_model;
+use App\Modules\Auth\Models\Auth_model;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class Login_controller extends Controller{
 	protected $login_model;
+    protected $auth_model;
 
     public function __construct(){
         $this->login_model = new Login_model();
+        $this->auth_model = new Auth_model();
     }
 
     public function index(Request $request){
     	$dados = $request->all();
-    	$_dados['conexao_id'] = (isset($dados['con']) ? md5($dados['con']) : '');
+        $_dados['conexao_id'] = (isset($dados['con']) ? base64_encode($dados['con']) : '');
+        if(!$_dados['conexao_id'] && session('usuario_id')){
+            return redirect()->route('agenda');
 
-        if(session('usuario_id')){
-            return redirect()->route('acesso');
+        }else if($_dados['conexao_id']){
+            session(['conexao_id' => $dados['con']]);
         }
+
         return view('login.index', $_dados);
-    }
-
-    public function auth(Request $request){
-    	$dados = $request->all();
-    	$email = $request->email;
-    	$password = $request->password;
-    	$password_crypto = password_hash($password, PASSWORD_BCRYPT);
-
-    	$usuario = $this->login_model->get_all_table('usuario', $email);
-
-    	if($usuario && password_verify($password, $usuario['password'])){
-            $permissoes = $this->login_model->get_permissoes_usuario($usuario['id']);
-            $permissoes_all = $this->login_model->get_permissoes();
-
-            session(['permissoes' => $permissoes]);
-            session(['permissoes_all' => $permissoes_all]);
-    		session(['usuario_id' => $usuario['id']]);
-    		session(['usuario_nome' => $usuario['nome']]);
-            session(['usuario_email' => $usuario['email']]);
-
-    		return redirect()->route('acesso');
-	    }else{
-	        return redirect()->back()->with('error', 'Usuário e/ou senha não incorretos');
-	    }
     }
 
     public function logout(Request $request){

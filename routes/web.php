@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 require __DIR__.'/../routes/app/login.php';
+require __DIR__.'/../routes/app/auth.php';
+require __DIR__.'/../routes/app/agenda.php';

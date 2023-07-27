@@ -4,6 +4,7 @@
 	<title>Login - Eternium</title>
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
 	<link rel="icon" type="image/x-icon" href="{{ asset('img/eternium_logo_icon.svg') }}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
 	<div class="section-login">
@@ -18,16 +19,21 @@
 					<img src="{{ asset('img/eternium_logo.svg') }}">
 				</div>
 				<div class="content-form">
-					<form action="#" method="post">
+					<form action="/auth" method="post">
+						@csrf
 						<span>Acesse com seu email e sua senha.</span>
 
-						<input type="email" name="email" placeholder="E-email" autofocus="autofocus">
-						<input type="password" name="email" placeholder="Senha">
+						<input type="email" name="email" placeholder="E-email" autofocus="autofocus" required>
+						<input type="password" name="password" placeholder="Senha" required>
 						<input type="hidden" name="con" value="{{$conexao_id}}">
 
 						<div class="form-buttons">
 							<button type="submit">Acessar</button>
 						</div>
+
+						@if(session('error'))
+							<span class="error-login"><i class="bi bi-x-lg"></i> <text>{{ session('error') }}</text></span>
+						@endif
 					</form>
 				</div>
 				<div class="content-footer">
