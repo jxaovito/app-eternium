@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 class DynamicDatabaseConnection
 {
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next){
         // Verifica se a sessão está disponível
         if (Session::isStarted()) {
             // Recupere o nome do banco de dados do cliente armazenado na sessão
