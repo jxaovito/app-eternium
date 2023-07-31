@@ -12,7 +12,8 @@ class DynamicDatabaseConnection
         // Verifica se a sessão está disponível
         if (Session::isStarted()) {
             // Recupere o nome do banco de dados do cliente armazenado na sessão
-            $clientDatabase = 'eter_conexao'.(Session::get('conexao_id') ? Session::get('conexao_id') : session('conexao_id'));
+            $clientDatabase = 'eter_conexao'.Session::get('conexao_id');
+            session(['conexao_id' => Session::get('conexao_id')]);
 
         } else {
             // Se a sessão não estiver disponível, defina um valor padrão ou use a conexão padrão do Laravel

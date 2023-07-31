@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Gerenciador - Eternium</title>
+        <title>{{array_column(session('config_dados'), 'valor', 'variavel')['nome_clinica']}} - Eternium</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="icon" type="image/x-icon" href="{{ asset('img/eternium_logo_icon.svg') }}">
         <link rel="stylesheet" href="{{ asset('css/default.css') }}">
         <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/bg_nomes.css') }}">
+
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
         <!-- baixar posteriormente -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -27,11 +27,17 @@
         <script type="text/javascript" src="{{ asset('js/slim/jquery.mask.js') }}"></script>
         <script src="{{ asset('js/slim') }}/popper.min.js"></script>
         <script type="text/javascript" src="{{ asset('js/mascaras.js') }}"></script>
+
+        <style>
+            :root{
+                --cor-cliente: {{array_column(session('config_dados'), 'valor', 'variavel')['cor_logo']}};
+            }
+        </style>
     </head>
     <body>
         <container>
             @include('default.nav')
-            <div class="content-page w-84">
+            <div class="content-page">
                 <?php //Configuração de Alertas ?>
                 @if(session('mensagem'))
                     @if(session('tipo_mensagem'))

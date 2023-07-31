@@ -46,24 +46,23 @@ class Auth_controller extends Controller {
                 session(['usuario_email' => $usuario['email']]);
             }
 
-            // Sessão criada, agora podemos configurar a conexão dinâmica
-            // antes de executar o restante do código
-
-            // Chama o middleware aqui
             $middleware = new \App\Http\Middleware\DynamicDatabaseConnection();
             $middleware->handle($request, function () use ($usuario) {
                 $this->handleAuthenticatedUser($usuario);
             });
 
-            // Remova o var_dump abaixo, pois a sessão já foi configurada
             $permissoes = $this->Auth_model->get_permissoes_usuario($usuario['id']);
             $permissoes_all = $this->Auth_model->get_permissoes();
+            $config_dados = $this->Auth_model->get_all_table('configuracao', array('tipo' => 'dados'));
+            $config_preferencias = $this->Auth_model->get_all_table('configuracao', array('tipo' => 'preferencias'));
 
             session(['permissoes' => $permissoes]);
             session(['permissoes_all' => $permissoes_all]);
     		session(['usuario_id' => $usuario['id']]);
     		session(['usuario_nome' => $usuario['nome']]);
             session(['usuario_email' => $usuario['email']]);
+            session(['config_dados' => $config_dados]);
+            session(['config_preferencias' => $config_preferencias]);
 
     		return redirect()->route('agenda');
 

@@ -19,6 +19,17 @@ class Auth_model extends Model {
 		            ->get()->toArray();
 	}
 
+
+	function get_all_table($table, $where = array()){
+		$this->setTable($table);
+		
+		if($where){
+			return $this->select('*')->where($where)->get()->toArray();
+		}else{
+			return $this->select('*')->get()->toArray();
+		}
+	}
+
 	function get_permissoes(){
 		$this->setTable('auth_modulo');
 		return $this->select('auth_modulo.*')

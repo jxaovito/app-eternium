@@ -1,0 +1,164 @@
+@font-face{
+    font-family: 'Montserrat-Black';
+    src: url('../fonts/Montserrat-Black.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Black-Italic';
+    src: url('../fonts/Montserrat-BlackItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Bold';
+    src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-BoldItalic';
+    src: url('../fonts/Montserrat-BoldItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-ExtraBold';
+    src: url('../fonts/Montserrat-ExtraBold.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-ExtraBoldItalic';
+    src: url('../fonts/Montserrat-ExtraBoldItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-ExtraLight';
+    src: url('../fonts/Montserrat-ExtraLight.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-ExtraLightItalic';
+    src: url('../fonts/Montserrat-ExtraLightItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Italic';
+    src: url('../fonts/Montserrat-Italic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Light';
+    src: url('../fonts/Montserrat-Light.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-LightItalic';
+    src: url('../fonts/Montserrat-LightItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Medium';
+    src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-MediumItalic';
+    src: url('../fonts/Montserrat-MediumItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Regular';
+    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-SemiBold';
+    src: url('../fonts/Montserrat-SemiBold.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-SemiBoldItalic';
+    src: url('../fonts/Montserrat-SemiBoldItalic.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-Thin';
+    src: url('../fonts/Montserrat-Thin.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat-ThinItalic';
+    src: url('../fonts/Montserrat-ThinItalic.ttf') format('truetype');
+}
+
+:root{
+    --font-regular: 'Montserrat-Regular', sans-serif;
+}
+html, body{
+    margin: 0px;
+    padding: 0px;
+    font-family: var(--font-regular)!important;
+}
+
+.loading-spinner{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999999;
+	background-color: #00000069;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+}
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side,#ceee00 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%,#ceee00);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+  animation:s3 1s infinite linear;
+}
+select{
+	width: 100%;
+	border-color: #dee2e6;
+	border-radius: 5px;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field{
+	border: 1px solid rgb(170, 170, 170)!important;
+    outline: none!important;
+}
+.select2 .selection .select2-selection{
+	height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+.select2 .selection .select2-selection .select2-selection__arrow{
+	height: 40px;
+}
+.select2 .selection .select2-selection .select2-selection__clear{
+	opacity: 0!important;
+}
+.select2 .selection .select2-selection .select2-selection__rendered{
+	width: 100%;
+}
+.select2 .selection .select2-selection .select2-selection__rendered{
+	margin-bottom: 0px;
+}
+#ui-datepicker-div .ui-datepicker-header{
+	background-color: #fff!important;
+	border: none!important;
+}
+#ui-datepicker-div .ui-datepicker-prev.ui-state-hover, #ui-datepicker-div .ui-datepicker-next.ui-state-hover{
+	cursor: pointer!important;
+}
+#ui-datepicker-div .ui-state-default, .ui-widget-content .ui-state-default{
+	border: 1px solid #e3e3e3!important;
+	background: #fffefe!important;
+	font-weight: normal;
+	color: #454545!important;
+}
+#ui-datepicker-div .ui-datepicker-today{
+	border: 1px solid #e3e3e3!important;
+	background: #e3e3e3!important;
+	font-weight: normal;
+	color: #454545!important;
+}
+#ui-datepicker-div .ui-state-active, .ui-widget-content .ui-state-active{
+	border: 1px solid #e3e3e3!important;
+	background: #dbdbdb!important;
+	font-weight: normal;
+	color: #454545!important;
+}
+body container{
+    display: flex;
+    flex-wrap: wrap;
+}
+body container .content-page{
+    width: 77%;
+    margin-left: 1.5%;
+}
