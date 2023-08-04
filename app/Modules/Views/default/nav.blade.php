@@ -11,12 +11,47 @@
             @endif
         </div>
         <div class="others-options">
-            <div class="option">
+            <div class="option"
+                data-bs-toggle="tooltip" 
+                data-bs-placement="bottom"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="Notificações"
+            >
                 <i class="ph ph-bell"></i>
+            </div>
+            <div class="option" 
+                data-bs-toggle="tooltip" 
+                data-bs-placement="bottom"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="Configurações"
+            >
+                <i class="ph ph-gear"></i>
             </div>
         </div>
         <div class="content-profile">
-
+            <div class="content-opc-profile">
+                <div class="content">
+                    <a href="">
+                        <i class="ph ph-user-gear"></i>
+                        Configurações do Perfil
+                    </a>
+                    <a href="">
+                        <i class="ph ph-lock-key"></i>
+                        Permissões
+                    </a>
+                    <a href="/logout">
+                        <i class="ph ph-sign-out"></i>
+                        Sair
+                    </a>
+                </div>
+            </div>
+            <div class="profile-photo">
+                <img src="{{asset('img/user.png')}}">
+            </div>
+            <div class="profile-data">
+                <span class="data-user">{{session('usuario_nome')}}</span>
+                <span class="email-user">{{session('usuario_email')}} <i class="ph ph-caret-down"></i></span>
+            </div>
         </div>
     </div>
 </div>

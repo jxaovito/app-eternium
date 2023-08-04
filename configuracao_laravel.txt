@@ -10,6 +10,9 @@ php artisan serve
 #Para trocar a porta do projeto (Por padrão é 8000):
 php artisan serve --port=8001
 
+#Para rodar o SCSS
+sass --watch public/scss:public/css
+
 
 # Processo para tornar modular
 Dentro de app/ crie a pasta chamada `Modules`
@@ -100,3 +103,10 @@ Ex: img = `public/img/logo.php`
 Ex: css = `public/css/default.css`
 
 Para chamar um arquivo da public, utilize: {{ asset('img/logo.svg') }}
+
+--------------------------------------------------------------------------------------------------------
+#Instalando SCSS no projeto
+no cmd dentro do diretório raiz, execute 
+npm install -g sass
+
+Depois, basta deixar executando no cmd o comando: sass --watch scss:public/css

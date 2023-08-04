@@ -27,10 +27,12 @@
         <script type="text/javascript" src="{{ asset('js/slim/jquery.mask.js') }}"></script>
         <script src="{{ asset('js/slim') }}/popper.min.js"></script>
         <script type="text/javascript" src="{{ asset('js/mascaras.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/nav.js') }}"></script>
 
         <style>
             :root{
-                --cor-cliente: {{array_column(session('config_dados'), 'valor', 'variavel')['cor_logo']}};
+                --cor-logo-cliente: {{array_column(session('config_dados'), 'valor', 'variavel')['cor_logo']}};
+                --cor-font-cliente: {{array_column(session('config_dados'), 'valor', 'variavel')['cor_font']}};
             }
         </style>
     </head>
