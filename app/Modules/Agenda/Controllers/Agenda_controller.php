@@ -24,7 +24,7 @@ class Agenda_controller extends Controller{
     }
 
     public function index(){
-        $check_auth = checkAuthentication($this->class, __FUNCTION__);
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Agenda');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['pagina'] = 'agenda';

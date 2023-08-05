@@ -29,10 +29,20 @@
         <script type="text/javascript" src="{{ asset('js/mascaras.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/nav.js') }}"></script>
 
+        <?php // Importações que dependem da página ?>
+        @if(isset($pagina) && $pagina == 'permissoes')
+        <link rel="stylesheet" href="{{ asset('css/permissoes.css') }}">
+        <script type="text/javascript" src="{{ asset('js/nivel_permissao.js') }}"></script>
+        @endif
+
         <style>
             :root{
-                --cor-logo-cliente: {{array_column(session('config_dados'), 'valor', 'variavel')['cor_logo']}};
-                --cor-font-cliente: {{array_column(session('config_dados'), 'valor', 'variavel')['cor_font']}};
+                --cor-logo-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>;
+                --cor-font-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_font'] ?>;
+                --font-regular: 'Montserrat-Regular', sans-serif;
+                --font-color: #000;
+                --background-success: #4CAF50;
+                --background-success-hover: '#3a8b3d';
             }
         </style>
     </head>

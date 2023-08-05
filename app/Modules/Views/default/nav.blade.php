@@ -35,7 +35,7 @@
                         <i class="ph ph-user-gear"></i>
                         Configurações do Perfil
                     </a>
-                    <a href="">
+                    <a href="/permissao">
                         <i class="ph ph-lock-key"></i>
                         Permissões
                     </a>
@@ -62,7 +62,7 @@
             <i class="ph ph-caret-left"></i>
         </div>
         <div class="content-menus">
-            <a href="" class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}">
+            <a href="/agenda" class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}">
                 <i class="ph ph-calendar-blank"></i>
                 <span>Agenda</span>
             </a>

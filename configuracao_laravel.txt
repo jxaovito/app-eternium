@@ -109,4 +109,4 @@ Para chamar um arquivo da public, utilize: {{ asset('img/logo.svg') }}
 no cmd dentro do diretório raiz, execute 
 npm install -g sass
 
-Depois, basta deixar executando no cmd o comando: sass --watch scss:public/css
+Depois, basta deixar executando no cmd o comando: sass --watch public/scss:public/css

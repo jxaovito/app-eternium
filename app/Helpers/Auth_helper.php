@@ -1,73 +1,80 @@
 <?php
+
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use App\Modules\Auth\Models\Auth_model;
 
 if (!function_exists('checkAuthentication')) {
-    function checkAuthentication($class, $function){
-        if(!session('usuario_id')){
+    function checkAuthentication($class, $function, $nome){
+        if (!session('usuario_id')) {
             return false;
+        } else {
+            if (session('permissoes')) {
+                $permissionsAll = session('permissoes_all');
+                $permissionExists = false;
 
-        }else{
-        	if(session('permissoes')){
-        		$criar_permissao = true;
-        		$permissoes_all = session('permissoes_all');
-        		foreach($permissoes_all as $acesso){
-        			if($acesso['modulo'] == $class && $acesso['funcao'] == $function){
-        				$criar_permissao = false;
-        			}
-        		}
+                foreach ($permissionsAll as $acesso) {
+                    if ($acesso['modulo'] == $class && $acesso['funcao'] == $function) {
+                        $permissionExists = true;
+                        break;
+                    }
+                }
 
-        		if($criar_permissao){
-        			$auth_model = new Redirect();
-        			$modulo_id = $auth_model->insert_new_funcao(array('modulo' => $class, 'funcao' => $function));
-        			$i = count($permissoes_all) +1;
-        			$permissoes_all[$i]['id'] = $modulo_id;
-        			$permissoes_all[$i]['modulo'] = $class;
-        			$permissoes_all[$i]['funcao'] = $function;
-        		}
+                if (!$permissionExists) {
+                    $auth_model = new Auth_model();
+                    $modulo_id = $auth_model->insert_new_funcao(['modulo' => $class, 'funcao' => $function, 'nome' => $nome]);
 
-        		session(['permissoes_all' => $permissoes_all]);
+                    $permissionsAll[] = [
+                        'id' => $modulo_id,
+                        'modulo' => $class,
+                        'funcao' => $function
+                    ];
 
-        		$permissao_usuario = false;
-        		foreach(session('permissoes') as $acesso_u){
-        			if($acesso_u['modulo'] == $class && $acesso_u['funcao'] == $function){
-        				$permissao_usuario = true;
-        			}
-        		}
+                    session(['permissoes_all' => $permissionsAll]);
+                }
 
-        		if($permissao_usuario){
-        			return true;
-        		}else{
-        			return 'sp';
-        		}
+                $permissaoUsuario = false;
+                foreach (session('permissoes') as $acesso_u) {
+                    if ($acesso_u['modulo'] == $class && $acesso_u['funcao'] == $function) {
+                        $permissaoUsuario = true;
+                        break;
+                    }
+                }
 
-        	}else{
-        		$criar_permissao = true;
-        		$permissoes_all = session('permissoes_all');
-        		foreach($permissoes_all as $acesso){
-        			if($acesso['modulo'] == $class && $acesso['funcao'] == $function){
-        				$criar_permissao = false;
-        			}
-        		}
+                if ($permissaoUsuario) {
+                    return true;
+                } else {
+                    return 'sp';
+                }
+            } else {
+                $auth_model = new Auth_model();
+                $permissionsAll = session('permissoes_all');
+                $permissionExists = false;
 
-        		if($criar_permissao){
-        			$auth_model = new Auth_model();
-        			$modulo_id = $auth_model->insert_new_funcao(array('modulo' => $class, 'funcao' => $function));
-        			$i = count($permissoes_all) +1;
-        			$permissoes_all[$i]['id'] = $modulo_id;
-        			$permissoes_all[$i]['modulo'] = $class;
-        			$permissoes_all[$i]['funcao'] = $function;
-        		}
+                foreach ($permissionsAll as $acesso) {
+                    if ($acesso['modulo'] == $class && $acesso['funcao'] == $function) {
+                        $permissionExists = true;
+                        break;
+                    }
+                }
 
-        		session(['permissoes_all' => $permissoes_all]);
+                if (!$permissionExists) {
+                    $modulo_id = $auth_model->insert_new_funcao(['modulo' => $class, 'funcao' => $function, 'nome' => $nome]);
 
-				return 'sp';        		
-        	}
+                    $permissionsAll[] = [
+                        'id' => $modulo_id,
+                        'modulo' => $class,
+                        'funcao' => $function
+                    ];
 
-        	return true;
+                    session(['permissoes_all' => $permissionsAll]);
+                }
+
+                return 'sp';
+            }
+
+            return true;
         }
     }
 }

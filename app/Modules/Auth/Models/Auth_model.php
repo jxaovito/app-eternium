@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 class Auth_model extends Model {
     protected $table = 'usuario';
     protected $connection = 'mysql_db';
+	protected $fillable = ['modulo', 'funcao', 'nome'];
+	public $timestamps = false;
 
     function get_permissoes_usuario($usuario_id){
 		$this->setTable('auth_modulo');

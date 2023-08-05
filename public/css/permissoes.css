@@ -1,0 +1,83 @@
+.container-permissao .head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.container-permissao .content-nv-permissao table tbody tr td a, .container-permissao .content-nv-permissao table tbody tr td span {
+  color: #fff;
+  text-decoration: none;
+}
+.container-permissao .content-nv-permissao table tbody tr td a i, .container-permissao .content-nv-permissao table tbody tr td span i {
+  padding: 7px;
+  cursor: pointer;
+  background-color: #9E9E9E;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.container-permissao .content-nv-permissao table tbody tr td a i:hover, .container-permissao .content-nv-permissao table tbody tr td span i:hover {
+  background-color: #777575;
+}
+
+.container-permissao-editar .head {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.container-permissao-editar .head a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-decoration: none;
+  color: var(--font-color);
+}
+.container-permissao-editar .head a i {
+  margin-right: 5px;
+}
+.container-permissao-editar .content .permissoes {
+  display: flex;
+  flex-wrap: wrap;
+}
+.container-permissao-editar .content .permissoes form {
+  width: 100%;
+}
+.container-permissao-editar .content .permissoes form .box-permission {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.container-permissao-editar .content .permissoes form .box-permission button {
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+.container-permissao-editar .content .permissoes form .card {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+.container-permissao-editar .content .permissoes form .collapse {
+  width: 100%;
+}
+.container-permissao-editar .content .permissoes form .box-permission-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.3215686275);
+  margin-bottom: 10px;
+}
+.container-permissao-editar .content .permissoes form .box-permission-list .box-permiss {
+  width: 15%;
+  display: none;
+}
+.container-permissao-editar .content .permissoes form .box-permission-list .box-permiss .permissao {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container-permissao-editar .content .permissoes form .box-permission-list .box-permiss .permissao label {
+  width: 80%;
+}
+
+/*# sourceMappingURL=permissoes.css.map */
