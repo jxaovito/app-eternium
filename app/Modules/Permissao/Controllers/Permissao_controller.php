@@ -27,6 +27,14 @@ class Permissao_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Níveis de Permissões');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
+        // Permissões da Página
+        $permissao_adicionar_perfil = checkAuthentication($this->class, 'novo', 'Adicionar Nível de Permissão');
+        $permissao_editar_perfil = checkAuthentication($this->class, 'editar', 'Editar Níveis de Permissões');
+        $permissao_remover_perfil = checkAuthentication($this->class, 'remover', 'Remover Níveis de Permissões');
+        $_dados['permissao_adicionar_perfil'] = $permissao_adicionar_perfil === true ? true : false;
+        $_dados['permissao_editar_perfil'] = $permissao_editar_perfil === true ? true : false;
+        $_dados['permissao_remover_perfil'] = $permissao_remover_perfil === true ? true : false;
+
         $_dados['nivel_permissao'] = $this->Permissao_model->get_all_table('auth_nivel_permissao');
         $_dados['pagina'] = 'permissoes';
 
@@ -39,6 +47,16 @@ class Permissao_controller extends Controller{
 
         $_dados['pagina'] = 'permissoes';
         return view('permissao.novo', $_dados);
+    }
+
+    public function novo_salvar(Request $request){
+        $check_auth = checkAuthentication($this->class, 'novo', 'Adicionar Nível de Permissão');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $request = $request->all();
+        $id = $this->Permissao_model->insert_dados('auth_nivel_permissao', array('nome' => $request['nome']));
+
+        return redirect()->route('editar', ['id' => $id]);
     }
 
     public function editar(){
@@ -54,7 +72,7 @@ class Permissao_controller extends Controller{
         return view('permissao.editar', $_dados);
     }
 
-    public function salvar_edicao(Request $request){
+    public function editar_salvar(Request $request){
         $check_auth = checkAuthentication($this->class, 'editar', 'Editar Níveis de Permissões');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
@@ -74,6 +92,17 @@ class Permissao_controller extends Controller{
 
         session(['tipo_mensagem' => 'success']);
         session(['mensagem' => 'Nível de Permissão alterado com Sucesso! É necessário realizar logout para que as permissões sejam atualizadas.']);
+        return redirect()->route('permissao');
+    }
+
+    public function remover(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Remover Níveis de Permissões');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+        $this->Permissao_model->delete_dados('auth_nivel_permissao', array('id' => $id));
+
+        session(['tipo_mensagem' => 'success']);
+        session(['mensagem' => 'Nível de Permissão removido com Sucesso!']);
         return redirect()->route('permissao');
     }
 }

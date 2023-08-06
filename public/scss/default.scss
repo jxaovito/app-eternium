@@ -96,6 +96,20 @@ body{
         height: 100%;
         z-index: 9;
     }
+
+    [disabled]{
+        opacity: 0.5;
+        cursor: no-drop!important;
+    }
+
+    #modal_deletar{
+        .modal-content{
+            .modal-footer{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
 }
 
 .loading-spinner{

@@ -36,7 +36,7 @@ class Permissao_model extends Model {
                 FROM auth_modulo am1
                 LEFT JOIN auth_modulo_has_nivel_permissao amnp1 ON amnp1.auth_modulo_id = am1.id
                 LEFT JOIN auth_nivel_permissao anp1 ON anp1.id = amnp1.auth_nivel_permissao_id
-                WHERE anp1.id = 1 AND am1.id = auth_modulo.id
+                WHERE anp1.id = '.$id.' AND am1.id = auth_modulo.id
             ) AS status')
             ->leftJoin('auth_modulo_has_nivel_permissao as amnp', 'amnp.auth_modulo_id', '=', 'auth_modulo.id')
             ->leftJoin('auth_nivel_permissao as anp', 'anp.id', '=', 'amnp.auth_nivel_permissao_id')

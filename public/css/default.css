@@ -93,6 +93,14 @@ body .background-modal-manual {
   height: 100%;
   z-index: 9;
 }
+body [disabled] {
+  opacity: 0.5;
+  cursor: no-drop !important;
+}
+body #modal_deletar .modal-content .modal-footer {
+  display: flex;
+  justify-content: space-between;
+}
 
 .loading-spinner {
   width: 100%;

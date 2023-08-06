@@ -80,4 +80,13 @@
   width: 80%;
 }
 
+.container-permissao-novo .mb-3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.container-permissao-novo .mb-3 a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
 /*# sourceMappingURL=permissoes.css.map */

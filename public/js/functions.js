@@ -82,6 +82,19 @@ $(document).ready(function(){
 		}, 1); // Tempo em milissegundos
 	});
 
+	// Modal de deletar (remover)
+	$(document).on('click', '.deletar, .remover', function(){
+		var link = $(this).attr('link');
+		var titulo = $(this).attr('titulo');
+		var texto = $(this).attr('texto');
+
+		$('#modal_deletar #modal_deletar_titulo').html(titulo);
+		$('#modal_deletar #modal_deletar_content').html(texto);
+		$('#modal_deletar .modal-footer a').attr('href', link);
+
+		$('#modal_deletar').modal('show');
+	});
+
 });
 
 function mostrar_loading(){

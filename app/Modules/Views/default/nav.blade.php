@@ -35,10 +35,16 @@
                         <i class="ph ph-user-gear"></i>
                         Configurações do Perfil
                     </a>
-                    <a href="/permissao">
-                        <i class="ph ph-lock-key"></i>
-                        Permissões
-                    </a>
+                    <?php
+                        $modulo='permissao';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                            return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                        }))>0):
+                    ?>
+                        <a href="/permissao">
+                            <i class="ph ph-lock-key"></i>
+                            Permissões
+                        </a>
+                    <?php endif; ?>
                     <a href="/logout">
                         <i class="ph ph-sign-out"></i>
                         Sair
@@ -62,10 +68,27 @@
             <i class="ph ph-caret-left"></i>
         </div>
         <div class="content-menus">
+            <?php
+                $modulo='agenda';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
             <a href="/agenda" class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}">
                 <i class="ph ph-calendar-blank"></i>
                 <span>Agenda</span>
             </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='paciente';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a href="/paciente" class="menu {{ isset($pagina) && $pagina == 'paciente' ? 'active' : '' }}">
+                <i class="ph ph-users-three"></i>
+                <span>Pacientes</span>
+            </a>
+            <?php endif; ?>
         </div>
     </div>
 </div>

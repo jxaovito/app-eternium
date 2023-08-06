@@ -11,7 +11,7 @@
         <h4>Editar nível de permissão: <b>{{$nivel_permissao[0]['nome']}}</b></h4>
 
         <div class="permissoes">
-            <form method="post" action="/permissao/salvar_edicao">
+            <form method="post" action="/permissao/editar_salvar">
                 @csrf
                 <input type="hidden" value="{{$nivel_permissao_id}}" name="nivel_permissao_id">
                 <?php $permissao_atual = ''; ?>
