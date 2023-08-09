@@ -6,6 +6,7 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('img/eternium_logo_icon.svg') }}">
         <link rel="stylesheet" href="{{ asset('css/default.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bg_nomes.css') }}">
         <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
 
         <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -33,6 +34,10 @@
         @if(isset($pagina) && $pagina == 'permissoes')
         <link rel="stylesheet" href="{{ asset('css/permissoes.css') }}">
         <script type="text/javascript" src="{{ asset('js/nivel_permissao.js') }}"></script>
+        @endif
+
+        @if(isset($pagina) && $pagina == 'paciente')
+        <link rel="stylesheet" href="{{ asset('css/paciente.css') }}">
         @endif
 
         <style>
@@ -90,5 +95,13 @@
                 </div>
             </div>
         </div>
+
+        {{-- Calenddar --}}
+        @if(isset($pagina) && $pagina == 'agenda')
+            <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+            <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+            <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
+            <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
+        @endif
     </body>
 </html>

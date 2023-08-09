@@ -21,3 +21,4 @@ require __DIR__.'/../routes/app/auth.php';
 require __DIR__.'/../routes/app/agenda.php';
 require __DIR__.'/../routes/app/permissao.php';
 require __DIR__.'/../routes/app/paciente.php';
+require __DIR__.'/../routes/app/convenio.php';

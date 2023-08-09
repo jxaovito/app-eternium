@@ -115,8 +115,10 @@
 
 .lateral-nav {
   width: 15%;
-  height: calc(100vh - var(--height-nav));
+  height: 100vh;
   box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.3215686275);
+  position: sticky;
+  top: 0;
 }
 .lateral-nav .content-nav {
   display: flex;
@@ -141,6 +143,8 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - var(--height-nav));
 }
 .lateral-nav .content-menus .menu {
   width: 100%;

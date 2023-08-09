@@ -1,4 +1,4 @@
 @extends('default.layout')
 @section('content')
-Teste
+<div id="calendar" style="height: 100vh"></div>
 @endsection

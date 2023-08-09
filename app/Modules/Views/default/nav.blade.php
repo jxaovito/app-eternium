@@ -73,7 +73,10 @@
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
-            <a href="/agenda" class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}">
+            <a 
+                href="{{ isset($pagina) && $pagina != 'agenda' ? '/agenda' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}"
+            >
                 <i class="ph ph-calendar-blank"></i>
                 <span>Agenda</span>
             </a>
@@ -84,9 +87,26 @@
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
-            <a href="/paciente" class="menu {{ isset($pagina) && $pagina == 'paciente' ? 'active' : '' }}">
+            <a 
+                href="{{ isset($pagina) && $pagina != 'paciente' ? '/paciente' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'paciente' ? 'active' : '' }}"
+            >
                 <i class="ph ph-users-three"></i>
                 <span>Pacientes</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='convenio';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'convenio' ? '/convenio' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'convenio' ? 'active' : '' }}"
+            >
+                <i class="ph ph-identification-card"></i>
+                <span>Convenios</span>
             </a>
             <?php endif; ?>
         </div>

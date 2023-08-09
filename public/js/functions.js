@@ -71,16 +71,16 @@ $(document).ready(function(){
 	});
 
 	// Chamar Loading a cada clique de carregamento
-	$('a[href!="#"]').on('click', function(event) {
-		event.preventDefault(); // Evita o comportamento padrão do link
-		mostrar_loading();
-		// Obtém o href do link
-		var href = $(this).attr('href');
-		// Redireciona manualmente para o href após algum tempo (exemplo: 1 segundo)
-		setTimeout(function() {
-			window.location.href = href;
-		}, 1); // Tempo em milissegundos
-	});
+	// $('a[href!="#"]').on('click', function(event) {
+	// 	event.preventDefault(); // Evita o comportamento padrão do link
+	// 	mostrar_loading();
+	// 	// Obtém o href do link
+	// 	var href = $(this).attr('href');
+	// 	// Redireciona manualmente para o href após algum tempo (exemplo: 1 segundo)
+	// 	setTimeout(function() {
+	// 		window.location.href = href;
+	// 	}, 1); // Tempo em milissegundos
+	// });
 
 	// Modal de deletar (remover)
 	$(document).on('click', '.deletar, .remover', function(){
@@ -97,9 +97,9 @@ $(document).ready(function(){
 
 });
 
-function mostrar_loading(){
-	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');
-}
-function ocultar_loading(){
-	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');
-}
+// function mostrar_loading(){
+// 	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');
+// }
+// function ocultar_loading(){
+// 	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');
+// }
