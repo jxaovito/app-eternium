@@ -102,6 +102,11 @@ body #modal_deletar .modal-content .modal-footer {
   display: flex;
   justify-content: space-between;
 }
+body .bg-cor-logo-cliente {
+  background: var(--cor-logo-cliente) !important;
+  color: var(--cor-font-cliente) !important;
+  border: none !important;
+}
 
 .loading-spinner {
   width: 100%;
@@ -379,6 +384,14 @@ select {
   width: 30%;
 }
 
+.w-32 {
+  width: 32%;
+}
+
+.w-33 {
+  width: 33.33%;
+}
+
 .w-35 {
   width: 35%;
 }
@@ -405,6 +418,10 @@ select {
 
 .w-65 {
   width: 65%;
+}
+
+.w-68 {
+  width: 68%;
 }
 
 .w-70 {
@@ -473,6 +490,54 @@ select {
 
 .align-itens-end {
   align-itens: end;
+}
+
+.user-select-none {
+  user-select: none;
+}
+
+.opacity-1 {
+  opacity: 1;
+}
+
+.opacity-09 {
+  opacity: 0.9;
+}
+
+.opacity-08 {
+  opacity: 0.8;
+}
+
+.opacity-07 {
+  opacity: 0.7;
+}
+
+.opacity-06 {
+  opacity: 0.6;
+}
+
+.opacity-05 {
+  opacity: 0.5;
+}
+
+.opacity-04 {
+  opacity: 0.4;
+}
+
+.opacity-03 {
+  opacity: 0.3;
+}
+
+.opacity-02 {
+  opacity: 0.2;
+}
+
+.opacity-01 {
+  opacity: 0.1;
+}
+
+.opacity-0 {
+  opacity: 0;
 }
 
 /* Margem esquerda */
@@ -2085,6 +2150,12 @@ a {
   width: 30px;
   height: 30px;
 }
+.icone-nome img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
 
 .table td .row-table {
   display: flex;
@@ -2095,6 +2166,10 @@ a {
 .form-control:focus {
   border-color: #000000 !important;
   box-shadow: 0 0 0 0 !important;
+}
+
+.text-align-center {
+  text-align: center;
 }
 
 /*# sourceMappingURL=default.css.map */

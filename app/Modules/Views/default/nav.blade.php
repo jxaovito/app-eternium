@@ -97,6 +97,20 @@
             <?php endif; ?>
 
             <?php
+                $modulo='profissional';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'profissional' ? '/profissional' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'profissional' ? 'active' : '' }}"
+            >
+                <i class="ph ph-user-list"></i>
+                <span>Profissionais</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
                 $modulo='convenio';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
@@ -106,7 +120,77 @@
                 class="menu {{ isset($pagina) && $pagina == 'convenio' ? 'active' : '' }}"
             >
                 <i class="ph ph-identification-card"></i>
-                <span>Convenios</span>
+                <span>Convênios</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='especialidade';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'especialidade' ? '/especialidade' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'especialidade' ? 'active' : '' }}"
+            >
+                <i class="ph ph-bookmarks"></i>
+                <span>Especialidades</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='procedimento';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'procedimento' ? '/procedimento' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'procedimento' ? 'active' : '' }}"
+            >
+                <i class="ph ph-heart-half"></i>
+                <span>Procedimentos</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='tratamento';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'tratamento' ? '/tratamento' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'tratamento' ? 'active' : '' }}"
+            >
+                <i class="ph ph-hand-heart"></i>
+                <span>Tratamentos</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='financeiro';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'financeiro' ? '/financeiro' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'financeiro' ? 'active' : '' }}"
+            >
+                <i class="ph ph-currency-dollar"></i>
+                <span>Financeiro</span>
+            </a>
+            <?php endif; ?>
+
+            <?php
+                $modulo='relatorio';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            ?>
+            <a 
+                href="{{ isset($pagina) && $pagina != 'relatorio' ? '/relatorio' : '#' }}" 
+                class="menu {{ isset($pagina) && $pagina == 'relatorio' ? 'active' : '' }}"
+            >
+                <i class="ph ph-scroll"></i>
+                <span>Relatórios</span>
             </a>
             <?php endif; ?>
         </div>

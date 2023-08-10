@@ -29,4 +29,12 @@ class Convenio_model extends Model {
     
     	return $this->insertGetId($dados);
 	}
+
+	public function update_table($table, $where, $dados){
+        $this->setTable($table);
+    
+	    return DB::table($this->table)
+        ->where($where)
+        ->update($dados);;
+    }
 }

@@ -50,8 +50,9 @@
                     @endforeach
                     </div>
 
-                <div class="footer">
-                    <button type="submit" class="btn btn-success">Salvar</button>
+                <div class="footer d-flex justify-content-between">
+                    <a href="/permissao" class="btn btn-default bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> Voltar</a>
+                    <button type="submit" class="btn btn-success bg-cor-logo-cliente">Salvar <i class="ph ph-check"></i></button>
                 </div>
             </form>
         </div>

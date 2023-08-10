@@ -5,7 +5,7 @@
         <h2>Permissões</h2>
         @if($permissao_adicionar_perfil)
         <a href="/permissao/novo">
-            <button class="btn btn-success"><i class="ph ph-plus"></i> Novo Perfil</button>
+            <button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Novo Perfil</button>
         </a>
         @endif
     </div>

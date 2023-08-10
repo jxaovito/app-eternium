@@ -12,6 +12,8 @@
   height: var(--height-nav);
   display: flex;
   justify-content: space-between;
+  background: var(--cor-menu-superior-cliente);
+  color: var(--cor-font-cliente);
 }
 .top-nav .content-logo {
   width: 15%;
@@ -24,7 +26,7 @@
 .top-nav .content-logo img {
   width: 100%;
   height: calc(var(--height-nav) - 10px);
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
 }
 .top-nav .content-search {
@@ -116,7 +118,6 @@
 .lateral-nav {
   width: 15%;
   height: 100vh;
-  box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.3215686275);
   position: sticky;
   top: 0;
 }
@@ -147,9 +148,10 @@
   max-height: calc(100vh - var(--height-nav));
 }
 .lateral-nav .content-menus .menu {
+  border-radius: 0px 10px 10px 0px;
   width: 100%;
   display: flex;
-  height: 50px;
+  height: 45px;
   align-items: center;
   padding-left: 10%;
   padding-right: 10%;
@@ -163,7 +165,8 @@
   background-color: #e9e9e9;
 }
 .lateral-nav .content-menus .menu.active {
-  background-color: rgba(204, 204, 204, 0.231372549);
+  background-color: var(--cor-logo-cliente);
+  color: var(--cor-font-cliente);
 }
 .lateral-nav .content-menus .menu i {
   width: 20%;

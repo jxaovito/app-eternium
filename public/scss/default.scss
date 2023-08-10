@@ -111,6 +111,12 @@ body{
             }
         }
     }
+
+    .bg-cor-logo-cliente{
+        background: var(--cor-logo-cliente)!important;
+        color: var(--cor-font-cliente)!important;
+        border: none!important;
+    }
 }
 
 .loading-spinner{
@@ -385,6 +391,8 @@ select{
 .w-20{width:20%;}
 .w-25{width:25%;}
 .w-30{width:30%;}
+.w-32{width:32%;}
+.w-33{width:33.33%;}
 .w-35{width:35%;}
 .w-40{width:40%;}
 .w-45{width:45%;}
@@ -392,6 +400,7 @@ select{
 .w-55{width:55%;}
 .w-60{width:60%;}
 .w-65{width:65%;}
+.w-68{width:68%;}
 .w-70{width:70%;}
 .w-75{width:75%;}
 .w-80{width:80%;}
@@ -410,6 +419,19 @@ select{
 .align-items-center{align-itens:center;}
 .align-itens-start{align-itens:start;}
 .align-itens-end{align-itens:end;}
+
+.user-select-none{user-select:none;}
+.opacity-1{opacity: 1;}
+.opacity-09{opacity: 0.9;}
+.opacity-08{opacity: 0.8;}
+.opacity-07{opacity: 0.7;}
+.opacity-06{opacity: 0.6;}
+.opacity-05{opacity: 0.5;}
+.opacity-04{opacity: 0.4;}
+.opacity-03{opacity: 0.3;}
+.opacity-02{opacity: 0.2;}
+.opacity-01{opacity: 0.1;}
+.opacity-0{opacity: 0;}
 
 /* Margem esquerda */
 .mgl-1 { margin-left: 1%; }
@@ -870,6 +892,13 @@ a{text-decoration: none!important;color: var(--font-color);}
         width: 30px;
         height: 30px;
     }
+
+    img{
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
 }
 
 .table{
@@ -886,3 +915,5 @@ a{text-decoration: none!important;color: var(--font-color);}
     border-color: #000000!important;
     box-shadow: 0 0 0 0!important;
 }
+
+.text-align-center{text-align:center;}

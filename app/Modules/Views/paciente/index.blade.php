@@ -5,7 +5,7 @@
 		<h2>Pacientes</h2>
 
 		<div>
-			<a href=""><button class="btn btn-success"><i class="ph ph-plus"></i> Adicionar Paciente</button></a>
+			<a href=""><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Paciente</button></a>
 		</div>
 	</div>
 
