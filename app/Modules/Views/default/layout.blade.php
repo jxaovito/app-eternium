@@ -47,6 +47,10 @@
         <script type="text/javascript" src="{{ asset('js/convenio.js') }}"></script>
         @endif
 
+        @if(isset($pagina) && $pagina == 'especialidade')
+        <link rel="stylesheet" href="{{ asset('css/especialidade.css') }}">
+        @endif
+
         <style>
             :root{
                 --cor-logo-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>;
@@ -65,15 +69,10 @@
             <div class="content-page">
                 <?php //Configuração de Alertas ?>
                 @if(session('mensagem'))
-                    @if(session('tipo_mensagem'))
-                        <div class="alert alert-success" role="alert">
-                            {{session('mensagem')}}
-                        </div>
-                    @else
-                        <div class="alert alert-danger" role="alert">
-                            {{session('mensagem')}}
-                        </div>
-                    @endif
+                    <div class="alert alert-{{session('tipo_mensagem')}} text-center alert-dismissible fade show" role="alert">
+                        {{session('mensagem')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
 
                     <?php session()->forget('mensagem'); ?>
                     <?php session()->forget('tipo_mensagem'); ?>

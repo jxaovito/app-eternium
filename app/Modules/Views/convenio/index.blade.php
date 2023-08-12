@@ -5,18 +5,45 @@
 		<h2>Convênios</h2>
 
 		<div>
-			<a href="/convenio/novo"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Convenio</button></a>
+			<a href="/convenio/novo"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Convênio</button></a>
 		</div>
 	</div>
 
 	<div class="filters mgb-px-30">
-		<form class="d-flex w-100 justify-content-between">
+		<form action="/convenio/filtrar" method="post" class="d-flex w-100 justify-content-between">
+			@csrf
 			<div class="w-85">
-				<input type="text" id="nome_paciente" class="form-control w-100" placeholder="Pesquise pelo Convênio...">
+				<input 
+					type="text"
+					id="convenio_nome"
+					name="convenio_nome"
+					class="form-control w-100"
+					placeholder="Pesquise pelo Convênio..."
+					value="{{session('filtro_convenio_nome') ? session('filtro_convenio_nome') : ''}}"
+				>
 			</div>
 			<div class="w-6 mgr-4 mgl-2 d-flex align-items-end justify-content-around">
-				<a href="/paciente/limpar_filtro" class="btn btn-light"><i class="ph ph-eraser"></i></a>
-				<a href="/paciente/filtrar" class="btn btn-light"><i class="ph ph-magnifying-glass"></i></a>
+				<button
+					type="submit"
+					class="btn btn-light"
+					data-bs-toggle="tooltip"
+	                data-bs-placement="bottom"
+	                data-bs-custom-class="custom-tooltip"
+	                data-bs-title="Filtrar"
+				>
+					<i class="ph ph-magnifying-glass"></i>
+				</button>
+				
+				<a
+					href="/convenio/limpar_filtro"
+					class="btn btn-light {{session('filtro_convenio_nome') ? 'active' : ''}}"
+					data-bs-toggle="tooltip"
+	                data-bs-placement="bottom"
+	                data-bs-custom-class="custom-tooltip"
+	                data-bs-title="Limpar Filtro"
+				>
+					<i class="ph ph-eraser"></i>
+				</a>
 			</div>
 		</form>
 	</div>
@@ -34,7 +61,7 @@
 			<tbody>
 				@if($registros)
 					@foreach($registros as $registro)
-						<tr>
+						<tr class="{{$registro['deletado'] ? 'deletado' : ''}}">
 							<td>
 								<div class="row-table">
 									@if($registro['imagem'])
@@ -73,24 +100,48 @@
 											class="ph ph-pencil-simple icone-nome minimo pointer"
 										></i>
 									</a>
-									<a href="">
+									<a>
 										<i 
 											data-bs-toggle="tooltip"
 				                            data-bs-placement="bottom"
 				                            data-bs-custom-class="custom-tooltip"
 				                            data-bs-title="Remover"
-											class="ph ph-x icone-nome minimo pointer"
+											class="ph ph-x icone-nome minimo pointer deletar"
+											link="/convenio/remover/{{$registro['id']}}"
+											titulo="Remover Convênio"
+											texto="Você tem certeza que deseja remover o convênio <b>{{$registro['nome']}}</b>"
 										></i>
 									</a>
-									<a href="">
-										<i 
-											data-bs-toggle="tooltip"
-				                            data-bs-placement="bottom"
-				                            data-bs-custom-class="custom-tooltip"
-				                            data-bs-title="Desativar"
-											class="ph ph-arrow-line-down icone-nome minimo pointer"
-										></i>
-									</a>
+									@if($registro['deletado'])
+										<a>
+											<i 
+												data-bs-toggle="tooltip"
+					                            data-bs-placement="bottom"
+					                            data-bs-custom-class="custom-tooltip"
+					                            data-bs-title="Ativar"
+												class="ph ph-check icone-nome minimo pointer deletar"
+												link="/convenio/ativar/{{$registro['id']}}"
+												titulo="Ativar Convênio"
+												texto="Você tem certeza que deseja ativar o convênio <b>{{$registro['nome']}}</b>"
+												btn-texto="Ativar"
+												btn-cor="success"
+											></i>
+										</a>
+									@else
+										<a>
+											<i 
+												data-bs-toggle="tooltip"
+					                            data-bs-placement="bottom"
+					                            data-bs-custom-class="custom-tooltip"
+					                            data-bs-title="Desativar"
+												class="ph ph-prohibit icone-nome minimo pointer deletar"
+												link="/convenio/desativar/{{$registro['id']}}"
+												titulo="Desativar Convênio"
+												texto="Você tem certeza que deseja desativar o convênio <b>{{$registro['nome']}}</b>"
+												btn-texto="Desativar"
+											></i>
+										</a>
+									@endif
 								</div>
 							</td>
 						</tr>
@@ -104,4 +155,6 @@
 		</table>
 	</div>
 </div>
+
+{{ $registros->links() }}
 @endsection

@@ -917,3 +917,15 @@ a{text-decoration: none!important;color: var(--font-color);}
 }
 
 .text-align-center{text-align:center;}
+
+// Estilização da Paginação
+[role="navigation"]{
+    margin-bottom: 30px;
+    svg{
+        width: 2%!important;
+    }
+}
+
+.deletado{
+    background-color: #f443366b;
+}

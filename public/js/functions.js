@@ -8,9 +8,9 @@ $(document).ready(function(){
 	$('.flex.items-center.justify-between .flex.justify-between.flex-1').remove();
 	var divTexto = $('p.text-sm.text-gray-700.leading-5');
   	var textoAtual = divTexto.text();
-  	var novoTexto = textoAtual.replace('Showing', 'Mostrando')
-	                            .replace('to', 'de')
-	                            .replace('of', 'de um total de')
+  	var novoTexto = textoAtual.replace('Showing', 'Mostrando de')
+	                            .replace('to', 'a')
+	                            .replace('of', 'em um total de')
 	                            .replace('results', 'resultados');
 
   	divTexto.text(novoTexto);
@@ -87,10 +87,20 @@ $(document).ready(function(){
 		var link = $(this).attr('link');
 		var titulo = $(this).attr('titulo');
 		var texto = $(this).attr('texto');
+		var texto_confirm = $(this).attr('btn-texto');
+		var btn_cor = $(this).attr('btn-cor');
 
 		$('#modal_deletar #modal_deletar_titulo').html(titulo);
 		$('#modal_deletar #modal_deletar_content').html(texto);
 		$('#modal_deletar .modal-footer a').attr('href', link);
+		$('#modal_deletar .modal-footer a button').text(texto_confirm ? texto_confirm : 'Deletar');
+		$('#modal_deletar .modal-footer a button').removeClass('btn-danger');
+
+		if(btn_cor){
+			$('#modal_deletar .modal-footer a button').addClass('btn-'+btn_cor);
+		}else{
+			$('#modal_deletar .modal-footer a button').addClass('btn-danger');
+		}
 
 		$('#modal_deletar').modal('show');
 	});

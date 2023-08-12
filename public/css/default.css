@@ -2172,4 +2172,15 @@ a {
   text-align: center;
 }
 
+[role=navigation] {
+  margin-bottom: 30px;
+}
+[role=navigation] svg {
+  width: 2% !important;
+}
+
+.deletado {
+  background-color: rgba(244, 67, 54, 0.4196078431);
+}
+
 /*# sourceMappingURL=default.css.map */

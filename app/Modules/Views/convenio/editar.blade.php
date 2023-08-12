@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-permissao-novo">
     <div class="mgb-px-30">
-        <h2>Novo Convênio</h2>
+        <h2>Editar Convênio</h2>
     </div>
     @foreach($convenio as $con)
         <form action="/convenio/editar_salvar/{{$con['id']}}" method="post" class="d-flex flex-wrap justify-content-between" enctype="multipart/form-data">
