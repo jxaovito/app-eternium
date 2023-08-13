@@ -51,6 +51,10 @@
         <link rel="stylesheet" href="{{ asset('css/especialidade.css') }}">
         @endif
 
+        @if(isset($pagina) && $pagina == 'usuario')
+        <script type="text/javascript" src="{{ asset('js/convenio.js') }}"></script>
+        @endif
+
         <style>
             :root{
                 --cor-logo-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>;

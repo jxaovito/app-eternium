@@ -45,6 +45,10 @@
                             Permissões
                         </a>
                     <?php endif; ?>
+                    <a href="/usuario">
+                        <i class="ph ph-users"></i>
+                        Usuários
+                    </a>
                     <a href="/logout">
                         <i class="ph ph-sign-out"></i>
                         Sair

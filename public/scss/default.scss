@@ -396,9 +396,11 @@ select{
 .w-35{width:35%;}
 .w-40{width:40%;}
 .w-45{width:45%;}
+.w-48{width:48%;}
 .w-50{width:50%;}
 .w-55{width:55%;}
 .w-60{width:60%;}
+.w-64{width:64%;}
 .w-65{width:65%;}
 .w-68{width:68%;}
 .w-70{width:70%;}
@@ -408,6 +410,11 @@ select{
 .w-90{width:90%;}
 .w-95{width:95%;}
 .w-100{width:100%;}
+
+.w-60px{width: 60px;}
+.h-60px{height: 60px}
+
+.border-radius-50{border-radius: 50%;}
 
 .d-flex{display:flex;}
 .flex-wrap-wrap{flex-wrap:wrap;}
@@ -928,4 +935,9 @@ a{text-decoration: none!important;color: var(--font-color);}
 
 .deletado{
     background-color: #f443366b;
+}
+
+[required]::after{
+  content: " *";
+  color: red;
 }

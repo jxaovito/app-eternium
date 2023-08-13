@@ -404,6 +404,10 @@ select {
   width: 45%;
 }
 
+.w-48 {
+  width: 48%;
+}
+
 .w-50 {
   width: 50%;
 }
@@ -414,6 +418,10 @@ select {
 
 .w-60 {
   width: 60%;
+}
+
+.w-64 {
+  width: 64%;
 }
 
 .w-65 {
@@ -450,6 +458,18 @@ select {
 
 .w-100 {
   width: 100%;
+}
+
+.w-60px {
+  width: 60px;
+}
+
+.h-60px {
+  height: 60px;
+}
+
+.border-radius-50 {
+  border-radius: 50%;
 }
 
 .d-flex {
@@ -2181,6 +2201,11 @@ a {
 
 .deletado {
   background-color: rgba(244, 67, 54, 0.4196078431);
+}
+
+[required]::after {
+  content: " *";
+  color: red;
 }
 
 /*# sourceMappingURL=default.css.map */
