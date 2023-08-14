@@ -19,7 +19,14 @@
             >
                 <i class="ph ph-bell"></i>
             </div>
-            <div class="option" 
+
+            @php
+                $modulo='configuracao';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
+                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                }))>0):
+            @endphp
+
+            <div class="option opc_config_nav" 
                 data-bs-toggle="tooltip" 
                 data-bs-placement="bottom"
                 data-bs-custom-class="custom-tooltip"
@@ -27,6 +34,16 @@
             >
                 <i class="ph ph-gear"></i>
             </div>
+
+            <div class="content-config">
+                <div class="content">
+                    <a href="/configuracao">
+                        <i class="ph ph-user-gear"></i>
+                        Configurações da Empresa
+                    </a>
+                </div>
+            </div>
+            @php endif @endphp
         </div>
         <div class="content-profile">
             <div class="content-opc-profile">
@@ -35,20 +52,29 @@
                         <i class="ph ph-user-gear"></i>
                         Configurações do Perfil
                     </a>
-                    <?php
-                        $modulo='permissao';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+
+                    @php
+                        $modulo='permissao';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                             return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                         }))>0):
-                    ?>
+                    @endphp
                         <a href="/permissao">
                             <i class="ph ph-lock-key"></i>
                             Permissões
                         </a>
-                    <?php endif; ?>
-                    <a href="/usuario">
-                        <i class="ph ph-users"></i>
-                        Usuários
-                    </a>
+                    @php endif @endphp
+
+                    @php
+                        $modulo='usuario';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
+                            return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                        }))>0):
+                    @endphp
+                        <a href="/usuario">
+                            <i class="ph ph-users"></i>
+                            Usuários
+                        </a>
+                    @php endif @endphp
+
                     <a href="/logout">
                         <i class="ph ph-sign-out"></i>
                         Sair
@@ -73,7 +99,7 @@
         </div>
         <div class="content-menus">
             <?php
-                $modulo='agenda';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='agenda';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -87,7 +113,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='paciente';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='paciente';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -101,7 +127,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='profissional';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='profissional';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -115,7 +141,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='convenio';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='convenio';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -129,7 +155,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='especialidade';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='especialidade';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -143,7 +169,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='procedimento';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='procedimento';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -157,7 +183,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='tratamento';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='tratamento';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -171,7 +197,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='financeiro';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='financeiro';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>
@@ -185,7 +211,7 @@
             <?php endif; ?>
 
             <?php
-                $modulo='relatorio';$funcao='index';if(count(array_filter(session('permissoes_all'),function($item)use($modulo, $funcao){
+                $modulo='relatorio';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
                     return$item['modulo']===$modulo&&$item['funcao']===$funcao;
                 }))>0):
             ?>

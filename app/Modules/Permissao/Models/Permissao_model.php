@@ -45,4 +45,15 @@ class Permissao_model extends Model {
 
         return $query;
     }
+
+    function get_permissoes_usuario($usuario_id){
+        $this->setTable('auth_modulo');
+        return $this->join('auth_modulo_has_nivel_permissao as amnp', 'amnp.auth_modulo_id', '=', 'auth_modulo.id')
+                    ->join('auth_nivel_permissao as anp', 'anp.id', '=', 'amnp.auth_nivel_permissao_id')
+                    ->join('usuario_has_nivel_permissao as unp', 'unp.auth_nivel_permissao_id', '=', 'anp.id')
+                    ->join('usuario as u', 'u.id', '=', 'unp.usuario_id')
+                    ->where('u.id', $usuario_id)
+                    ->select('auth_modulo.*')
+                    ->get()->toArray();
+    }
 }

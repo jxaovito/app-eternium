@@ -52,7 +52,7 @@
         @endif
 
         @if(isset($pagina) && $pagina == 'usuario')
-        <script type="text/javascript" src="{{ asset('js/convenio.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/usuario.js') }}"></script>
         @endif
 
         <style>

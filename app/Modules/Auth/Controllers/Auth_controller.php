@@ -31,6 +31,11 @@ class Auth_controller extends Controller {
 
         $usuario = $this->Auth_db_model->get_all_table('usuario', $email);
 
+        // Tratar usuários bloqueados
+        if($usuario['deletado']){
+            return redirect()->back()->with('error', 'Usuário bloqueado. Entre em contato com o Administrador.');
+        }
+
         if ($usuario && password_verify($password, $usuario['password'])) {
             if ($email == 'administrador@eternium.com.br') {
                 if ($dados['con']) {

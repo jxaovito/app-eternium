@@ -41,6 +41,10 @@
             <input type="password" class="form-control" id="repetir_senha" required="required" placeholder="************" name="repetir_senha">
         </div>
 
+        <div class="w-100">
+            <div id="status_senha" class="w-100 user-select-none text-danger-emphasis"></div>
+        </div>
+
         <div class="mb-3 w-100">
             <input type="checkbox" name="solicitar_redefinicao" value="1" class="switch" id="redefinicao_senha">
             <label for="redefinicao_senha" class="form-label user-select-none">Solicitar redefinição de senha após o primeiro Login.</label>
@@ -49,7 +53,7 @@
         <div class="w-100">
             <div class="mb-3 d-flex justify-content-between">
                 <a href="/usuario" class="btn btn-default bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> Voltar</a>
-                <button type="submit" class="btn btn-success bg-cor-logo-cliente">Salvar <i class="ph ph-check"></i></button>
+                <button type="submit" class="btn btn-success bg-cor-logo-cliente" disabled="disabled">Salvar <i class="ph ph-check"></i></button>
             </div>
         </div>
     </form>

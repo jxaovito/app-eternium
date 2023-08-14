@@ -216,6 +216,7 @@ class Usuario_controller extends Controller{
         $id = request()->route('id');
 
         var_dump('expression');exit();
+        // Criar validações para verificar se usuário não possui movimentações.
         $profissionais_especialidade = $this->Usuario_model->get_all_table('especialidade_has_profissional', array('especialidade_id' => $id));
 
         if($profissionais_especialidade){
@@ -241,6 +242,7 @@ class Usuario_controller extends Controller{
         $id = request()->route('id');
 
         if($this->Usuario_model->update_table('usuario', array('id' => $id), array('deletado' => 1))){
+            $this->Usuario_db_model->update_table('usuario', array('id' => $id, 'conexao_id' => session('conexao_id')), array('deletado' => 1));
             session(['tipo_mensagem' => 'success']);
             session(['mensagem' => 'Usuário desativado com sucesso!']);
 
@@ -259,6 +261,7 @@ class Usuario_controller extends Controller{
         $id = request()->route('id');
 
         if($this->Usuario_model->update_table('usuario', array('id' => $id), array('deletado' => '0'))){
+            $this->Usuario_db_model->update_table('usuario', array('id' => $id, 'conexao_id' => session('conexao_id')), array('deletado' => '0'));
             session(['tipo_mensagem' => 'success']);
             session(['mensagem' => 'Usuário ativado com sucesso!']);
 

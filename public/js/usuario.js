@@ -13,4 +13,17 @@ $(document).ready(function(){
 			$('#remover-imagem').click();
 		}
 	});
+
+	$(document).on('keyup', '[name="senha"], [name="repetir_senha"]', function(){
+		if($('[name="repetir_senha"]').val() && $('[name="senha"]').val()){
+			if($('[name="repetir_senha"]').val() != $('[name="senha"]').val()){
+				$('#status_senha').html('<sup>Senhas diferentes!</sup>');
+				$('[type="submit"]').attr('disabled', 'disabled');
+
+			}else{
+				$('#status_senha').html('');
+				$('[type="submit"]').removeAttr('disabled');
+			}
+		}
+	});
 });

@@ -68,6 +68,10 @@
             <input type="password" class="form-control w-100 mgt-px-10" id="repetir_senha" placeholder="************" name="repetir_senha">
         </div>
 
+        <div class="w-100">
+            <div id="status_senha" class="w-100 user-select-none text-danger-emphasis"></div>
+        </div>
+
         <div class="mb-3 w-100">
             <input type="checkbox" name="solicitar_redefinicao" value="1" class="switch" id="redefinicao_senha" {{$usuario[0]['atualizar_senha'] ? 'checked' : ''}}>
             <label for="redefinicao_senha" class="form-label user-select-none">Solicitar redefinição de senha após o primeiro Login.</label>

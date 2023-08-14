@@ -29,3 +29,4 @@ require __DIR__.'/../routes/app/tratamento.php';
 require __DIR__.'/../routes/app/financeiro.php';
 require __DIR__.'/../routes/app/relatorio.php';
 require __DIR__.'/../routes/app/usuario.php';
+require __DIR__.'/../routes/app/configuracao.php';

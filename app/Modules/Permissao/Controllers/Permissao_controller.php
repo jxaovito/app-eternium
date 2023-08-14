@@ -90,8 +90,11 @@ class Permissao_controller extends Controller{
             }
         }
 
+        $permissoes = $this->Permissao_model->get_permissoes_usuario(session('usuario_id'));
+        session(['permissoes' => $permissoes]);
+
         session(['tipo_mensagem' => 'success']);
-        session(['mensagem' => 'Nível de Permissão alterado com Sucesso! É necessário realizar logout para que as permissões sejam atualizadas.']);
+        session(['mensagem' => 'Nível de Permissão atualizado com sucesso! Para aplicar aos outros usuários, será necessário realizar login novamente.']);
         return redirect()->route('permissao');
     }
 
