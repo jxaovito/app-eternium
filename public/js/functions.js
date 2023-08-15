@@ -105,6 +105,26 @@ $(document).ready(function(){
 		$('#modal_deletar').modal('show');
 	});
 
+	// Configuração padrão de Abas
+	$(document).on('click', '.aba .opc', function(){
+		var self = $(this);
+		self.parent('div').find('.opc').removeClass('active');
+
+		if(!$(`.${self.attr('destino')}`).is(':visible')){
+			$('[destino-aba="true"]').hide('fast');
+			setTimeout(function(){
+				$('[destino-aba="true"]').addClass('d-none');
+				$('[destino-aba="true"]').removeClass('active');
+			}, 200);
+
+			setTimeout(function(){
+				$(`.${self.attr('destino')}`).removeClass('d-none');
+				self.addClass('active');
+				$(`.${self.attr('destino')}`).show('fast');
+			}, 300);
+		}
+	});
+
 });
 
 // function mostrar_loading(){

@@ -1,7 +1,7 @@
 <div class="top-nav">
     <div class="content-nav">
         <div class="content-logo">
-            <img src="{{asset('clientes/'.session('conexao_id').'/img/logo_menu.png')}}">
+            <img src="{{asset('clientes/'.session('conexao_id').'/img/'.array_column(session('config_dados'), 'valor', 'variavel')['logo'])}}">
         </div>
         <div class="content-search">
             @if(isset($pagina) && $pagina == 'agenda')

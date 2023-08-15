@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>{{array_column(session('config_dados'), 'valor', 'variavel')['nome_clinica']}} - Eternium</title>
+        <title>{{array_column(session('config_dados'), 'valor', 'variavel')['nome_empresa']}} - Eternium</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="icon" type="image/x-icon" href="{{ asset('img/eternium_logo_icon.svg') }}">
@@ -53,6 +53,12 @@
 
         @if(isset($pagina) && $pagina == 'usuario')
         <script type="text/javascript" src="{{ asset('js/usuario.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/usuario.css') }}">
+        @endif
+
+        @if(isset($pagina) && $pagina == 'configuracao')
+        <script type="text/javascript" src="{{ asset('js/configuracao.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/configuracao.css') }}">
         @endif
 
         <style>

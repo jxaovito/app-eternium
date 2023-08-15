@@ -1,0 +1,22 @@
+.container-usuario{
+	.header{
+		h2{
+			width: 50%;
+			display: flex;
+
+			span{
+				margin-left: 15px;
+				width: 40px;
+				height: 40px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 22px;
+				border-radius: 50%;
+				background-color: var(--cor-logo-cliente);
+				color: var(--cor-font-cliente);
+				user-select: none;
+			}
+		}
+	}
+}

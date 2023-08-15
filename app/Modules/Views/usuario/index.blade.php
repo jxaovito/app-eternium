@@ -1,12 +1,17 @@
 @extends('default.layout')
 @section('content')
-<div class="container-paciente">
+<div class="container-usuario">
 	<div class="header mgb-px-30 d-flex justify-content-between">
-		<h2>Usuários</h2>
+		<h2>
+			Usuários
+			<span id="contador_usuarios">{{count($registros)-1}}</span>
+		</h2>
 
+		@if($adicionar_usuarios)
 		<div>
 			<a href="/usuario/novo"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Usuário</button></a>
 		</div>
+		@endif
 	</div>
 
 	<div class="filters mgb-px-30">

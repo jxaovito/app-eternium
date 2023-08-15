@@ -23,7 +23,7 @@
 						@csrf
 						<span>Acesse com seu email e sua senha.</span>
 
-						<input type="email" name="email" placeholder="E-email" autofocus="autofocus" required>
+						<input type="email" name="email" placeholder="E-mail" autofocus="autofocus" required>
 						<input type="password" name="password" placeholder="Senha" required>
 						<input type="hidden" name="con" value="{{$conexao_id}}">
 

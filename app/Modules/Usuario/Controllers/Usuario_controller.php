@@ -28,6 +28,13 @@ class Usuario_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $registros = $this->Usuario_model->get_all();
+        $qtd_usuario = $this->Usuario_model->get_all_table('configuracao', array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios'));
+        if((count($registros) -1) < $qtd_usuario[0]['valor']){
+            $adicionar_usuarios = true;
+        }else{
+            $adicionar_usuarios = false;
+        }
+        
         $registros_db = $this->Usuario_db_model->get_all_table('usuario', array('conexao_id' => session('conexao_id')));
 
         foreach($registros as $key => $registro){
@@ -39,6 +46,7 @@ class Usuario_controller extends Controller{
         }
 
         $_dados['registros'] = $registros;
+        $_dados['adicionar_usuarios'] = $adicionar_usuarios;
         $_dados['pagina'] = 'usuario';
 
         return view('usuario.index', $_dados);
@@ -63,6 +71,15 @@ class Usuario_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Adicionar Usuários');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
+        $registros = $this->Usuario_model->get_all();
+        $qtd_usuario = $this->Usuario_model->get_all_table('configuracao', array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios'));
+        if((count($registros) -1) <= $qtd_usuario[0]['valor']){
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Você atingiu o limite contratado de usuários no sistema. Caso queira adicionar novos usuários, entre em contato com o suporte!']);
+
+            return redirect()->route('usuario');
+        }
+
         $_dados['nivel_permissao'] = $this->Usuario_model->get_all_table('auth_nivel_permissao');
 
         $_dados['pagina'] = 'usuario';
@@ -73,6 +90,15 @@ class Usuario_controller extends Controller{
     public function novo_salvar(Request $request){
         $check_auth = checkAuthentication($this->class, 'novo', 'Adicionar Usuários');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $registros = $this->Usuario_model->get_all();
+        $qtd_usuario = $this->Usuario_model->get_all_table('configuracao', array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios'));
+        if((count($registros) -1) <= $qtd_usuario[0]['valor']){
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Você atingiu o limite contratado de usuários no sistema. Caso queira adicionar novos usuários, entre em contato com o suporte!']);
+
+            return redirect()->route('usuario');
+        }
 
         $imagem_nome = null;
         if($request->hasFile('image')){
@@ -95,7 +121,7 @@ class Usuario_controller extends Controller{
         $dados = array(
             'id' => $usuario_id,
             'nome' => $request['nome'],
-            'atualizar_senha' => $request['solicitar_redefinicao'],
+            'atualizar_senha' => (isset($request['solicitar_redefinicao']) ? $request['solicitar_redefinicao'] : null),
             'imagem' => $imagem_nome,
         );
         $id = $this->Usuario_model->insert_dados('usuario', $dados);
@@ -193,7 +219,7 @@ class Usuario_controller extends Controller{
         $dados = array(
             'nome' => $dados['nome'],
             'imagem' => $imagem_nome,
-            'atualizar_senha' => $dados['solicitar_redefinicao'],
+            'atualizar_senha' => (isset($dados['solicitar_redefinicao']) ? $dados['solicitar_redefinicao'] : null),
         );
 
         $inset .= $this->Usuario_model->update_table('usuario', array('id' => $id), $dados);
