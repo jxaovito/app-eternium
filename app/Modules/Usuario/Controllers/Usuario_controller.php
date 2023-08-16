@@ -29,10 +29,10 @@ class Usuario_controller extends Controller{
 
         $registros = $this->Usuario_model->get_all();
         $qtd_usuario = $this->Usuario_model->get_all_table('configuracao', array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios'));
-        if((count($registros) -1) < $qtd_usuario[0]['valor']){
-            $adicionar_usuarios = true;
-        }else{
+        if((count($registros) -1) >= $qtd_usuario[0]['valor']){
             $adicionar_usuarios = false;
+        }else{
+            $adicionar_usuarios = true;
         }
         
         $registros_db = $this->Usuario_db_model->get_all_table('usuario', array('conexao_id' => session('conexao_id')));
@@ -73,7 +73,7 @@ class Usuario_controller extends Controller{
 
         $registros = $this->Usuario_model->get_all();
         $qtd_usuario = $this->Usuario_model->get_all_table('configuracao', array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios'));
-        if((count($registros) -1) <= $qtd_usuario[0]['valor']){
+        if((count($registros) -1) >= $qtd_usuario[0]['valor']){
             session(['tipo_mensagem' => 'danger']);
             session(['mensagem' => 'Você atingiu o limite contratado de usuários no sistema. Caso queira adicionar novos usuários, entre em contato com o suporte!']);
 
@@ -93,7 +93,7 @@ class Usuario_controller extends Controller{
 
         $registros = $this->Usuario_model->get_all();
         $qtd_usuario = $this->Usuario_model->get_all_table('configuracao', array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios'));
-        if((count($registros) -1) <= $qtd_usuario[0]['valor']){
+        if((count($registros) -1) >= $qtd_usuario[0]['valor']){
             session(['tipo_mensagem' => 'danger']);
             session(['mensagem' => 'Você atingiu o limite contratado de usuários no sistema. Caso queira adicionar novos usuários, entre em contato com o suporte!']);
 

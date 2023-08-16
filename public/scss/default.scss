@@ -71,6 +71,20 @@
     src: url('../fonts/Montserrat-ThinItalic.ttf') format('truetype');
 }
 
+::-webkit-scrollbar {
+    width: 13px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
 html, body{
     margin: 0px;
     padding: 0px;

@@ -85,7 +85,7 @@
                 <img src="{{asset('img/user.png')}}">
             </div>
             <div class="profile-data">
-                <span class="data-user">{{session('usuario_nome')}}</span>
+                <span class="data-user w-100 text-align-center">{{session('usuario_nome')}}</span>
                 <span class="email-user">{{session('usuario_email')}} <i class="ph ph-caret-down"></i></span>
             </div>
         </div>

@@ -37,7 +37,7 @@
             @endif
             <div>
                 <label for="imagem" class="form-label">Imagem</label>
-                <input type="file" class="form-control" id="imagem" name="image">
+                <input type="file" class="form-control" id="imagem" name="image" accept="image/png, image/gif, image/jpeg">
             </div>
         </div>
 

@@ -35,7 +35,7 @@
 
             <div class="mb-3 {{$con['imagem'] ? 'w-90' : 'w-32'}}">
                 <label for="imagem" class="form-label">Logo</label>
-                <input type="file" class="form-control" id="imagem" name="image">
+                <input type="file" class="form-control" id="imagem" name="image" accept="image/png, image/gif, image/jpeg">
             </div>
 
             <div class="w-100">

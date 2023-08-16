@@ -34,16 +34,23 @@
                     </a>
                     @endif
                     @if($permissao_remover_perfil)
+                    @php
+                        $deletar = true;
+                        if((array_key_exists($nv['id'], $niveis_permissao_utilizados))){
+                            $deletar = false;
+                        }
+                    @endphp
                     <span>
-                        <i class="ph ph-x <?= ($nv['id'] == 1 ? '' : 'deletar')?>"
+                        <i class="ph ph-x <?= ($nv['padrao'] == 's' ? '' : ($deletar ? 'deletar' : ''))?>"
                             data-bs-toggle="tooltip"
                             data-bs-placement="bottom"
                             data-bs-custom-class="custom-tooltip"
                             link="{{url('/')}}/permissao/remover/{{$nv['id']}}"
                             titulo="Remover Permissão"
                             texto="Você tem certeza que deseja <b>remover</b> a permissão <b>{{$nv['nome']}}</b>?"
-                            <?= ($nv['id'] == 1 ? 'disabled' : '')?>
-                            <?= ($nv['id'] == 1 ? 'data-bs-title="Não é possível remover perfil de Administrador"' : 'data-bs-title="Remover"')?>
+                            <?= ($nv['padrao'] == 's' ? 'disabled' : ($deletar ? '' : 'disabled'))?>
+                            <?= ($nv['padrao'] == 's' ? 'data-bs-title="Não é possível remover nível de permissão padrão do sistema"' : 
+                                ($deletar ? 'data-bs-title="Remover"' : 'data-bs-title="Não é possível remover nível de permissão pois existe usuários relacionados"'))?>
                         ></i>
                     </span>
                     @endif

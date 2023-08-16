@@ -4,9 +4,11 @@
 	<div class="header mgb-px-30 d-flex justify-content-between">
 		<h2>Profissionais</h2>
 
+		@if($adicionar_usuarios)
 		<div>
-			<a href=""><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Paciente</button></a>
+			<a href="/profissional/novo"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Paciente</button></a>
 		</div>
+		@endif
 	</div>
 
 	<div class="filters mgb-px-30">

@@ -36,6 +36,15 @@ class Permissao_controller extends Controller{
         $_dados['permissao_remover_perfil'] = $permissao_remover_perfil === true ? true : false;
 
         $_dados['nivel_permissao'] = $this->Permissao_model->get_all_table('auth_nivel_permissao');
+        $usuario_has_nivel_permissao = $this->Permissao_model->get_all_table('usuario_has_nivel_permissao');
+        $niveis_permissao_utilizados = array();
+
+        foreach($usuario_has_nivel_permissao as $item){
+            $auth_nivel_permissao_id = $item["auth_nivel_permissao_id"];
+            unset($item["auth_nivel_permissao_id"]); // Remove o valor que será usado como chave
+            $niveis_permissao_utilizados[$auth_nivel_permissao_id] = $item;
+        }
+        $_dados['niveis_permissao_utilizados'] = $niveis_permissao_utilizados;
         $_dados['pagina'] = 'permissoes';
 
         return view('permissao.index', $_dados);
@@ -56,7 +65,9 @@ class Permissao_controller extends Controller{
         $request = $request->all();
         $id = $this->Permissao_model->insert_dados('auth_nivel_permissao', array('nome' => $request['nome']));
 
-        return redirect()->route('editar', ['id' => $id]);
+        session(['tipo_mensagem' => 'success']);
+        session(['mensagem' => 'Nível de Permissão cadastrado com sucesso!']);
+        return redirect()->route('editar_permissao', ['id' => $id]);
     }
 
     public function editar(){
@@ -102,6 +113,8 @@ class Permissao_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Remover Níveis de Permissões');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
         $id = request()->route('id');
+
+        $this->Permissao_model->delete_dados('auth_modulo_has_nivel_permissao', array('auth_nivel_permissao_id' => $id));
         $this->Permissao_model->delete_dados('auth_nivel_permissao', array('id' => $id));
 
         session(['tipo_mensagem' => 'success']);

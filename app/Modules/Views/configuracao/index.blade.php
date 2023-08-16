@@ -87,7 +87,7 @@
 					</div>
 					<div class="w-75">
 						<label>Logo</label>
-						<input type="file" class="form-control" name="logo" id="logo_empresa">
+						<input type="file" class="form-control" name="logo" id="logo_empresa" accept="image/png, image/gif, image/jpeg">
 					</div>
 				</div>
 
@@ -142,7 +142,7 @@
 			</div>
 
 			<div class="w-100 d-flex justify-content-end">
-				<button class="btn btn-success bg-cor-logo-cliente" type="submit"><i class="ph ph-check"></i> Salvar</button>
+				<button class="btn btn-success bg-cor-logo-cliente" type="submit">Salvar <i class="ph ph-check"></i></button>
 			</div>
 		</form>
 	</div>
@@ -167,7 +167,7 @@
 			</div>
 
 			<div class="w-100 d-flex justify-content-end">
-				<button class="btn btn-success bg-cor-logo-cliente" type="submit"><i class="ph ph-check"></i> Salvar</button>
+				<button class="btn btn-success bg-cor-logo-cliente" type="submit">Salvar <i class="ph ph-check"></i></button>
 			</div>
 		</form>
 	</div>
