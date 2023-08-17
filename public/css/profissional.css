@@ -1,0 +1,10 @@
+.container-profissional-horario form div .horarios [tipo=hora_inicio] {
+  border-radius: 4px 0px 0px 4px;
+  text-align: center;
+}
+.container-profissional-horario form div .horarios [tipo=hora_fim] {
+  border-radius: 0px 4px 4px 0px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=profissional.css.map */

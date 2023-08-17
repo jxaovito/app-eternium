@@ -124,8 +124,27 @@ $(document).ready(function(){
 			}, 300);
 		}
 	});
-
 });
+
+// Função de Alerta
+// @params tipo = azul/amarelo/vermelho
+function alerta(mensagem, tipo, time){
+	if(!time){
+		time = 5000;
+	}
+
+	$('.alerta').show('fast');
+	$('.alerta').find('.bg_tipo_alerta').addClass(tipo);
+	$('.alerta').find('.toast-body').html(mensagem);
+
+	setTimeout(function(){
+		$('.alerta').hide('fast');
+	}, time);
+
+	$(document).on('click', '.alerta .btn-close', function(){
+		$(this).parents('.alerta').hide('fast');
+	});
+}
 
 // function mostrar_loading(){
 // 	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');

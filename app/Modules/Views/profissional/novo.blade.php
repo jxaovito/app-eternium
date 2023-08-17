@@ -1,6 +1,6 @@
 @extends('default.layout')
 @section('content')
-<div class="container-permissao-novo">
+<div class="container-profissional-novo">
     <div class="mgb-px-30">
         <h2>Novo Profissional</h2>
     </div>
@@ -26,6 +26,26 @@
         <div class="mb-3 w-32">
             <label for="imagem" class="form-label">Imagem</label>
             <input type="file" class="form-control" id="imagem" name="image">
+        </div>
+
+        <div class="mb-3 w-32">
+            <label for="telefone_principal_profissional" class="form-label">Telefone Principal</label>
+            <input type="text" class="form-control telefone" id="telefone_principal_profissional" placeholder="" name="telefone_principal">
+        </div>
+
+        <div class="mb-3 w-32">
+            <label for="telefone_secundario_profissional" class="form-label">Telefone Secundário</label>
+            <input type="text" class="form-control telefone" id="telefone_secundario_profissional" placeholder="" name="telefone_secundario">
+        </div>
+
+        <div class="mb-3 w-32">
+            <label for="cpf_profissional" class="form-label">CPF</label>
+            <input type="text" class="form-control cpf" id="cpf_profissional" placeholder="" name="cpf">
+        </div>
+
+        <div class="mb-3 w-32">
+            <label for="cnpj_profissional" class="form-label">CNPJ</label>
+            <input type="text" class="form-control cnpj" id="cnpj_profissional" placeholder="" name="cnpj">
         </div>
 
         <div class="mb-3 w-100">
@@ -54,7 +74,7 @@
 
         <div class="w-100">
             <div class="mb-3 d-flex justify-content-between">
-                <a href="/convenio" class="btn btn-default bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> Voltar</a>
+                <a href="/profissional" class="btn btn-default bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> Voltar</a>
                 <button type="submit" class="btn btn-success bg-cor-logo-cliente">Salvar <i class="ph ph-check"></i></button>
             </div>
         </div>

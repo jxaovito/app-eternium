@@ -431,6 +431,8 @@ select{
 .w-8{width:8%;}
 .w-9{width:9%;}
 .w-10{width:10%;}
+.w-12{width:12%;}
+.w-14{width:14%;}
 .w-15{width:15%;}
 .w-20{width:20%;}
 .w-25{width:25%;}
@@ -986,4 +988,23 @@ a{text-decoration: none!important;color: var(--font-color);}
 [required]::after{
   content: " *";
   color: red;
+}
+
+.alerta{
+    .bg_tipo_alerta{
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        border-radius: 50%;
+
+        &.azul{
+            background-color: #0d6efd;
+        }
+        &.amarelo{
+            background-color: #ffc107;
+        }
+        &.vermelho{
+            background-color: #dc3545;
+        }
+    }
 }

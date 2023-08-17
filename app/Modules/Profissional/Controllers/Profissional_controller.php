@@ -35,10 +35,29 @@ class Profissional_controller extends Controller{
             $adicionar_usuarios = false;
         }
 
+        $_dados['registros'] = $this->Profissional_model->get_all_profissional();
+        $_dados['especialidades'] = $this->Profissional_model->get_all_table('especialidade', array('deletado' => '0'));
+
         $_dados['adicionar_usuarios'] = $adicionar_usuarios;
         $_dados['pagina'] = 'profissional';
 
         return view('profissional.index', $_dados);
+    }
+
+    //Filtrar Profissional
+    public function filtrar(Request $request){
+        $request->all();
+        session(['filtro_profissional_nome' => $request->nome]);
+        session(['filtro_profissional_especialidade' => $request->especialidade]);
+
+        return redirect()->route('profissional');
+    }
+
+    //Limpar Filtro
+    public function limpar_filtro(){
+        session()->forget('filtro_profissional_nome');
+        session()->forget('filtro_profissional_especialidade');
+        return redirect()->route('profissional');
     }
 
     public function novo(){
@@ -103,6 +122,10 @@ class Profissional_controller extends Controller{
         $dados = array(
             'nome' => $request['nome'],
             'usuario_id' => $usuario_id,
+            'telefone_principal' => $request['telefone_principal'],
+            'telefone_secundario' => $request['telefone_secundario'],
+            'cpf' => $request['cpf'],
+            'cnpj' => $request['cnpj'],
         );
         $profissional_id = $this->Profissional_model->insert_dados('profissional', $dados);
 
@@ -123,5 +146,139 @@ class Profissional_controller extends Controller{
             session(['mensagem' => 'Houve um erro ao salvar o usuário. Entre em contato com o suporte.']);
         }
         return redirect()->route('profissional');
+    }
+
+    // Editar Profissional
+    public function editar(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Editar Profissional');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+
+        $_dados['registros'] = $this->Profissional_model->get_all_profissional($id);
+        $_dados['especialidades'] = $this->Profissional_model->get_all_table('especialidade', array('deletado' => '0'));
+        $_dados['usuario'] = $this->Profissional_db_model->get_all_table('usuario', array('id' => $_dados['registros'][0]['usuario_id']));
+        $_dados['pagina'] = 'profissional';
+
+        return view('profissional.editar', $_dados);
+    }
+
+    // Salvar Edição de Profissional
+    public function editar_salvar(Request $request){
+        $check_auth = checkAuthentication($this->class, 'editar', 'Editar Profissional');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $id = request()->route('id');
+        $registros = $this->Profissional_model->get_all_profissional($id);
+
+        $imagem_nome = null;
+        $dados = $request->all(); // Capturar todos os dados do request
+        $update_senha = false;
+        $update_imagem = false;
+
+        if($dados['senha'] || $dados['repetir_senha']){
+            if($dados['senha'] == $dados['repetir_senha']){
+                $update_senha = $this->Profissional_db_model->update_table('usuario', array('id' => $id), array('password' => password_hash($request['senha'], PASSWORD_BCRYPT)));
+
+            }else{
+                session(['tipo_mensagem' => 'danger']);
+                session(['mensagem' => 'As senhas informadas não coincidem.']);
+
+                return redirect()->route('profissional');
+            }
+        }
+
+        if($request->hasFile('image')){
+            if(isset($dados['remover-imagem']) && $dados['remover-imagem']){
+                unlink(public_path('clientes/'.session('conexao_id').'/usuario/'.$registros[0]['imagem']));
+            }
+
+            $image = $request->file('image');
+            $imagem_nome = time() . md5(date('Y-m-d H:m:s:u')) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('clientes/'.session('conexao_id').'/usuario'), $imagem_nome);
+
+            $update_imagem = $this->Profissional_model->update_table('usuario', array('id' => $id), array('imagem' => $imagem_nome));
+
+        }else{
+            if(isset($dados['remover-imagem'])){
+                unlink(public_path('clientes/'.session('conexao_id').'/usuario/'.$registros[0]['imagem']));
+                $update_imagem = $this->Profissional_model->update_table('usuario', array('id' => $id), array('imagem' => $imagem_nome));
+            }
+        }
+
+        // Remover especialides para Reincerir
+        $this->Profissional_model->delete_dados('especialidade_has_profissional', array('profissional_id' => $registros[0]['profissional_id']));
+        foreach($dados['especialidade'] as $esp){
+            $dados_esp = array(
+                'especialidade_id' => $esp,
+                'profissional_id' => $registros[0]['profissional_id']
+            );
+
+            $this->Profissional_model->insert_dados('especialidade_has_profissional', $dados_esp);
+        }
+
+        $update = array(
+            'nome' => $dados['nome'],
+            'telefone_principal' => $dados['telefone_principal'],
+            'telefone_secundario' => $dados['telefone_secundario'],
+            'cpf' => $dados['cpf'],
+            'cnpj' => $dados['cnpj'],
+        );
+
+        if($this->Profissional_model->update_table('profissional', array('id' => $registros[0]['profissional_id']), $update) || $update_imagem || $update_senha){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Profissional atualizado com sucesso!']);
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao atualizar o profissional. Entre em contato com o suporte!']);
+        }
+        
+        return redirect()->route('profissional');
+    }
+
+    // Desativar Profissional
+    public function desativar(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Desativar Profissional');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+
+        if($this->Profissional_model->update_table('usuario', array('id' => $id), array('deletado' => 1))){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Profissional desativado com sucesso!']);
+
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao desativar o profissional. Entre em contato com o suporte!']);
+        }
+
+        return redirect()->route('profissional');
+    }
+
+    // Ativar Profissional
+    public function ativar(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Ativar Profissional');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+
+        if($this->Profissional_model->update_table('usuario', array('id' => $id), array('deletado' => '0'))){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Profissional ativado com sucesso!']);
+
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao ativar o profissional. Entre em contato com o suporte!']);
+        }
+
+        return redirect()->route('profissional');
+    }
+
+    // Horários do Profissional
+    public function horario(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Configurar Horários do Profissional');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+
+        $_dados['registros'] = $this->Profissional_model->get_all_profissional($id);
+        $_dados['pagina'] = 'profissional';
+        return view('profissional.horario', $_dados);
     }
 }

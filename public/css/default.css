@@ -411,6 +411,14 @@ select {
   width: 10%;
 }
 
+.w-12 {
+  width: 12%;
+}
+
+.w-14 {
+  width: 14%;
+}
+
 .w-15 {
   width: 15%;
 }
@@ -2257,6 +2265,22 @@ a {
 [required]::after {
   content: " *";
   color: red;
+}
+
+.alerta .bg_tipo_alerta {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.alerta .bg_tipo_alerta.azul {
+  background-color: #0d6efd;
+}
+.alerta .bg_tipo_alerta.amarelo {
+  background-color: #ffc107;
+}
+.alerta .bg_tipo_alerta.vermelho {
+  background-color: #dc3545;
 }
 
 /*# sourceMappingURL=default.css.map */

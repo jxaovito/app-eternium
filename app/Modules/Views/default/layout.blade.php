@@ -43,6 +43,11 @@
         <link rel="stylesheet" href="{{ asset('css/paciente.css') }}">
         @endif
 
+        @if(isset($pagina) && $pagina == 'profissional')
+        <script type="text/javascript" src="{{ asset('js/profissional.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/profissional.css') }}">
+        @endif
+
         @if(isset($pagina) && $pagina == 'convenio')
         <script type="text/javascript" src="{{ asset('js/convenio.js') }}"></script>
         @endif
@@ -110,6 +115,19 @@
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        {{-- Alerta --}}
+        <div class="toast alerta" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed;top: 10%;right: 2%;">
+              <div class="toast-header">
+                <span class="bg_tipo_alerta"></span>
+                <strong class="me-auto">Atenção</strong>
+                <small>agora</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                
             </div>
         </div>
 

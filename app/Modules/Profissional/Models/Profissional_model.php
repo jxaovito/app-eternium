@@ -29,6 +29,40 @@ class Profissional_model extends Model {
 	    return $query->paginate(20);
 	}
 
+	function get_all_profissional($id = null){
+	    $query = $this->newQuery()
+	                  ->from('profissional AS p') 
+	                  ->select('p.id as profissional_id', 'u.id as usuario_id', 'u.deletado', 'p.nome', 'p.telefone_principal', 'u.imagem', 'p.telefone_secundario', 'p.cpf', 'p.cnpj', 'u.atualizar_senha', DB::raw('GROUP_CONCAT(e.nome) as especialidade'), DB::raw('GROUP_CONCAT(e.cor_fundo) as cor_fundo_especialidade'), DB::raw('GROUP_CONCAT(e.cor_fonte) as cor_fonte_especialidade'), DB::raw('GROUP_CONCAT(e.id) as especialidade_id'));
+
+        if(session('filtro_profissional_nome')){
+        	$filtro = session('filtro_profissional_nome');
+	        $query = $query->where('p.nome', 'like', '%' . $filtro . '%');
+	    }
+
+	    if(session('filtro_profissional_especialidade')){
+        	$filtro = session('filtro_profissional_especialidade');
+	        $query = $query->where('e.id', '=', $filtro);
+	    }
+
+	    if($id){
+	    	$filtro = $id;
+	        $query = $query->where('u.id', '=', $filtro);
+	    }
+
+	    $query = $query->join('usuario AS u', function ($join){
+	        $join->on('u.id', '=', 'p.usuario_id');
+	    })
+	    ->leftJoin('especialidade_has_profissional AS ep', function ($join){
+	        $join->on('ep.profissional_id', '=', 'p.id');
+	    })
+	    ->leftJoin('especialidade AS e', function ($join){
+	        $join->on('e.id', '=', 'ep.especialidade_id');
+	    })
+	    ->groupBy('p.id', 'p.nome', 'p.telefone_principal', 'u.imagem');
+
+	    return $query->paginate(20);
+	}
+
     function get_all_table($table, $where = null){
 		$this->setTable($table);
 	
@@ -50,4 +84,12 @@ class Profissional_model extends Model {
     
     	return $this->insertGetId($dados);
 	}
+
+	public function update_table($table, $where, $dados){
+        $this->setTable($table);
+    
+	    return DB::table($this->table)
+        ->where($where)
+        ->update($dados);;
+    }
 }
