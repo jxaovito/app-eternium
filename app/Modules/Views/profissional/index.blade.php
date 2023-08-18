@@ -20,7 +20,7 @@
 					type="text"
 					id="nome_profissional"
 					class="form-control w-100"
-					placeholder="Ana..."
+					placeholder=""
 					name="nome"
 					value="{{session('filtro_profissional_nome') ? session('filtro_profissional_nome') : ''}}"
 				>

@@ -150,6 +150,9 @@ body .aba .opc.active {
 body .aba .opc:hover {
   background-color: #dbdbdb;
 }
+body table.table tbody tr td {
+  border: none !important;
+}
 
 .loading-spinner {
   width: 100%;

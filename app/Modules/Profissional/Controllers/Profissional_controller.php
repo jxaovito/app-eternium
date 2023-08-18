@@ -206,6 +206,7 @@ class Profissional_controller extends Controller{
         }
 
         // Remover especialides para Reincerir
+        $update_especialidade = false;
         $this->Profissional_model->delete_dados('especialidade_has_profissional', array('profissional_id' => $registros[0]['profissional_id']));
         foreach($dados['especialidade'] as $esp){
             $dados_esp = array(
@@ -213,7 +214,7 @@ class Profissional_controller extends Controller{
                 'profissional_id' => $registros[0]['profissional_id']
             );
 
-            $this->Profissional_model->insert_dados('especialidade_has_profissional', $dados_esp);
+            $update_especialidade = $this->Profissional_model->insert_dados('especialidade_has_profissional', $dados_esp);
         }
 
         $update = array(
@@ -224,7 +225,7 @@ class Profissional_controller extends Controller{
             'cnpj' => $dados['cnpj'],
         );
 
-        if($this->Profissional_model->update_table('profissional', array('id' => $registros[0]['profissional_id']), $update) || $update_imagem || $update_senha){
+        if($this->Profissional_model->update_table('profissional', array('id' => $registros[0]['profissional_id']), $update) || $update_imagem || $update_senha || $update_especialidade){
             session(['tipo_mensagem' => 'success']);
             session(['mensagem' => 'Profissional atualizado com sucesso!']);
         }else{

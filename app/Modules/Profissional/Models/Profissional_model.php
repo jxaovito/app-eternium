@@ -58,7 +58,9 @@ class Profissional_model extends Model {
 	    ->leftJoin('especialidade AS e', function ($join){
 	        $join->on('e.id', '=', 'ep.especialidade_id');
 	    })
-	    ->groupBy('p.id', 'p.nome', 'p.telefone_principal', 'u.imagem');
+	    ->groupBy('p.id', 'p.nome', 'p.telefone_principal', 'u.imagem')
+	    ->orderBy('u.deletado', 'asc')
+    	->orderBy('p.nome', 'asc');
 
 	    return $query->paginate(20);
 	}
