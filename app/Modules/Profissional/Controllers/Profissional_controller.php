@@ -279,7 +279,123 @@ class Profissional_controller extends Controller{
         $id = request()->route('id');
 
         $_dados['registros'] = $this->Profissional_model->get_all_profissional($id);
+        $_dados['horarios'] = $this->Profissional_model->get_all_table('profissional_horario', array('profissional_id' => $_dados['registros']['0']['profissional_id']));
+        $_dados['id'] = $id;
         $_dados['pagina'] = 'profissional';
         return view('profissional.horario', $_dados);
+    }
+
+    // Salvar horários do profissional
+    public function horario_salvar(Request $request){
+        $check_auth = checkAuthentication($this->class, 'horario', 'Configurar Horários do Profissional');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+        $registros = $this->Profissional_model->get_all_profissional($id);
+        $dados = $request->all();
+
+        $this->Profissional_model->delete_dados('profissional_horario', array('profissional_id' => $registros[0]['profissional_id']));
+
+        if(isset($dados['hora_inicio_segunda']) && $dados['hora_inicio_segunda']){
+            foreach($dados['hora_inicio_segunda'] as $key => $segunda){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $segunda,
+                    'hora_fim' => $dados['hora_fim_segunda'][$key],
+                    'dia_semana' => 'segunda',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if(isset($dados['hora_inicio_terca']) && $dados['hora_inicio_terca']){
+            foreach($dados['hora_inicio_terca'] as $key => $terca){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $terca,
+                    'hora_fim' => $dados['hora_fim_terca'][$key],
+                    'dia_semana' => 'terca',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if(isset($dados['hora_inicio_quarta']) && $dados['hora_inicio_quarta']){
+            foreach($dados['hora_inicio_quarta'] as $key => $quarta){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $quarta,
+                    'hora_fim' => $dados['hora_fim_quarta'][$key],
+                    'dia_semana' => 'quarta',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if(isset($dados['hora_inicio_quinta']) && $dados['hora_inicio_quinta']){
+            foreach($dados['hora_inicio_quinta'] as $key => $quinta){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $quinta,
+                    'hora_fim' => $dados['hora_fim_quinta'][$key],
+                    'dia_semana' => 'quinta',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if(isset($dados['hora_inicio_sexta']) && $dados['hora_inicio_sexta']){
+            foreach($dados['hora_inicio_sexta'] as $key => $sexta){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $sexta,
+                    'hora_fim' => $dados['hora_fim_sexta'][$key],
+                    'dia_semana' => 'sexta',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if(isset($dados['hora_inicio_sabado']) && $dados['hora_inicio_sabado']){
+            foreach($dados['hora_inicio_sabado'] as $key => $sabado){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $sabado,
+                    'hora_fim' => $dados['hora_fim_sabado'][$key],
+                    'dia_semana' => 'sabado',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if(isset($dados['hora_inicio_domingo']) && $dados['hora_inicio_domingo']){
+            foreach($dados['hora_inicio_domingo'] as $key => $domingo){
+                $horarios = array(
+                    'profissional_id' => $registros[0]['profissional_id'],
+                    'hora_inicio' => $domingo,
+                    'hora_fim' => $dados['hora_fim_domingo'][$key],
+                    'dia_semana' => 'domingo',
+                );
+
+                $insert = $this->Profissional_model->insert_dados('profissional_horario', $horarios);
+            }
+        }
+
+        if($insert){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Horário configurado com sucesso!']);
+
+            return redirect()->route('horario', ['id' => $id]);
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao configurar Horário. Entre em contato com o suporte!']);
+
+            return redirect()->route('horario', ['id' => $id]);
+        }
     }
 }

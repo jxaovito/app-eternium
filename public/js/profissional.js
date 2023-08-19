@@ -31,11 +31,16 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '[data-bs-title="Adicionar horários"]', function(){
-		var clone = $(this).parent('div').parent('div').find('.horarios').find('.first-div').clone();
+		var container = $(this);
+		var clone = container.parent('div').parent('div').find('.horarios').find('.first-div').clone();
 		clone.find('input').val('');
 		clone.removeClass('first-div');
 		clone.find('.remover_linha').removeClass('d-none');
-		$(this).parent('div').parent('div').find('.horarios').append(clone);
+		$.each(container.parent('div').parent('div').find('.horarios'), function(index, val){
+			if(!container.parent('div').parent('div').find('.horarios')[index+1]){
+				$(this).append(clone);
+			}
+		})
 	});
 
 	$(document).on('click', '.remover_linha', function(){

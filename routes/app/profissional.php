@@ -11,6 +11,7 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
     Route::get('/profissional/remover/{id}', [Profissional_controller::class, 'remover'])->name('remover');
 
     Route::get('/profissional/horario/{id}', [Profissional_controller::class, 'horario'])->name('horario');
+    Route::post('/profissional/horario_salvar/{id}', [Profissional_controller::class, 'horario_salvar'])->name('horario_salvar');
 
     Route::get('/profissional/desativar/{id}', [Profissional_controller::class, 'desativar'])->name('desativar');
     Route::get('/profissional/ativar/{id}', [Profissional_controller::class, 'ativar'])->name('ativar');
