@@ -25,8 +25,36 @@ class Procedimento_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Procedimentos');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
+        $_dados['registros'] = $this->Procedimento_model->get_all();
         $_dados['pagina'] = 'procedimento';
 
         return view('procedimento.index', $_dados);
+    }
+
+    //Filtrar Convenio
+    public function filtrar(Request $request){
+        $request->all();
+        session(['filtro_procedimento_nome' => $request->procedimento_nome]);
+
+        return redirect()->route('procedimento');
+    }
+
+    //Limpar Filtro
+    public function limpar_filtro(){
+        session()->forget('filtro_procedimento_nome');
+        return redirect()->route('procedimento');
+    }
+
+    public function editar(){
+        $check_auth = checkAuthentication($this->class, 'index', 'Procedimentos');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $id = request()->route('id');
+        $_dados['convenio'] = $this->Procedimento_model->get_all_table('convenio', array('id' => $id))[0];
+        $_dados['procedimentos'] = $this->Procedimento_model->get_all_table('convenio_procedimento', array('convenio_id' => $id, 'deletado' => '0'));
+
+        $_dados['pagina'] = 'procedimento';
+
+        return view('procedimento.editar', $_dados);
     }
 }

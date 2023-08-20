@@ -81,12 +81,20 @@
 					<th class="w-4"></th>
 					<th>Nome</th>
 					<th>Especialidade</th>
-					<th class="w-15 text-center">Ações</th>
+					<th class="w-15">Ações</th>
 				</tr>
 			</thead>
 			<tbody>
 				@if($registros)
 					@foreach($registros as $registro)
+					@php
+					$configuracao_finalizada = false;
+					foreach($horarios_prof as $horario){
+						if($horario['profissional_id'] == $registro['profissional_id']){
+							$configuracao_finalizada = true;
+						}
+					}
+					@endphp
 					<tr class="{{$registro['deletado'] ? 'deletado' : ''}}">
 						<td>
 							<div class="row-table">
@@ -106,7 +114,28 @@
 							</div>
 						</td>
 						<td>
-							<div class="row-table">{{$registro['nome']}}</div>
+							<div class="row-table">
+								<span
+									data-bs-toggle="tooltip"
+		                            data-bs-placement="bottom"
+		                            data-bs-custom-class="custom-tooltip"
+		                            data-bs-title="{{$registro['nome']}}"
+									class="limita_character limita_em_30"
+								>
+									{{$registro['nome']}}
+								</span>
+								@if(!$configuracao_finalizada)
+								<span
+									data-bs-toggle="tooltip"
+		                            data-bs-placement="bottom"
+		                            data-bs-custom-class="custom-tooltip"
+		                            data-bs-title="Horário do Profissional não configurado"
+									class="mgl-px-15 color-vermelho-forte"
+								>
+									<i class="ph ph-warning"></i>
+								</span>
+								@endif
+							</div>
 						</td>
 						<td>
 							<div class="row-table">

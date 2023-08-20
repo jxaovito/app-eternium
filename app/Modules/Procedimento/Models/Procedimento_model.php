@@ -8,6 +8,21 @@ class Procedimento_model extends Model {
     protected $table = 'procedimento';
     protected $connection = 'mysql_db';
 
+    function get_all(){
+		$query = $this->setTable('convenio');
+
+		if(session('filtro_procedimento_nome')){
+        	$filtro = session('filtro_procedimento_nome');
+	        $query = $query->where('nome', 'like', '%' . $filtro . '%')
+	        			   ->where('deletado', 0);
+	    }
+
+		$query = $query->orderBy('deletado', 'ASC')
+					   ->orderBy('nome', 'ASC');
+	
+		return $query->paginate(20);
+	}
+
     function get_all_table($table, $where = null){
 		$this->setTable($table);
 	

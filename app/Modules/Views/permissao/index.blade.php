@@ -14,46 +14,60 @@
         <thead>
             <th>Perfil</th>
             @if($permissao_editar_perfil || $permissao_remover_perfil)
-            <th>Ações</th>
+            <th width="100" class="text-align-center">Ações</th>
             @endif
         </thead>
         <tbody>
             @foreach($nivel_permissao as $nv)
             <tr>
-                <td>{{$nv['nome']}}</td>
+                <td>
+                    <div class="row-table">
+                        <text
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-title="{{$nv['nome']}}"
+                            class="limita_character limita_em_30"
+                        >
+                            {{$nv['nome']}}
+                        </text>
+                    </div>
+                </td>
                 @if($permissao_editar_perfil || $permissao_remover_perfil)
                 <td>
-                    @if($permissao_editar_perfil)
-                    <a href="permissao/editar/{{$nv['id']}}">
-                        <i class="ph ph-pencil-simple"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Editar"
-                        ></i>
-                    </a>
-                    @endif
-                    @if($permissao_remover_perfil)
-                    @php
-                        $deletar = true;
-                        if((array_key_exists($nv['id'], $niveis_permissao_utilizados))){
-                            $deletar = false;
-                        }
-                    @endphp
-                    <span>
-                        <i class="ph ph-x <?= ($nv['padrao'] == 's' ? '' : ($deletar ? 'deletar' : ''))?>"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            data-bs-custom-class="custom-tooltip"
-                            link="{{url('/')}}/permissao/remover/{{$nv['id']}}"
-                            titulo="Remover Permissão"
-                            texto="Você tem certeza que deseja <b>remover</b> a permissão <b>{{$nv['nome']}}</b>?"
-                            <?= ($nv['padrao'] == 's' ? 'disabled' : ($deletar ? '' : 'disabled'))?>
-                            <?= ($nv['padrao'] == 's' ? 'data-bs-title="Não é possível remover nível de permissão padrão do sistema"' : 
-                                ($deletar ? 'data-bs-title="Remover"' : 'data-bs-title="Não é possível remover nível de permissão pois existe usuários relacionados"'))?>
-                        ></i>
-                    </span>
-                    @endif
+                    <div class="row-table justify-content-around">
+                        @if($permissao_editar_perfil)
+                            <a href="permissao/editar/{{$nv['id']}}">
+                                <i class="ph ph-pencil-simple"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="Editar"
+                                ></i>
+                            </a>
+                        @endif
+                        @if($permissao_remover_perfil)
+                        @php
+                            $deletar = true;
+                            if((array_key_exists($nv['id'], $niveis_permissao_utilizados))){
+                                $deletar = false;
+                            }
+                        @endphp
+                        <span>
+                            <i class="ph ph-x <?= ($nv['padrao'] == 's' ? '' : ($deletar ? 'deletar' : ''))?>"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                data-bs-custom-class="custom-tooltip"
+                                link="{{url('/')}}/permissao/remover/{{$nv['id']}}"
+                                titulo="Remover Permissão"
+                                texto="Você tem certeza que deseja <b>remover</b> a permissão <b>{{$nv['nome']}}</b>?"
+                                <?= ($nv['padrao'] == 's' ? 'disabled' : ($deletar ? '' : 'disabled'))?>
+                                <?= ($nv['padrao'] == 's' ? 'data-bs-title="Não é possível remover nível de permissão padrão do sistema"' : 
+                                    ($deletar ? 'data-bs-title="Remover"' : 'data-bs-title="Não é possível remover nível de permissão pois existe usuários relacionados"'))?>
+                            ></i>
+                        </span>
+                        @endif
+                    </div>
                 </td>
                 @endif
             </tr>

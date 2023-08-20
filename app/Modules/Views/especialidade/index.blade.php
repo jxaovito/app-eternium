@@ -80,7 +80,19 @@
 									</span>
 								</div>
 							</td>
-							<td><div class="row-table">{{$registro['nome']}}</div></td>
+							<td>
+								<div class="row-table">
+									<span 
+										data-bs-toggle="tooltip"
+			                            data-bs-placement="bottom"
+			                            data-bs-custom-class="custom-tooltip"
+			                            data-bs-title="{{$registro['nome']}}"
+										class="limita_character limita_em_30"
+									>
+										{{$registro['nome']}}
+									</span>
+								</div>
+							</td>
 							<td>
 								<div class="row-table">
 									<span

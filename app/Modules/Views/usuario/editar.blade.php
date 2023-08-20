@@ -12,8 +12,19 @@
         </div>
 
         <div class="mb-3 w-32">
-            <label for="cnpj_convenio" class="form-label" required>Nível de Permissão</label>
-            <select class="select2" name="nivel_permissao" required="required">
+            <label for="cnpj_convenio" class="form-label" required>
+                Nível de Permissão
+                <?=$nivel_permissao_user[0]['auth_nivel_permissao_id'] == 2 
+                    ? '<i class="ph ph-question"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Não é possível alterar o nível de permissão de um Profissional"></i>' 
+                    : ''?>
+            </label>
+            <select class="select2" name="nivel_permissao" required="required"
+            {{$nivel_permissao_user[0]['auth_nivel_permissao_id'] == 2 ? 'disabled' : ''}}
+            >
                 @foreach($nivel_permissao as $permissao)
                     @if($nivel_permissao_user[0]['auth_nivel_permissao_id'] == $permissao['id'])
                         <option value="{{$permissao['id']}}" selected>{{$permissao['nome']}}</option>

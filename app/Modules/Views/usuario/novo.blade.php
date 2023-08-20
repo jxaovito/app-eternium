@@ -16,7 +16,9 @@
             <select class="select2" name="nivel_permissao" required="required">
                 <option selected value="">Selecione...</option>
                 @foreach($nivel_permissao as $permissao)
-                    <option value="{{$permissao['id']}}">{{$permissao['nome']}}</option>
+                    @if($permissao['id'] != 2)
+                        <option value="{{$permissao['id']}}">{{$permissao['nome']}}</option>
+                    @endif
                 @endforeach
             </select>
         </div>

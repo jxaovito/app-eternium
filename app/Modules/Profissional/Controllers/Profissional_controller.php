@@ -37,6 +37,7 @@ class Profissional_controller extends Controller{
 
         $_dados['registros'] = $this->Profissional_model->get_all_profissional();
         $_dados['especialidades'] = $this->Profissional_model->get_all_table('especialidade', array('deletado' => '0'));
+        $_dados['horarios_prof'] = $this->Profissional_model->get_all_table('profissional_horario');
 
         $_dados['adicionar_usuarios'] = $adicionar_usuarios;
         $_dados['pagina'] = 'profissional';
