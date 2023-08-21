@@ -9,23 +9,40 @@ class Procedimento_model extends Model {
     protected $connection = 'mysql_db';
 
     function get_all(){
-		$query = $this->setTable('convenio');
+        $query = $this->setTable('convenio');
 
-		if(session('filtro_procedimento_nome')){
-        	$filtro = session('filtro_procedimento_nome');
-	        $query = $query->where('nome', 'like', '%' . $filtro . '%')
-	        			   ->where('deletado', 0);
-	    }
+        if(session('filtro_procedimento_nome')){
+            $filtro = session('filtro_procedimento_nome');
+            $query = $query->where('convenio.nome', 'like', '%' . $filtro . '%');
+        }
 
-		$query = $query->orderBy('deletado', 'ASC')
-					   ->orderBy('nome', 'ASC');
-	
-		return $query->paginate(20);
+        $query = $query->leftJoin('convenio_procedimento as cp', 'cp.convenio_id', '=', 'convenio.id')
+                       ->selectRaw('convenio.*, cp.id as procedimentos')
+                       ->groupBy('convenio.id')
+                       ->orderBy('deletado', 'ASC')
+                       ->orderBy('nome', 'ASC');
+
+        return $query->paginate(20);
+    }
+
+	function get_grupos_procedimentos(){
+		$query = $this->setTable('convenio_procedimento');
+		$query = $query->select('grupo_procedimento')
+					   ->where('deletado', 0)
+					   ->orderBy('grupo_procedimento', 'desc')
+					   ->limit('1')->get()->toArray();
+
+	  	return $query;
+
 	}
 
     function get_all_table($table, $where = null){
 		$this->setTable($table);
-	
+
+		if($table == 'convenio_procedimento'){
+			return $this->where($where)->orderBy('codigo', 'asc')->get()->toArray();
+		}
+			
 		if($where){
 			return $this->where($where)->get()->toArray();
 		}
@@ -44,4 +61,12 @@ class Procedimento_model extends Model {
     
     	return $this->insertGetId($dados);
 	}
+
+	public function update_table($table, $where, $dados){
+        $this->setTable($table);
+    
+	    return DB::table($this->table)
+        ->where($where)
+        ->update($dados);;
+    }
 }

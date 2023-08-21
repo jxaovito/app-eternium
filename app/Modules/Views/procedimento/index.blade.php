@@ -72,6 +72,18 @@
 										@endphp
 										<span class="icone-nome pequeno {{$iniciais}}">{{strtoupper($iniciais)}}</span>
 									@endif
+
+									@if(!$registro['procedimentos'])
+									<span
+										data-bs-toggle="tooltip"
+			                            data-bs-placement="bottom"
+			                            data-bs-custom-class="custom-tooltip"
+			                            data-bs-title="Nenhum procedimento cadastrado"
+										class="mgl-px-15 color-vermelho-forte"
+									>
+										<i class="ph ph-warning"></i>
+									</span>
+									@endif
 								</div>
 							</td>
 							<td>

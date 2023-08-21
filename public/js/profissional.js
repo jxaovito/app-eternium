@@ -40,7 +40,7 @@ $(document).ready(function(){
 			if(!container.parent('div').parent('div').find('.horarios')[index+1]){
 				$(this).append(clone);
 			}
-		})
+		});
 	});
 
 	$(document).on('click', '.remover_linha', function(){

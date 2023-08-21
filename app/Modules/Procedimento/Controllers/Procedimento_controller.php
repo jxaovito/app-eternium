@@ -57,4 +57,111 @@ class Procedimento_controller extends Controller{
 
         return view('procedimento.editar', $_dados);
     }
+
+    public function editar_salvar(Request $request){
+        $check_auth = checkAuthentication($this->class, 'index', 'Procedimentos');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $id = request()->route('id');
+        $procedimentos = $this->Procedimento_model->get_all_table('convenio_procedimento', array('convenio_id' => $id, 'deletado' => '0'));
+        $procedimento_last_grupo_id = $this->Procedimento_model->get_grupos_procedimentos('convenio_procedimento', array('convenio_id' => $id))[0]['grupo_procedimento'];
+        $insert = false;
+        $update = false;
+        $remove = false;
+        $dados = $request->all();
+
+        if($dados['deletado']){
+            $deletados = explode(',', $dados['deletado']);
+            foreach($deletados as $deletado){
+                $remove = $this->Procedimento_model->update_table('convenio_procedimento', array('id' => $deletado), array('deletado' => '1'));
+            }
+        }
+
+        foreach($dados['nome'] as $key => $dado){
+            if(!isset($dados['id'][$key])){
+                $i = $procedimento_last_grupo_id + 1;
+                $procedimentos_insert = array(
+                    'codigo' => $dados['codigo'][$key],
+                    'nome' => $dados['nome'][$key],
+                    'tempo' => $dados['tempo'][$key],
+                    'valor' => str_replace(',', '.', $dados['valor'][$key]),
+                    'grupo_procedimento' => $i,
+                    'convenio_id' => $id
+                );
+                unset($dados['codigo'][$key]);
+                unset($dados['nome'][$key]);
+                unset($dados['tempo'][$key]);
+                unset($dados['valor'][$key]);
+                unset($dados['id'][$key]);
+
+                $insert = $this->Procedimento_model->insert_dados('convenio_procedimento', $procedimentos_insert);
+                $i++;
+            }
+        }
+
+        if($procedimentos){
+            foreach($procedimentos as $key => $procedimento){
+                $update = false;
+                foreach($dados['id'] as $key_d => $dado){
+                    if($dados['id'][$key_d] == $procedimento['id']){
+                        if($dados['codigo'][$key_d] != $procedimento['codigo']){
+                            $update = true;
+                        }
+
+                        if($dados['nome'][$key_d] != $procedimento['nome']){
+                            $update = true;
+                        }
+
+                        if($dados['tempo'][$key_d].':00' != $procedimento['tempo']){
+                            $update = true;
+                        }
+
+                        if(str_replace(',', '.', $dados['valor'][$key_d]) != $procedimento['valor']){
+                            $update = true;
+                        }
+
+                        if($update){
+                            $this->Procedimento_model->update_table('convenio_procedimento', array('id' => $procedimento['id']), array('deletado' => '1'));
+
+                            $dados_insert = array(
+                                'codigo' => $dados['codigo'][$key_d],
+                                'nome' => $dados['nome'][$key_d],
+                                'tempo' => $dados['tempo'][$key_d],
+                                'valor' => str_replace(',', '.', $dados['valor'][$key_d]),
+                                'grupo_procedimento' => $procedimento['grupo_procedimento'],
+                                'convenio_id' => $procedimento['convenio_id'],
+                            );
+                            $insert = $this->Procedimento_model->insert_dados('convenio_procedimento', $dados_insert);
+                        }
+                    }
+                }
+            }
+        }else{
+            $i = 1;
+            if($dados){
+                foreach($dados['nome'] as $key => $dado){
+                    $procedimentos = array(
+                        'codigo' => $dados['codigo'][$key],
+                        'nome' => $dados['nome'][$key],
+                        'tempo' => $dados['tempo'][$key],
+                        'valor' => str_replace(',', '.', $dados['valor'][$key]),
+                        'grupo_procedimento' => $i,
+                        'convenio_id' => $id
+                    );
+
+                    $insert = $this->Procedimento_model->insert_dados('convenio_procedimento', $procedimentos);
+                    $i++;
+                }
+            }
+        }
+
+        if($insert || $update || $remove){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Procedimentos cadastrado com sucesso!']);
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao salvar o procedimentos. Entre em contato com o suporte.']);
+        }
+        return redirect()->route('editar_procedimento', ['id' => $id]);
+    }
 }
