@@ -49,7 +49,7 @@
             </select>
         </div>
 
-        <div class="w-100">
+        <div class="w-100 mgb-px-30">
         	<h5 class="mgt-px-30 mgb-px-10">Procedimentos</h5>
         	<div class="w-100 d-flex flex-wrap justify-content-between mgb-px-10">
         		<div class="w-15">
@@ -92,6 +92,42 @@
 					class="ph ph-plus icone-nome minimo pointer"
 				></i>
 			</div>
+        </div>
+
+        <div class="mb-3 w-10">
+            <label for="" class="form-label" required>Total de Sessões</label>
+            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control">
+        </div>
+
+        <div class="mb-3 w-10">
+            <label for="" class="form-label" required>Subtotal</label>
+            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control">
+        </div>
+
+        <div class="mb-3 w-10">
+            <label for="" class="form-label">Descontos em R$</label>
+            <input type="text" name="desconto_real" class="form-control">
+        </div>
+
+        <div class="mb-3 w-10">
+            <label for="" class="form-label">Descontos em %</label>
+            <input type="text" name="desconto_porcentagem" class="form-control">
+        </div>
+
+        <div class="mb-3 w-10">
+            <label for="" class="form-label" required>Total</label>
+            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control">
+        </div>
+
+        <div class="mb-3 w-10">
+        </div>
+        <div class="mb-3 w-10">
+        </div>
+        <div class="mb-3 w-10">
+        </div>
+
+        <div class="w-100">
+        	<h5 class="mgt-px-30">Pagamento</h5>
         </div>
 	</form>
 </div>
