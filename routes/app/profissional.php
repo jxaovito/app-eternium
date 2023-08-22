@@ -18,4 +18,6 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
 
     Route::post('/profissional/filtrar', [Profissional_controller::class, 'filtrar'])->name('filtrar');
     Route::get('/profissional/limpar_filtro', [Profissional_controller::class, 'limpar_filtro'])->name('limpar_filtro');
+
+    Route::post('/profissional/get_especialidade_by_profissional_id', [Profissional_controller::class, 'get_especialidade_by_profissional_id'])->name('get_especialidade_by_profissional_id');
 });

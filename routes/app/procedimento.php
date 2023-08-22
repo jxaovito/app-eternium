@@ -12,4 +12,6 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
 
     Route::post('/procedimento/filtrar', [Procedimento_controller::class, 'filtrar'])->name('filtrar');
     Route::get('/procedimento/limpar_filtro', [Procedimento_controller::class, 'limpar_filtro'])->name('limpar_filtro');
+
+    Route::post('/procedimento/busca_procedimento_by_nome_and_convenio', [Procedimento_controller::class, 'busca_procedimento_by_nome_and_convenio'])->name('busca_procedimento_by_nome_and_convenio');
 });

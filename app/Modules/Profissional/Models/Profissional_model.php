@@ -87,11 +87,28 @@ class Profissional_model extends Model {
     	return $this->insertGetId($dados);
 	}
 
-	public function update_table($table, $where, $dados){
+	function update_table($table, $where, $dados){
         $this->setTable($table);
     
 	    return DB::table($this->table)
         ->where($where)
         ->update($dados);;
+    }
+
+    function get_especialidade_by_profissional_id($id){
+    	return $this->setTable('especialidade as e')
+    				->select('e.id as especialidade_id', 'e.nome as especialidade', 'pr.id as profissional_id', 'pr.nome as profissional')
+    				->join('especialidade_has_profissional as ehp', function($join){
+    					$join->on('ehp.especialidade_id', '=', 'e.id');
+    				})
+    				->join('profissional as pr', function($join){
+    					$join->on('pr.id', '=', 'ehp.profissional_id');
+    				})
+    				->where('pr.id', '=', $id)
+    				->where('e.deletado', '=', '0')
+    				->orderBy('e.nome', 'ASC')
+    				->groupBy('e.id')
+    				->get()
+    				->toArray();
     }
 }

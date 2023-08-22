@@ -62,11 +62,22 @@ class Procedimento_model extends Model {
     	return $this->insertGetId($dados);
 	}
 
-	public function update_table($table, $where, $dados){
+	function update_table($table, $where, $dados){
         $this->setTable($table);
     
 	    return DB::table($this->table)
         ->where($where)
         ->update($dados);;
+    }
+
+    function busca_procedimento_by_nome_and_convenio($procedimento, $convenio_id){
+    	return $this->setTable('convenio_procedimento as pr')
+    				->select('*')
+    				->where('nome', 'like', '%'.$procedimento.'%')
+    				->where('convenio_id', '=', $convenio_id)
+    				->where('deletado', '=', '0')
+    				->orderBy('nome', 'ASC')
+    				->get()
+    				->toArray();
     }
 }

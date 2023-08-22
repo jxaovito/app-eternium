@@ -124,6 +124,336 @@ $(document).ready(function(){
 			}, 300);
 		}
 	});
+
+	// validação e Preenchimento de CEP
+	$(document).on('keyup', '.cep', function(){
+		var self = $(this);
+		if($(this).val().length == 0){
+			if(self.parents('div').find('.estado').length){
+				self.parents('div').find('.estado').val('');
+				self.parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').find('.estado').attr('readonly', 'readonly');
+
+			}else if(self.parents('div').parents('div').find('.estado').length){
+				self.parents('div').parents('div').find('.estado').vaL('');
+				self.parents('div').parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').find('.estado').attr('readonly', 'readonly');
+
+			}else if(self.parents('div').parents('div').parents('div').find('.estado').length){
+				self.parents('div').parents('div').parents('div').find('.estado').val('');
+				self.parents('div').parents('div').parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').parents('div').find('.estado').attr('readonly', 'readonly');
+				
+			}else if(self.parents('div').parents('div').parents('div').parents('div').find('.estado').length){
+				self.parents('div').parents('div').parents('div').parents('div').find('.estado').val('');
+				self.parents('div').parents('div').parents('div').parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').parents('div').parents('div').find('.estado').attr('readonly', 'readonly');
+			}
+
+			if(self.parents('div').find('.cidade').length){
+				self.parents('div').find('.cidade').val('');
+				self.parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').find('.cidade').attr('readonly', 'readonly');
+
+			}else if(self.parents('div').parents('div').find('.cidade').length){
+				self.parents('div').parents('div').find('.cidade').val('');
+				self.parents('div').parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').find('.cidade').attr('readonly', 'readonly');
+
+			}else if(self.parents('div').parents('div').parents('div').find('.cidade').length){
+				self.parents('div').parents('div').parents('div').find('.cidade').val('');
+				self.parents('div').parents('div').parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').parents('div').find('.cidade').attr('readonly', 'readonly');
+				
+			}else if(self.parents('div').parents('div').parents('div').parents('div').find('.cidade').length){
+				self.parents('div').parents('div').parents('div').parents('div').find('.cidade').val('');
+				self.parents('div').parents('div').parents('div').parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').parents('div').parents('div').find('.cidade').attr('readonly', 'readonly');
+			}
+
+			if(self.parents('div').find('.bairro').length){
+				self.parents('div').find('.bairro').val('');
+				self.parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').find('.bairro').attr('readonly', 'readonly');
+
+			}else if(self.parents('div').parents('div').find('.bairro').length){
+				self.parents('div').parents('div').find('.bairro').val('');
+				self.parents('div').parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').find('.bairro').attr('readonly', 'readonly');
+
+			}else if(self.parents('div').parents('div').parents('div').find('.bairro').length){
+				self.parents('div').parents('div').parents('div').find('.bairro').val('');
+				self.parents('div').parents('div').parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').parents('div').find('.bairro').attr('readonly', 'readonly');
+				
+			}else if(self.parents('div').parents('div').parents('div').parents('div').find('.bairro').length){
+				self.parents('div').parents('div').parents('div').parents('div').find('.bairro').val('');
+				self.parents('div').parents('div').parents('div').parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+				self.parents('div').parents('div').parents('div').parents('div').find('.bairro').attr('readonly', 'readonly');
+				
+			}
+		}
+
+		if($(this).val().length == 9){
+			$.ajax({
+				url: `https://viacep.com.br/ws/${$(this).val().replaceAll('-', '')}/json/`,
+				type: 'get',
+				dataType: 'json',
+				success: function(data){
+					if(!data.erro){
+						if(data.uf){
+							if(self.parents('div').find('.estado').length){
+								self.parents('div').find('.estado').val(data.uf);
+								self.parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').find('.estado').attr('readonly', 'readonly');
+
+							}else if(self.parents('div').parents('div').find('.estado').length){
+								self.parents('div').parents('div').find('.estado').val(data.uf);
+								self.parents('div').parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').find('.estado').attr('readonly', 'readonly');
+
+							}else if(self.parents('div').parents('div').parents('div').find('.estado').length){
+								self.parents('div').parents('div').parents('div').find('.estado').val(data.uf);
+								self.parents('div').parents('div').parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').parents('div').find('.estado').attr('readonly', 'readonly');
+								
+							}else if(self.parents('div').parents('div').parents('div').parents('div').find('.estado').length){
+								self.parents('div').parents('div').parents('div').parents('div').find('.estado').val(data.uf);
+								self.parents('div').parents('div').parents('div').parents('div').find('.estado').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').parents('div').parents('div').find('.estado').attr('readonly', 'readonly');
+								
+							}
+						}else{
+							if(self.parents('div').find('.estado').length){
+								self.parents('div').find('.estado').val('');
+								self.parents('div').find('.estado').removeAttr('readonly-disabled');
+								self.parents('div').find('.estado').removeAttr('readonly');
+
+							}else if(self.parents('div').parents('div').find('.estado').length){
+								self.parents('div').parents('div').find('.estado').val('');
+								self.parents('div').parents('div').find('.estado').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').find('.estado').removeAttr('readonly');
+
+							}else if(self.parents('div').parents('div').parents('div').find('.estado').length){
+								self.parents('div').parents('div').parents('div').find('.estado').val('');
+								self.parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly');
+								
+							}else if(self.parents('div').parents('div').parents('div').parents('div').find('.estado').length){
+								self.parents('div').parents('div').parents('div').parents('div').find('.estado').val('');
+								self.parents('div').parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly');
+								
+							}
+						}
+
+						if(data.localidade){
+							if(self.parents('div').find('.cidade').length){
+								self.parents('div').find('.cidade').val(data.localidade);
+								self.parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').find('.cidade').attr('readonly', 'readonly');
+
+							}else if(self.parents('div').parents('div').find('.cidade').length){
+								self.parents('div').parents('div').find('.cidade').val(data.localidade);
+								self.parents('div').parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').find('.cidade').attr('readonly', 'readonly');
+
+							}else if(self.parents('div').parents('div').parents('div').find('.cidade').length){
+								self.parents('div').parents('div').parents('div').find('.cidade').val(data.localidade);
+								self.parents('div').parents('div').parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').parents('div').find('.cidade').attr('readonly', 'readonly');
+								
+							}else if(self.parents('div').parents('div').parents('div').parents('div').find('.cidade').length){
+								self.parents('div').parents('div').parents('div').parents('div').find('.cidade').val(data.localidade);
+								self.parents('div').parents('div').parents('div').parents('div').find('.cidade').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').parents('div').parents('div').find('.cidade').attr('readonly', 'readonly');
+								
+							}
+						}else{
+							if(self.parents('div').find('.cidade').length){
+								self.parents('div').find('.cidade').val('');
+								self.parents('div').find('.cidade').removeAttr('readonly-disabled');
+								self.parents('div').find('.cidade').removeAttr('readonly');
+
+							}else if(self.parents('div').parents('div').find('.cidade').length){
+								self.parents('div').parents('div').find('.cidade').val('');
+								self.parents('div').parents('div').find('.cidade').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').find('.cidade').removeAttr('readonly');
+
+							}else if(self.parents('div').parents('div').parents('div').find('.cidade').length){
+								self.parents('div').parents('div').parents('div').find('.cidade').val('');
+								self.parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly');
+								
+							}else if(self.parents('div').parents('div').parents('div').parents('div').find('.cidade').length){
+								self.parents('div').parents('div').parents('div').parents('div').find('.cidade').val('');
+								self.parents('div').parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly');
+								
+							}
+						}
+
+						if(data.bairro){
+							if(self.parents('div').find('.bairro').length){
+								self.parents('div').find('.bairro').val(data.bairro);
+								self.parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').find('.bairro').attr('readonly', 'readonly');
+
+							}else if(self.parents('div').parents('div').find('.bairro').length){
+								self.parents('div').parents('div').find('.bairro').val(data.bairro);
+								self.parents('div').parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').find('.bairro').attr('readonly', 'readonly');
+
+							}else if(self.parents('div').parents('div').parents('div').find('.bairro').length){
+								self.parents('div').parents('div').parents('div').find('.bairro').val(data.bairro);
+								self.parents('div').parents('div').parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').parents('div').find('.bairro').attr('readonly', 'readonly');
+								
+							}else if(self.parents('div').parents('div').parents('div').parents('div').find('.bairro').length){
+								self.parents('div').parents('div').parents('div').parents('div').find('.bairro').val(data.bairro);
+								self.parents('div').parents('div').parents('div').parents('div').find('.bairro').attr('readonly-disabled', 'readonly-disabled');
+								self.parents('div').parents('div').parents('div').parents('div').find('.bairro').attr('readonly', 'readonly');
+								
+							}
+						}else{
+							if(self.parents('div').find('.bairro').length){
+								self.parents('div').find('.bairro').val('');
+								self.parents('div').find('.bairro').removeAttr('readonly-disabled');
+								self.parents('div').find('.bairro').removeAttr('readonly');
+
+							}else if(self.parents('div').parents('div').find('.bairro').length){
+								self.parents('div').parents('div').find('.bairro').val('');
+								self.parents('div').parents('div').find('.bairro').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').find('.bairro').removeAttr('readonly');
+
+							}else if(self.parents('div').parents('div').parents('div').find('.bairro').length){
+								self.parents('div').parents('div').parents('div').find('.bairro').val('');
+								self.parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly');
+								
+							}else if(self.parents('div').parents('div').parents('div').parents('div').find('.bairro').length){
+								self.parents('div').parents('div').parents('div').parents('div').find('.bairro').val('');
+								self.parents('div').parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly-disabled');
+								self.parents('div').parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly');
+								
+							}
+						}
+
+					}else{
+						alerta('CEP não encontrado', 'amarelo');
+
+						if(self.parents('div').find('.estado').length){
+							self.parents('div').find('.estado').removeAttr('readonly-disabled');
+							self.parents('div').find('.estado').removeAttr('readonly');
+							self.parents('div').find('.estado').val('');
+
+						}else if(self.parents('div').parents('div').find('.estado').length){
+							self.parents('div').parents('div').find('.estado').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').find('.estado').removeAttr('readonly');
+							self.parents('div').parents('div').find('.estado').val('');
+
+						}else if(self.parents('div').parents('div').parents('div').find('.estado').length){
+							self.parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly');
+							self.parents('div').parents('div').parents('div').find('.estado').val('');
+							
+						}else if(self.parents('div').parents('div').parents('div').parents('div').find('.estado').length){
+							self.parents('div').parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').parents('div').parents('div').find('.estado').removeAttr('readonly');
+							self.parents('div').parents('div').parents('div').parents('div').find('.estado').val('');
+							
+						}
+
+						if(self.parents('div').find('.cidade').length){
+							self.parents('div').find('.cidade').removeAttr('readonly-disabled');
+							self.parents('div').find('.cidade').removeAttr('readonly');
+							self.parents('div').find('.cidade').val('');
+
+						}else if(self.parents('div').parents('div').find('.cidade').length){
+							self.parents('div').parents('div').find('.cidade').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').find('.cidade').removeAttr('readonly');
+							self.parents('div').parents('div').find('.cidade').val('');
+
+						}else if(self.parents('div').parents('div').parents('div').find('.cidade').length){
+							self.parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly');
+							self.parents('div').parents('div').parents('div').find('.cidade').val('');
+							
+						}else if(self.parents('div').parents('div').parents('div').parents('div').find('.cidade').length){
+							self.parents('div').parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').parents('div').parents('div').find('.cidade').removeAttr('readonly');
+							self.parents('div').parents('div').parents('div').parents('div').find('.cidade').val('');
+							
+						}
+
+						if(self.parents('div').find('.bairro').length){
+							self.parents('div').find('.bairro').removeAttr('readonly-disabled');
+							self.parents('div').find('.bairro').removeAttr('readonly');
+							self.parents('div').find('.bairro').val('');
+
+						}else if(self.parents('div').parents('div').find('.bairro').length){
+							self.parents('div').parents('div').find('.bairro').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').find('.bairro').removeAttr('readonly');
+							self.parents('div').parents('div').find('.bairro').val('');
+
+						}else if(self.parents('div').parents('div').parents('div').find('.bairro').length){
+							self.parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly');
+							self.parents('div').parents('div').parents('div').find('.bairro').val('');
+							
+						}else if(self.parents('div').parents('div').parents('div').parents('div').find('.bairro').length){
+							self.parents('div').parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly-disabled');
+							self.parents('div').parents('div').parents('div').parents('div').find('.bairro').removeAttr('readonly');
+							self.parents('div').parents('div').parents('div').parents('div').find('.bairro').val('');
+							
+						}
+					}
+				},
+			});
+		}
+	});
+
+	$(document).on('input', '.estado', function(){
+	    let inputValue = $(this).val().toUpperCase();
+	    inputValue = inputValue.replace(/[^A-Z]/g, '');
+	    if(inputValue.length > 2) {
+	        inputValue = inputValue.slice(0, 2);
+	    }
+	    $(this).val(inputValue);
+	});
+
+	/**/
+		$(document).on('click', '.div-money-opc .moeda', function(){
+			$(this).find('.ph-caret-down').addClass('ph-caret-up');
+			$(this).find('.ph-caret-down').addClass('div-money-opc-active');
+			$(this).find('.ph-caret-down').removeClass('ph-caret-down');
+
+			var html = `
+			<ul class="money-opc">
+				<li value="real">R$</li>
+				<li value="porcentagem">%</li>
+			</ul>
+			<div class="bg-money-opc"></div>
+			`;
+			$(this).parent().before(html);
+		});
+
+		$(document).on('click', '.bg-money-opc', function(){
+			$('.money-opc').remove();
+			$('.bg-money-opc').remove();
+			$('.div-money-opc-active').addClass('ph-caret-down');
+			$('.div-money-opc-active').removeClass('ph-caret-up');
+			$('.div-money-opc-active').removeClass('div-money-opc-active');
+		});
+
+		$(document).on('click', '.money-opc li', function(){
+			console.log($(this));
+			$(this).parent().parent().find('.div-money-opc').find('.moeda').find('span').text($(this).text());
+			$(this).parent().parent().find('[receber-tipo-desconto="true"]').val($(this).attr('value'));
+			$(this).parent().parent().find('.money').focus();
+			$('.bg-money-opc').trigger('click');
+		});
+	/**/
 });
 
 // Função de Alerta
@@ -152,3 +482,12 @@ function alerta(mensagem, tipo, time){
 // function ocultar_loading(){
 // 	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');
 // }
+
+function float_para_real(valor) {
+    if(valor){
+        valor = parseFloat(valor.replace(',', '.'));
+        return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }else{
+        return '0,00';
+    }
+}

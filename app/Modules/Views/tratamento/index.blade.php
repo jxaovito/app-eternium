@@ -1,11 +1,11 @@
 @extends('default.layout')
 @section('content')
-<div class="container-paciente">
+<div class="container-tratamento">
 	<div class="header mgb-px-30 d-flex justify-content-between">
 		<h2>Tratamentos</h2>
 
 		<div>
-			<a href=""><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Paciente</button></a>
+			<a href="/tratamento/novo/"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Tratamento</button></a>
 		</div>
 	</div>
 

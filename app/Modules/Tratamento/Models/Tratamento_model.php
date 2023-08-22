@@ -29,4 +29,22 @@ class Tratamento_model extends Model {
     
     	return $this->insertGetId($dados);
 	}
+
+	function update_table($table, $where, $dados){
+        $this->setTable($table);
+    
+	    return DB::table($this->table)
+        ->where($where)
+        ->update($dados);
+    }
+
+    function get_al_profissional(){
+    	return $this->setTable('profissional AS pr')
+    				  ->select('pr.id as profissional_id', 'pr.nome as profissional')
+    				  ->join('usuario AS u', function ($join) {
+					        $join->on('u.id', '=', 'pr.usuario_id');
+					    })
+    				  ->where('u.deletado', '=', '0')
+    				  ->orderBy('pr.nome', 'ASC')->get()->toArray();
+    }
 }

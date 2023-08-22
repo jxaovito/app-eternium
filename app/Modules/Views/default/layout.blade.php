@@ -25,6 +25,7 @@
         <script src="{{ asset('js/slim') }}/select2.min.js"></script>
         <link rel="stylesheet" href="{{ asset('css/min') }}/select2.min.css"/>
         <script type="text/javascript" src="{{ asset('js/functions.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/autocomplete.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/slim/jquery.mask.js') }}"></script>
         <script src="{{ asset('js/slim') }}/popper.min.js"></script>
         <script type="text/javascript" src="{{ asset('js/mascaras.js') }}"></script>
@@ -41,6 +42,7 @@
 
         @if(isset($pagina) && $pagina == 'paciente')
         <link rel="stylesheet" href="{{ asset('css/paciente.css') }}">
+        <script type="text/javascript" src="{{ asset('js/paciente.js') }}"></script>
         @endif
 
         @if(isset($pagina) && $pagina == 'profissional')
@@ -70,9 +72,14 @@
         <script type="text/javascript" src="{{ asset('js/procedimento.js') }}"></script>
         @endif
 
+        @if(isset($pagina) && $pagina == 'tratamento')
+        <script type="text/javascript" src="{{ asset('js/tratamento.js') }}"></script>
+        @endif
+
         <style>
             :root{
                 --cor-logo-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>;
+                --cor-logo-cliente-transp: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>4f;
                 --cor-font-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_font'] ?>;
                 --cor-menu-superior-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_menu_topo'] ?>;
                 --font-regular: 'Montserrat-Regular', sans-serif;

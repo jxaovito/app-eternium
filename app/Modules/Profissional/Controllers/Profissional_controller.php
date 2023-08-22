@@ -399,4 +399,12 @@ class Profissional_controller extends Controller{
             return redirect()->route('horario', ['id' => $id]);
         }
     }
+
+    public function get_especialidade_by_profissional_id(Request $request){
+        $id = $request->input('id');
+
+        $registros = $this->Profissional_model->get_especialidade_by_profissional_id($id);
+
+        echo json_encode($registros);
+    }
 }

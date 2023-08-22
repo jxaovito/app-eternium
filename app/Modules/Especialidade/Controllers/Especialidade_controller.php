@@ -176,4 +176,10 @@ class Especialidade_controller extends Controller{
 
         return redirect()->route('especialidade');
     }
+
+    public function get_all_especialidade(){
+        $registros = $this->Especialidade_model->get_all_table('especialidade', array('deletado' => '0'));
+
+        echo json_encode($registros);
+    }
 }

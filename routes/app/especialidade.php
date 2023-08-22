@@ -13,4 +13,6 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
     Route::get('/especialidade/ativar/{id}', [Especialidade_controller::class, 'ativar'])->name('ativar');
     Route::post('/especialidade/filtrar', [Especialidade_controller::class, 'filtrar'])->name('filtrar');
     Route::get('/especialidade/limpar_filtro', [Especialidade_controller::class, 'limpar_filtro'])->name('limpar_filtro');
+
+    Route::post('/especialidade/get_all_especialidade', [Especialidade_controller::class, 'get_all_especialidade'])->name('get_all_especialidade');
 });

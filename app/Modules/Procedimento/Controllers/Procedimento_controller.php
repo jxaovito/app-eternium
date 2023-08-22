@@ -164,4 +164,13 @@ class Procedimento_controller extends Controller{
         }
         return redirect()->route('editar_procedimento', ['id' => $id]);
     }
+
+    public function busca_procedimento_by_nome_and_convenio(Request $request){
+        $nome = $request->input('nome');
+        $convenio_id = $request->input('convenio_id');
+
+        $registros = $this->Procedimento_model->busca_procedimento_by_nome_and_convenio($nome, $convenio_id);
+
+        echo json_encode($registros);
+    }
 }

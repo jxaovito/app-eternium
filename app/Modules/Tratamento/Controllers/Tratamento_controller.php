@@ -29,4 +29,16 @@ class Tratamento_controller extends Controller{
 
         return view('tratamento.index', $_dados);
     }
+
+    public function novo(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Adicionar Tratamentos');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $_dados['convenios'] = $this->Tratamento_model->get_all_table('convenio', array('deletado' => '0'));
+        $_dados['especialidades'] = $this->Tratamento_model->get_all_table('especialidade', array('deletado' => '0'));
+        $_dados['profissionais'] = $this->Tratamento_model->get_al_profissional();
+        $_dados['pagina'] = 'tratamento';
+
+        return view('tratamento.novo', $_dados);
+    }
 }
