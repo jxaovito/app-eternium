@@ -35,6 +35,10 @@ class Tratamento_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['convenios'] = $this->Tratamento_model->get_all_table('convenio', array('deletado' => '0'));
+        $_dados['forma_pagamento'] = $this->Tratamento_model->get_all_table('fin_forma_pagamento', array('deletado' => '0'), 'nome');
+        $_dados['parcelas_pagamento'] = $this->Tratamento_model->get_all_table('fin_parcelas_pagamento', null, 'parcela');
+        $_dados['contas'] = $this->Tratamento_model->get_all_table('fin_conta', null, 'nome');
+        $_dados['categorias'] = $this->Tratamento_model->get_all_table('fin_categoria', array('deletado' => '0'), 'nome');
         $_dados['especialidades'] = $this->Tratamento_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['profissionais'] = $this->Tratamento_model->get_al_profissional();
         $_dados['pagina'] = 'tratamento';

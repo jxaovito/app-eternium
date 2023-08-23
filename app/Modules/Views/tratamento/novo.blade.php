@@ -129,6 +129,83 @@
         <div class="w-100">
         	<h5 class="mgt-px-30">Pagamento</h5>
         </div>
+
+        <div class="mb-3 w-15">
+            <label for="" class="form-label">Forma de Pagamento</label>
+            <select class="select2 especialidade">
+        		<option value="">Selecione...</option>
+        		@if($forma_pagamento)
+        			@foreach($forma_pagamento as $pagamento)
+        				<option value="{{$pagamento['id']}}">{{$pagamento['nome']}}</option>
+        			@endforeach
+				@endif
+            </select>
+        </div>
+
+        <div class="mb-3 w-15">
+            <label for="" class="form-label">Forma de Pagamento</label>
+            <select class="select2 parcela_pagamento">
+        		<option value="">Selecione...</option>
+        		@if($parcelas_pagamento)
+        			@foreach($parcelas_pagamento as $parcela)
+        				<option value="{{$parcela['parcela']}}">{{$parcela['parcela']}}x</option>
+        			@endforeach
+				@endif
+            </select>
+        </div>
+
+        <div class="mb-3 w-15">
+            <label for="data_vencimento" class="form-label">Data de Vencimento</label>
+            <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{date('d-m-Y')}}">
+        </div>
+
+        <div class="mb-3 w-15">
+            <label for="" class="form-label">Categoria</label>
+            <select class="select2 categoria" required>
+        		<option value="">Selecione...</option>
+        		@if($categorias)
+        			@foreach($categorias as $categoria)
+        				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
+        			@endforeach
+				@endif
+            </select>
+        </div>
+
+        <div class="mb-3 w-15">
+            <label for="" class="form-label">Subcategoria</label>
+            <select class="select2 subcategoria" required>
+        		<option value="">Selecione...</option>
+        		@if($categorias)
+        			@foreach($categorias as $categoria)
+        				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
+        			@endforeach
+				@endif
+            </select>
+        </div>
+
+        <div class="mb-3 w-15">
+            <label for="" class="form-label">Conta</label>
+            <select class="select2 conta" required>
+        		<option value="">Selecione...</option>
+        		@if($contas)
+        			@foreach($contas as $conta)
+        				<option value="{{$conta['id']}}">{{$conta['nome']}}</option>
+        			@endforeach
+				@endif
+            </select>
+        </div>
+
+        <div class="mb-3 w-100">
+        	<label for="observacoes_tratamento" class="form-label">Observações do Tratamento</label>
+        	<textarea id="observacoes_tratamento" name="observacoes_tratamento" class="form-control"></textarea>
+		</div>
+
+		<div class="w-100 mgt-px-50">
+            <div class="mb-3 d-flex justify-content-between">
+                <a href="/profissional" class="btn btn-default bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> Voltar</a>
+                <button type="submit" class="btn btn-success bg-cor-logo-cliente">Salvar <i class="ph ph-check"></i></button>
+            </div>
+        </div>
 	</form>
 </div>
 

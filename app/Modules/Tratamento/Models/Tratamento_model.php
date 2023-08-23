@@ -8,11 +8,20 @@ class Tratamento_model extends Model {
     protected $table = 'tratamento';
     protected $connection = 'mysql_db';
 
-    function get_all_table($table, $where = null){
+    function get_all_table($table, $where = null, $order_by = null){
 		$this->setTable($table);
 	
 		if($where){
-			return $this->where($where)->get()->toArray();
+			if($order_by){
+				return $this->where($where)->orderBy($order_by, 'ASC')->get()->toArray();
+			}else{
+				return $this->where($where)->get()->toArray();
+			}
+
+		}else{
+			if($order_by){
+				return $this->where($where)->orderBy($order_by, 'ASC')->get()->toArray();
+			}
 		}
 	
 		return $this->get()->toArray();
