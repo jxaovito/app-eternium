@@ -1,0 +1,17 @@
+.container-tratamento-novo{
+	form{
+
+		h5{
+			label{
+				font-size: 20px!important;
+			}
+		}
+		.pagamentos-tratamento{
+			display: none;
+
+			.select2-container{
+				width: 100%!important;
+			}
+		}
+	}
+}

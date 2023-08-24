@@ -65,6 +65,9 @@ function autocomplete(dados, elemento, classe_div){
 			element.parents('.procedimentos-clone').find('[name="procedimento_id[]"]').val('');
 		}
 		
+		element.parents('.procedimentos-clone').find('[name="codigo_procedimento[]"]').trigger('input');
+		element.parents('.procedimentos-clone').find('[name="valor_procedimento[]"]').trigger('input');
+		element.parents('.procedimentos-clone').find('[name="procedimento_id[]"]').trigger('input');
 	});
 /**/
 

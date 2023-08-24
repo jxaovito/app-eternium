@@ -1,0 +1,11 @@
+.container-tratamento-novo form h5 label {
+  font-size: 20px !important;
+}
+.container-tratamento-novo form .pagamentos-tratamento {
+  display: none;
+}
+.container-tratamento-novo form .pagamentos-tratamento .select2-container {
+  width: 100% !important;
+}
+
+/*# sourceMappingURL=tratamento.css.map */

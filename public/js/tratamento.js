@@ -1,4 +1,12 @@
 $(document).ready(function(){
+	$(document).on('change', '#pagamentos', function(){
+		if($(this).is(':checked')){
+			$('.pagamentos-tratamento').show('fast');
+		}else{
+			$('.pagamentos-tratamento').hide('fast');
+		}
+	});
+
 	$('#busca_paciente_tratamento').on('input', function(){
 		var self = $(this);
 		if($(this).val().length > 0){
@@ -116,5 +124,127 @@ $(document).ready(function(){
 
 	$(document).on('click', '.remover_procedimento_tratamento', function(){
 		$(this).parents('.procedimentos-clone').remove();
+		$('[name="sessoes_procedimento[]"]').trigger('input');
+	});
+
+	$(document).on('input', '[name="valor_procedimento[]"], [name="desconto_procedimento[]"], [name="tipo_desconto[]"], [name="sessoes_procedimento[]"]', function(){
+		var valor = $(this).parents('.procedimentos-clone').find('[name="valor_procedimento[]"]').val();
+		var desconto = $(this).parents('.procedimentos-clone').find('[name="desconto_procedimento[]"]').val();
+		var tipo_desconto = $(this).parents('.procedimentos-clone').find('[name="tipo_desconto[]"]').val();
+		var sessoes = $(this).parents('.procedimentos-clone').find('[name="sessoes_procedimento[]"]').val();
+
+
+		valor = (valor ? real_para_float(valor) : 0) * sessoes;
+		desconto = desconto ? real_para_float(desconto) : 0;
+		tipo_desconto = tipo_desconto ? tipo_desconto : 'real';
+
+		var total = valor;
+		if(tipo_desconto == 'porcentagem' && desconto){
+			total = valor - (valor * desconto / 100);
+
+		}else if(tipo_desconto == 'real'){
+			total = valor - desconto;
+		}
+
+		$(this).parents('.procedimentos-clone').find('[name="total_procedimento[]"]').val(float_para_real(total));
+		$(this).parents('.procedimentos-clone').find('[name="total_procedimento[]"]').trigger('input');
+
+		if(total < 0){
+			alerta('O valor do Procedimento não pode ser Negativo', 'vermelho');
+		}
+	});
+
+	$(document).on('input', '[name="total_procedimento[]"]', function(){
+		var subtotal = 0;
+		$.each($('.container-tratamento-novo form [name="total_procedimento[]"]'), function(){
+			var val = $(this).val() ? parseInt($(this).val()) : 0;
+			subtotal = subtotal + val;
+		});
+
+		$('[name="subtotal"]').val(float_para_real(subtotal));
+
+		if(subtotal < 0){
+			alerta('O valor do tratamento não pode ser Negativo', 'vermelho');
+		}
+	});
+
+	$(document).on('input', '[name="sessoes_procedimento[]"]', function(){
+		var total_sessoes = 0;
+		$.each($('.container-tratamento-novo form [name="sessoes_procedimento[]"]'), function(){
+			var val = $(this).val() ? parseInt($(this).val()) : 0;
+			total_sessoes = total_sessoes + val;
+		});
+
+		$('[name="total_sessoes"]').val(total_sessoes);
+	});
+
+	$(document).on('input', '[name="desconto_real"], [name="sessoes_procedimento[]"], [name="valor_procedimento[]"], [name="desconto_procedimento[]"], [name="tipo_desconto[]"], [name="sessoes_procedimento[]"]', function(){
+		if($('[name="subtotal"]').val()){
+			if($('[name="desconto_real"]').val()){
+				var total = real_para_float($('[name="subtotal"]').val());
+				var desconto = $('[name="desconto_real"]').val() ? real_para_float($('[name="desconto_real"]').val()) : 0;
+
+				total = total - desconto;
+
+				if(total < 0){
+					alerta('O total do tratamento não pode ser negativo.');
+					$('[name="total"]').val('');
+					return false;
+
+				}else{
+					$('[name="total"]').val(float_para_real(total));
+
+				}
+
+				$('[name="desconto_porcentagem"]').attr('readonly-disabled', 'readonly-disabled');
+				$('[name="desconto_porcentagem"]').attr('readonly', 'readonly');
+				$('[name="desconto_porcentagem"]').val('');
+
+			}else{
+				$('[name="total"]').val($('[name="subtotal"]').val());
+
+				$('[name="desconto_porcentagem"]').removeAttr('readonly-disabled');
+				$('[name="desconto_porcentagem"]').removeAttr('readonly');
+				$('[name="desconto_porcentagem"]').val('');
+			}
+		}else{
+			alerta('Você não pode aplicar o desconto sem haver um subtotal.', 'vermelho');
+			$('[name="desconto_real"]').val('');
+		}
+	});
+
+	$(document).on('input, keyup', '[name="desconto_porcentagem"], [name="sessoes_procedimento[]"], [name="valor_procedimento[]"], [name="desconto_procedimento[]"], [name="tipo_desconto[]"], [name="sessoes_procedimento[]"]', function(){
+		if($('[name="subtotal"]').val()){
+			if($('[name="desconto_porcentagem"]').val()){
+				var total = real_para_float($('[name="subtotal"]').val());
+				var desconto = $('[name="desconto_porcentagem"]').val() ? real_para_float($('[name="desconto_porcentagem"]').val()) : 0;
+
+				total = total - (total * desconto / 100);
+
+				if(total < 0){
+					alerta('O total do tratamento não pode ser negativo.');
+					$('[name="total"]').val('');
+					return false;
+
+				}else{
+					$('[name="total"]').val(float_para_real(total));
+
+				}
+
+				$('[name="desconto_real"]').attr('readonly-disabled', 'readonly-disabled');
+				$('[name="desconto_real"]').attr('readonly', 'readonly');
+				$('[name="desconto_real"]').val('');
+
+			}else{
+				$('[name="total"]').val($('[name="subtotal"]').val());
+				
+				$('[name="desconto_real"]').removeAttr('readonly-disabled');
+				$('[name="desconto_real"]').removeAttr('readonly');
+				$('[name="desconto_real"]').val('');
+			}
+		}else{
+			alerta('Você não pode aplicar o desconto sem haver um subtotal.', 'vermelho');
+			$('[name="desconto_porcentagem"]').val('');
+		}
 	});
 });

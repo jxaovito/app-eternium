@@ -83,13 +83,13 @@
     		<div class="content-procedimentos w-100 d-flex flex-wrap justify-content-between">
 
     		</div>
-    		<div class="d-flex justify-content-center w-100 text-align-center add_procedimento mgt-px-30">
+    		<div class="d-flex justify-content-center w-100 text-align-center mgt-px-30">
 				<i 
 					data-bs-toggle="tooltip"
 	                data-bs-placement="bottom"
 	                data-bs-custom-class="custom-tooltip"
 	                data-bs-title="Adicionar Procedimento"
-					class="ph ph-plus icone-nome minimo pointer"
+					class="ph ph-plus icone-nome minimo pointer add_procedimento"
 				></i>
 			</div>
         </div>
@@ -101,22 +101,34 @@
 
         <div class="mb-3 w-10">
             <label for="" class="form-label" required>Subtotal</label>
-            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control">
+            <div class="div-money">
+                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <input type="text" readonly readonly-disabled name="subtotal" class="form-control money">
+            </div>
         </div>
 
         <div class="mb-3 w-10">
             <label for="" class="form-label">Descontos em R$</label>
-            <input type="text" name="desconto_real" class="form-control">
+            <div class="div-money">
+                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <input type="text" name="desconto_real" class="form-control money">
+            </div>
         </div>
 
         <div class="mb-3 w-10">
             <label for="" class="form-label">Descontos em %</label>
-            <input type="text" name="desconto_porcentagem" class="form-control">
+            <div class="div-money">
+                <label for="valor_procedimento" class="moeda"><span>%</span></label>
+                <input type="text" name="desconto_porcentagem" class="form-control money">
+            </div>
         </div>
 
         <div class="mb-3 w-10">
             <label for="" class="form-label" required>Total</label>
-            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control">
+            <div class="div-money">
+                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <input type="text" readonly readonly-disabled name="total" class="form-control money">
+            </div>
         </div>
 
         <div class="mb-3 w-10">
@@ -126,79 +138,83 @@
         <div class="mb-3 w-10">
         </div>
 
-        <div class="w-100">
-        	<h5 class="mgt-px-30">Pagamento</h5>
+        <div class="mb-3 w-100 mgt-px-10">
+            <label for="observacoes_tratamento" class="form-label">Observações do Tratamento</label>
+            <textarea id="observacoes_tratamento" name="observacoes_tratamento" class="form-control"></textarea>
         </div>
 
-        <div class="mb-3 w-15">
-            <label for="" class="form-label">Forma de Pagamento</label>
-            <select class="select2 especialidade">
-        		<option value="">Selecione...</option>
-        		@if($forma_pagamento)
-        			@foreach($forma_pagamento as $pagamento)
-        				<option value="{{$pagamento['id']}}">{{$pagamento['nome']}}</option>
-        			@endforeach
-				@endif
-            </select>
+        <div class="w-100 d-flex">
+            <h5 class="mgt-px-10"><input name="pagamentos" id="pagamentos" type="checkbox" class="check-checkbox" value="1"> <label for="pagamentos">Pagamento</label></h5>
         </div>
 
-        <div class="mb-3 w-15">
-            <label for="" class="form-label">Forma de Pagamento</label>
-            <select class="select2 parcela_pagamento">
-        		<option value="">Selecione...</option>
-        		@if($parcelas_pagamento)
-        			@foreach($parcelas_pagamento as $parcela)
-        				<option value="{{$parcela['parcela']}}">{{$parcela['parcela']}}x</option>
-        			@endforeach
-				@endif
-            </select>
-        </div>
+        <div class="w-100 pagamentos-tratamento">
+            <div class="w-100 d-flex flex-wrap justify-content-between">
+                <div class="mb-3 w-15">
+                    <label for="" class="form-label">Forma de Pagamento</label>
+                    <select class="select2 especialidade">
+                		<option value="">Selecione...</option>
+                		@if($forma_pagamento)
+                			@foreach($forma_pagamento as $pagamento)
+                				<option value="{{$pagamento['id']}}">{{$pagamento['nome']}}</option>
+                			@endforeach
+        				@endif
+                    </select>
+                </div>
 
-        <div class="mb-3 w-15">
-            <label for="data_vencimento" class="form-label">Data de Vencimento</label>
-            <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{date('d-m-Y')}}">
-        </div>
+                <div class="mb-3 w-15">
+                    <label for="" class="form-label">Forma de Pagamento</label>
+                    <select class="select2 parcela_pagamento">
+                		<option value="">Selecione...</option>
+                		@if($parcelas_pagamento)
+                			@foreach($parcelas_pagamento as $parcela)
+                				<option value="{{$parcela['parcela']}}">{{$parcela['parcela']}}x</option>
+                			@endforeach
+        				@endif
+                    </select>
+                </div>
 
-        <div class="mb-3 w-15">
-            <label for="" class="form-label">Categoria</label>
-            <select class="select2 categoria" required>
-        		<option value="">Selecione...</option>
-        		@if($categorias)
-        			@foreach($categorias as $categoria)
-        				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
-        			@endforeach
-				@endif
-            </select>
-        </div>
+                <div class="mb-3 w-15">
+                    <label for="data_vencimento" class="form-label">Data de Vencimento</label>
+                    <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{date('d-m-Y')}}">
+                </div>
 
-        <div class="mb-3 w-15">
-            <label for="" class="form-label">Subcategoria</label>
-            <select class="select2 subcategoria" required>
-        		<option value="">Selecione...</option>
-        		@if($categorias)
-        			@foreach($categorias as $categoria)
-        				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
-        			@endforeach
-				@endif
-            </select>
-        </div>
+                <div class="mb-3 w-15">
+                    <label for="" class="form-label">Categoria</label>
+                    <select class="select2 categoria" required>
+                		<option value="">Selecione...</option>
+                		@if($categorias)
+                			@foreach($categorias as $categoria)
+                				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
+                			@endforeach
+        				@endif
+                    </select>
+                </div>
 
-        <div class="mb-3 w-15">
-            <label for="" class="form-label">Conta</label>
-            <select class="select2 conta" required>
-        		<option value="">Selecione...</option>
-        		@if($contas)
-        			@foreach($contas as $conta)
-        				<option value="{{$conta['id']}}">{{$conta['nome']}}</option>
-        			@endforeach
-				@endif
-            </select>
-        </div>
+                <div class="mb-3 w-15">
+                    <label for="" class="form-label">Subcategoria</label>
+                    <select class="select2 subcategoria" required>
+                		<option value="">Selecione...</option>
+                		@if($categorias)
+                			@foreach($categorias as $categoria)
+                				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
+                			@endforeach
+        				@endif
+                    </select>
+                </div>
 
-        <div class="mb-3 w-100">
-        	<label for="observacoes_tratamento" class="form-label">Observações do Tratamento</label>
-        	<textarea id="observacoes_tratamento" name="observacoes_tratamento" class="form-control"></textarea>
-		</div>
+                <div class="mb-3 w-15">
+                    <label for="" class="form-label">Conta</label>
+                    <select class="select2 conta" required>
+                		<option value="">Selecione...</option>
+                		@if($contas)
+                			@foreach($contas as $conta)
+                				<option value="{{$conta['id']}}">{{$conta['nome']}}</option>
+                			@endforeach
+        				@endif
+                    </select>
+                </div>
+            </div>
+        </div>
 
 		<div class="w-100 mgt-px-50">
             <div class="mb-3 d-flex justify-content-between">
@@ -221,7 +237,7 @@
 	</div>
 
 	<div class="w-15">
-		<input type="text" name="sessoes_procedimento[]" class="form-control">
+		<input type="text" name="sessoes_procedimento[]" class="form-control number">
 	</div>
 
 	<div class="w-10">
@@ -240,7 +256,10 @@
 	</div>
 
 	<div class="w-10 text-center">
-		<input type="text" name="total_procedimento[]" class="form-control money">
+        <div class="div-money">
+            <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+            <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled >
+        </div>
 	</div>
 
 	<div class="w-10 d-flex align-items-center justify-content-center">

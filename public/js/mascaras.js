@@ -29,6 +29,11 @@ function mascaras(){
 		$('.money').mask('000.000.000.000.000,00', {reverse: true});
 	});
 
+	$('.number').mask('#0', {reverse: true});
+	$(document).on('focus', '.number', function(){
+		$('.number').mask('#0', {reverse: true});
+	});
+
 	$('.porcentagem').mask('##0,00%', {reverse: true});
 	$(document).on('focus', '.porcentagem', function(){
 		$('.porcentagem').mask('##0,00%', {reverse: true});

@@ -341,6 +341,17 @@ select {
   color: #454545 !important;
 }
 
+.check-checkbox {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type=checkbox], input[type=radio] {
     --active: #275EFE;

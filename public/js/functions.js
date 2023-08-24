@@ -447,9 +447,9 @@ $(document).ready(function(){
 		});
 
 		$(document).on('click', '.money-opc li', function(){
-			console.log($(this));
 			$(this).parent().parent().find('.div-money-opc').find('.moeda').find('span').text($(this).text());
 			$(this).parent().parent().find('[receber-tipo-desconto="true"]').val($(this).attr('value'));
+			$(this).parent().parent().find('[receber-tipo-desconto="true"]').trigger('input');
 			$(this).parent().parent().find('.money').focus();
 			$('.bg-money-opc').trigger('click');
 		});
@@ -484,10 +484,22 @@ function alerta(mensagem, tipo, time){
 // }
 
 function float_para_real(valor) {
-    if(valor){
+    if(typeof valor === 'string'){
         valor = parseFloat(valor.replace(',', '.'));
+    }
+
+    if(!isNaN(valor)){
         return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }else{
         return '0,00';
     }
+}
+
+function real_para_float(valor){
+	if(valor){
+		valor = valor.replace(/\./g, '').replace(',', '.');
+		return parseFloat(valor);
+	}else{
+		return 0.0;
+	}
 }

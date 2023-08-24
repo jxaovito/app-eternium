@@ -74,6 +74,7 @@
 
         @if(isset($pagina) && $pagina == 'tratamento')
         <script type="text/javascript" src="{{ asset('js/tratamento.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/tratamento.css') }}">
         @endif
 
         <style>
