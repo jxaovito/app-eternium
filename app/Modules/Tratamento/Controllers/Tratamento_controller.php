@@ -45,4 +45,148 @@ class Tratamento_controller extends Controller{
 
         return view('tratamento.novo', $_dados);
     }
+
+    public function novo_salvar(Request $request){
+        $check_auth = checkAuthentication($this->class, 'novo', 'Adicionar Tratamentos');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $request = $request->all();
+        $tipo_desconto = null;
+        if($request['desconto_real']){
+            $tipo_desconto = '0';
+
+        }else if($request['desconto_porcentagem']){
+            $tipo_desconto = '1';
+        }
+
+        $tratamento = array(
+            'data_hora' => date('Y-m-d H:i:s'),
+            'paciente_id' => $request['paciente_id'],
+            'profissional_id' => $request['profissional'],
+            'usuario_id' => session('usuario_id'),
+            'sessoes_contratada' => $request['total_sessoes'],
+            'sessoes_consumida' => 0,
+            'observacoes' => $request['observacoes_tratamento'],
+            'subtotal' => str_replace(',', '.', $request['subtotal']),
+            'desconto_real' => str_replace(',', '.', $request['desconto_real']),
+            'desconto_porcento' => str_replace(',', '.', $request['desconto_porcentagem']),
+            'tipo_desconto' => $tipo_desconto,
+            'total' => str_replace(',', '.', $request['total']),
+        );
+
+        $tratamento_id = $this->Tratamento_model->insert_dados('tratamento', $tratamento);
+
+        foreach($request['procedimento_id'] as $key => $procedimento_id){
+            $tipo_desconto = null;
+            if($request['tipo_desconto'][$key] == 'real'){
+                $tipo_desconto = '0';
+
+            }else{
+                $tipo_desconto = '1';
+            }
+
+            $tratamento_has_procedimento = array(
+                'tratamento_id' => $tratamento_id,
+                'procedimento_id' => $request['procedimento_id'][$key],
+                'sessoes_contratada' => $request['sessoes_procedimento'][$key],
+                'sessoes_consumida' => 0,
+                'subtotal' => str_replace(',', '.', $request['valor_procedimento'][$key]) * $request['sessoes_procedimento'][$key],
+                'desconto_real' => ($tipo_desconto == '0' && $request['desconto_procedimento'][$key] ? str_replace(',', '.', $request['desconto_procedimento'][$key]) : null),
+                'desconto_porcento' => ($tipo_desconto == '1' && $request['desconto_procedimento'][$key] ? str_replace(',', '.', $request['desconto_procedimento'][$key]) : null),
+                'tipo_desconto' => $tipo_desconto,
+                'total' => str_replace(',', '.', $request['total_procedimento'][$key]),
+            );
+
+            $tratamento_has_procedimento_id = $this->Tratamento_model->insert_dados('tratamento_has_procedimento', $tratamento_has_procedimento);
+        }
+
+        $perfil_criador_tratamento = $this->Tratamento_model->get_usuario_criador_tratamento(session('usuario_id'))[0]['nome'];
+
+        $data_vencimento = ($request['data_vencimento'] ? date_format(date_create_from_format('d/m/Y', $request['data_vencimento']), 'Y-m-d') : null);
+
+        if(isset($request['pagamentos']) && $request['pagamentos']){
+            $fin_lacamento_financeiro = array(
+                'data_hora' => date('Y-m-d H:i:s'),
+                'data_vencimento' => $data_vencimento,
+                'interessado_paciente_id' => $request['paciente_id'],
+                'interessado_profissional_id' => null,
+                'interessado_usuario_id' => null,
+                'criado_por' => $perfil_criador_tratamento,
+                'usuario_id' => session('usuario_id'),
+                'tratamento_id' => $tratamento_id,
+                'agenda_id' => null,
+                'fin_forma_pagamento_id' => $request['forma_pagamento'],
+                'fin_parcelas_pagamento_id' => $request['parcela_pagamento'],
+                'fin_categoria_id' => $request['categoria'],
+                'fin_subcategoria_id' => $request['subcategoria'],
+                'fin_conta_id' => $request['conta'],
+            );
+
+            $fin_lacamento_financeiro_id = $this->Tratamento_model->insert_dados('fin_lacamento_financeiro', $fin_lacamento_financeiro);
+
+            $nome_usuario_corrente = $this->Tratamento_model->get_all_table('usuario', array('id' => session('usuario_id')))[0]['nome'];
+
+            $fin_lacamento_financeiro_log = array(
+                'tipo' => 'insert',
+                'data_hora_interacao' => date('Y-m-d H:i:s'),
+                'usuario_id_interacao' => session('usuario_id'),
+                'nome' => $nome_usuario_corrente,
+                'fin_lancamento_financeiro_id' => $fin_lacamento_financeiro_id,
+                'data_hora' => date('Y-m-d H:i:s'),
+                'data_vencimento' => $data_vencimento,
+                'interessado_paciente_id' => $request['paciente_id'],
+                'interessado_profissional_id' => null,
+                'interessado_usuario_id' => null,
+                'criado_por' => $perfil_criador_tratamento,
+                'usuario_id' => session('usuario_id'),
+                'tratamento_id' => $tratamento_id,
+                'agenda_id' => null,
+                'fin_forma_pagamento_id' => $request['forma_pagamento'],
+                'fin_parcelas_pagamento_id' => $request['parcela_pagamento'],
+                'fin_categoria_id' => $request['categoria'],
+                'fin_subcategoria_id' => $request['subcategoria'],
+                'fin_conta_id' => $request['conta'],
+            );
+
+            $fin_lacamento_financeiro_log_id = $this->Tratamento_model->insert_dados('fin_lacamento_financeiro_log', $fin_lacamento_financeiro_log);
+
+            $parcela = $this->Tratamento_model->get_all_table('fin_parcelas_pagamento', array('id' => $request['parcela_pagamento']))[0]['parcela'];
+            $total_por_parcela = str_replace(',', '.', $request['total']) / (int) $parcela;
+
+            for($i=0; $i < $parcela; $i++){
+                if($i > 0){
+                    $dataCarbon = Carbon::createFromFormat('Y-m-d', $data_vencimento);
+                    $dataCarbon->addMonth(); // Incrementa 1 mês
+                    $data_vencimento = $dataCarbon->format('Y-m-d');
+                }
+
+                $fin_lancamento_parcela = array(
+                    'fin_lacamento_financeiro_id' => $fin_lacamento_financeiro_id,
+                    'data_vencimento' => $data_vencimento,
+                    'valor' => $total_por_parcela,
+                    'valor_restante' => $total_por_parcela,
+                    'quitado' => 'n',
+                );
+
+                $fin_lancamento_parcela_id = $this->Tratamento_model->insert_dados('fin_lancamento_parcela', $fin_lancamento_parcela);
+            }
+        }
+        
+        if($tratamento_id){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Tratamento cadastrado com sucesso!']);
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao cadsatrar o tratamento. Entre em contato com o suporte.']);
+        }
+        return redirect()->route('tratamento');
+    }
+
+    public function get_subcategoria(Request $request){
+        $categoria_id = $request->input('categoria_id');
+
+        $registros = $this->Tratamento_model->get_all_table('fin_subcategoria', array('fin_categoria_id' => $categoria_id, 'deletado' => '0'));
+
+        echo json_encode($registros);
+    }
 }

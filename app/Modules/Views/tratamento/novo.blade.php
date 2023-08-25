@@ -5,7 +5,7 @@
 		<h2>Novo Tratamento</h2>
 	</div>
 
-	<form action="/profissional/novo/" method="post" class="d-flex flex-wrap justify-content-between" enctype="multipart/form-data">
+	<form action="/tratamento/novo_salvar/" method="post" class="d-flex flex-wrap justify-content-between" enctype="multipart/form-data">
 		@csrf
 		<div class="mb-3 w-40">
             <label for="busca_paciente_tratamento" class="form-label" required>Paciente</label>
@@ -151,7 +151,7 @@
             <div class="w-100 d-flex flex-wrap justify-content-between">
                 <div class="mb-3 w-15">
                     <label for="" class="form-label">Forma de Pagamento</label>
-                    <select class="select2 especialidade">
+                    <select class="select2 forma_pagamento" name="forma_pagamento">
                 		<option value="">Selecione...</option>
                 		@if($forma_pagamento)
                 			@foreach($forma_pagamento as $pagamento)
@@ -162,12 +162,12 @@
                 </div>
 
                 <div class="mb-3 w-15">
-                    <label for="" class="form-label">Forma de Pagamento</label>
-                    <select class="select2 parcela_pagamento">
+                    <label for="" class="form-label">Parcelas</label>
+                    <select class="select2 parcela_pagamento" name="parcela_pagamento">
                 		<option value="">Selecione...</option>
                 		@if($parcelas_pagamento)
-                			@foreach($parcelas_pagamento as $parcela)
-                				<option value="{{$parcela['parcela']}}">{{$parcela['parcela']}}x</option>
+                			@foreach($parcelas_pagamento as $key => $parcela)
+                				<option value="{{$parcela['parcela']}}" {{$key == 0 ? 'checked="checked"' : ''}}>{{$parcela['parcela']}}x</option>
                 			@endforeach
         				@endif
                     </select>
@@ -175,12 +175,12 @@
 
                 <div class="mb-3 w-15">
                     <label for="data_vencimento" class="form-label">Data de Vencimento</label>
-                    <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{date('d-m-Y')}}">
+                    <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{date('d-m-Y')}}" name="data_vencimento">
                 </div>
 
                 <div class="mb-3 w-15">
                     <label for="" class="form-label">Categoria</label>
-                    <select class="select2 categoria" required>
+                    <select class="select2 categoria" name="categoria">
                 		<option value="">Selecione...</option>
                 		@if($categorias)
                 			@foreach($categorias as $categoria)
@@ -192,19 +192,13 @@
 
                 <div class="mb-3 w-15">
                     <label for="" class="form-label">Subcategoria</label>
-                    <select class="select2 subcategoria" required>
-                		<option value="">Selecione...</option>
-                		@if($categorias)
-                			@foreach($categorias as $categoria)
-                				<option value="{{$categoria['id']}}">{{$categoria['nome']}}</option>
-                			@endforeach
-        				@endif
+                    <select class="select2 subcategoria" name="subcategoria">
                     </select>
                 </div>
 
                 <div class="mb-3 w-15">
                     <label for="" class="form-label">Conta</label>
-                    <select class="select2 conta" required>
+                    <select class="select2 conta" name="conta">
                 		<option value="">Selecione...</option>
                 		@if($contas)
                 			@foreach($contas as $conta)
@@ -251,7 +245,7 @@
 		<div class="div-money-opc">
 	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
 	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto">
-	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true">
+	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="real">
 	    </div>
 	</div>
 

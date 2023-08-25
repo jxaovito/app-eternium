@@ -1,9 +1,36 @@
 $(document).ready(function(){
-	$(document).on('change', '#pagamentos', function(){
+	$(document).on('change', '[name="pagamentos"]', function(){
 		if($(this).is(':checked')){
 			$('.pagamentos-tratamento').show('fast');
+			$('[name="forma_pagamento"]').parent('div').find('label').attr('required', 'required');
+			$('[name="parcela_pagamento"]').parent('div').find('label').attr('required', 'required');
+			$('[name="data_vencimento"]').parent('div').find('label').attr('required', 'required');
+			$('[name="categoria"]').parent('div').find('label').attr('required', 'required');
+			$('[name="subcategoria"]').parent('div').find('label').attr('required', 'required');
+			$('[name="conta"]').parent('div').find('label').attr('required', 'required');
+
+			$('[name="forma_pagamento"]').attr('required', 'required');
+			$('[name="parcela_pagamento"]').attr('required', 'required');
+			$('[name="data_vencimento"]').attr('required', 'required');
+			$('[name="categoria"]').attr('required', 'required');
+			$('[name="subcategoria"]').attr('required', 'required');
+			$('[name="conta"]').attr('required', 'required');
+
 		}else{
 			$('.pagamentos-tratamento').hide('fast');
+			$('[name="forma_pagamento"]').parent('div').find('label').removeAttr('required');
+			$('[name="parcela_pagamento"]').parent('div').find('label').removeAttr('required');
+			$('[name="data_vencimento"]').parent('div').find('label').removeAttr('required');
+			$('[name="categoria"]').parent('div').find('label').removeAttr('required');
+			$('[name="subcategoria"]').parent('div').find('label').removeAttr('required');
+			$('name="conta"').parent('div').find('label').removeAttr('required');
+
+			$('[name="forma_pagamento"]').removeAttr('required', 'required');
+			$('[name="parcela_pagamento"]').removeAttr('required', 'required');
+			$('[name="data_vencimento"]').removeAttr('required', 'required');
+			$('[name="categoria"]').removeAttr('required', 'required');
+			$('[name="subcategoria"]').removeAttr('required', 'required');
+			$('[name="conta"]').removeAttr('required', 'required');
 		}
 	});
 
@@ -245,6 +272,37 @@ $(document).ready(function(){
 		}else{
 			alerta('Você não pode aplicar o desconto sem haver um subtotal.', 'vermelho');
 			$('[name="desconto_porcentagem"]').val('');
+		}
+	});
+
+	$(document).on('change', '[name="categoria"]', function(){
+		var categoria_id = $(this).val();
+		var token = $('[name="_token"]').val();
+
+		if(categoria_id){
+			$.ajax({
+				url: '/tratamento/get_subcategoria',
+				type: 'post',
+				data: {
+					_token: token,
+					categoria_id: categoria_id
+				},
+				dataType: 'json',
+				success: function(data){
+					if(data.length){
+						$.each(data, function(index, val){
+							$('[name="subcategoria"]').append(`<option value="">Selecione...</option>`);
+							$('[name="subcategoria"]').append(`<option value="${val.id}">${val.nome}</option>`);
+						});
+
+					}else{
+						$('[name="subcategoria"] option').val('');
+						$('[name="subcategoria"] option').remove();
+					}
+
+					$('[name="subcategoria"]').trigger('change');
+				},
+			});
 		}
 	});
 });

@@ -27,6 +27,20 @@ class Tratamento_model extends Model {
 		return $this->get()->toArray();
 	}
 
+	function get_usuario_criador_tratamento($usuario_id){
+		return $this->setTable('usuario as u')
+					->select('an.nome')
+					->join('usuario_has_nivel_permissao as a', function($join){
+						$join->on('a.usuario_id', '=', 'u.id');
+					})
+					->join('auth_nivel_permissao as an', function($join){
+						$join->on('an.id', '=', 'a.auth_nivel_permissao_id');
+					})
+					->where('u.id', '=', $usuario_id)
+					->get()
+					->toArray();
+	}
+
     function delete_dados($table, $where){
 	    $this->setTable($table);
 	    
