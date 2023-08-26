@@ -167,7 +167,7 @@
 
 						<div class="box w-32">
 							<label>Data de Vencimento</label>
-							<span>{{$registro['data_vencimento_carteirinha']}}</span>
+							<span>{{$registro['data_vencimento_carteirinha'] ? date_format(date_create_from_format('Y-m-d', $registro['data_vencimento_carteirinha']), 'd/m/Y') : '00/00/0000'}}</span>
 						</div>
 
 						<h5>Endereço</h5>

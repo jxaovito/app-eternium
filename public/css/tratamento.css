@@ -1,3 +1,17 @@
+.container-tratamento .content-list table tbody tr td .row-table .especialidade_list {
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.container-tratamento .content-list table tbody tr td .row-table .progress-bar {
+  background-color: var(--cor-logo-cliente);
+}
+.container-tratamento .content-list table tbody tr td .row-table .progress {
+  background-color: var(--cor-logo-cliente-transp);
+}
+.container-tratamento .content-list table tbody tr td .row-table .div-text-sessoes-progress span {
+  color: #fff;
+}
+
 .container-tratamento-novo form h5 label {
   font-size: 20px !important;
 }
@@ -6,6 +20,33 @@
 }
 .container-tratamento-novo form .pagamentos-tratamento .select2-container {
   width: 100% !important;
+}
+
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 5px solid black;
+  padding: 5px;
+}
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-inner {
+  width: 150px;
+  height: 150px;
+  border-radius: 80%;
+  background-color: white;
+}
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-inner img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-half-black {
+  border-left-color: var(--cor-logo-cliente-transp);
+  border-right-color: var(--cor-logo-cliente-transp);
+  border-top-color: var(--cor-logo-cliente);
+  border-bottom-color: var(--cor-logo-cliente-transp);
 }
 
 /*# sourceMappingURL=tratamento.css.map */

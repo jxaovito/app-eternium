@@ -25,9 +25,34 @@ class Tratamento_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Tratamentos');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
+        $_dados['registros'] = $this->Tratamento_model->get_all_tratamentos();
+        $_dados['convenio'] = $this->Tratamento_model->get_all_table('convenio', array('deletado' => '0'));
+        $_dados['profissional'] = $this->Tratamento_model->get_all_table('profissional');
+        $_dados['especialidade'] = $this->Tratamento_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['pagina'] = 'tratamento';
 
         return view('tratamento.index', $_dados);
+    }
+
+    //Filtrar Tratamento
+    public function filtrar(Request $request){
+        $request->all();
+        session(['filtro_tratamento_paciente' => $request['paciente']]);
+        session(['filtro_tratamento_profissional' => $request['profissional']]);
+        session(['filtro_tratamento_convenio' => $request['convenio']]);
+        session(['filtro_tratamento_especialidade' => $request['especialidade']]);
+
+        return redirect()->route('tratamento');
+    }
+
+    //Limpar Filtro
+    public function limpar_filtro(){
+        session()->forget('filtro_tratamento_paciente');
+        session()->forget('filtro_tratamento_profissional');
+        session()->forget('filtro_tratamento_convenio');
+        session()->forget('filtro_tratamento_especialidade');
+
+        return redirect()->route('tratamento');
     }
 
     public function novo(){
@@ -63,6 +88,8 @@ class Tratamento_controller extends Controller{
             'data_hora' => date('Y-m-d H:i:s'),
             'paciente_id' => $request['paciente_id'],
             'profissional_id' => $request['profissional'],
+            'especialidade_id' => $request['especialidade'],
+            'convenio_id' => $request['convenio'],
             'usuario_id' => session('usuario_id'),
             'sessoes_contratada' => $request['total_sessoes'],
             'sessoes_consumida' => 0,
@@ -72,6 +99,7 @@ class Tratamento_controller extends Controller{
             'desconto_porcento' => str_replace(',', '.', $request['desconto_porcentagem']),
             'tipo_desconto' => $tipo_desconto,
             'total' => str_replace(',', '.', $request['total']),
+            'fin_lancamento' => (isset($request['pagamentos']) ? 's' : null),
         );
 
         $tratamento_id = $this->Tratamento_model->insert_dados('tratamento', $tratamento);
@@ -188,5 +216,22 @@ class Tratamento_controller extends Controller{
         $registros = $this->Tratamento_model->get_all_table('fin_subcategoria', array('fin_categoria_id' => $categoria_id, 'deletado' => '0'));
 
         echo json_encode($registros);
+    }
+
+    public function visualizar(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Visualizar Tratamento');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+
+        $registros = $this->Tratamento_model->get_tratamento_visualizar($id);
+
+        foreach($registros as $key => $registro){
+            $registros[$key]['procedimentos'] = $this->Tratamento_model->get_procedimentos_tratamento($registro['tratamento_id']);
+            $registros[$key]['parcelas'] = $this->Tratamento_model->get_all_table('fin_lancamento_parcela', array('fin_lancamento_financeiro_id' => $registro['fin_lancamento_financeiro_id']));
+        }
+
+        $_dados['pagina'] = 'tratamento';
+
+        return view('tratamento.visualizar', $_dados);
     }
 }

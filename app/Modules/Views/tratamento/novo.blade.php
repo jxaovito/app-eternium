@@ -15,7 +15,7 @@
 
         <div class="mb-3 w-25">
             <label for="" class="form-label" required>Convenio</label>
-            <select class="select2 convenio" required>
+            <select class="select2 convenio" required name="convenio">
         		<option value="">Selecione...</option>
         		@if($convenios)
         			@foreach($convenios as $convenio)
@@ -39,7 +39,7 @@
 
         <div class="mb-3 w-32">
             <label for="" class="form-label" required>Especialidade</label>
-            <select class="select2 especialidade" required>
+            <select class="select2 especialidade" required name="especialidade">
         		<option value="">Selecione...</option>
         		@if($especialidades)
         			@foreach($especialidades as $especialidade)

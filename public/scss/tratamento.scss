@@ -1,3 +1,33 @@
+.container-tratamento{
+	.content-list{
+		table{
+			tbody{
+				tr{
+					td{
+						.row-table{
+							.especialidade_list{
+								padding: 5px 10px;
+								border-radius: 4px;
+							}
+							.progress-bar{
+								background-color: var(--cor-logo-cliente);
+							}
+							.progress{
+								background-color: var(--cor-logo-cliente-transp);
+							}
+
+							.div-text-sessoes-progress{
+								span{
+									color: #fff;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 .container-tratamento-novo{
 	form{
 
@@ -11,6 +41,45 @@
 
 			.select2-container{
 				width: 100%!important;
+			}
+		}
+	}
+}
+
+.container-tratamento-visualizar{
+	.content-profile{
+		.data-user{
+			.imagem_paciente{
+				$tamanho-img-paciente: 150px;
+				.circle{
+					width: calc($tamanho-img-paciente + 20px);
+					height: calc($tamanho-img-paciente + 20px);
+					border-radius: 50%;
+					background-color: #fff;
+					border: 5px solid black;
+					padding: 5px;
+				}
+
+				.circle-inner{
+					width: $tamanho-img-paciente;
+					height: $tamanho-img-paciente;
+					border-radius: 80%;
+					background-color: white;
+
+					img{
+						width:150px;
+						height:150px;
+						border-radius: 50%;
+						object-fit:cover;
+					}
+				}
+
+				.circle-half-black{
+					border-left-color: var(--cor-logo-cliente-transp);
+					border-right-color: var(--cor-logo-cliente-transp);
+					border-top-color: var(--cor-logo-cliente);
+					border-bottom-color: var(--cor-logo-cliente-transp);
+				}
 			}
 		}
 	}

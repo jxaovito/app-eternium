@@ -97,8 +97,8 @@
 	    </div>
 
 	    <div class="mb-3 w-100">
-	        <label for="data_vencimento_carteirinha_paciente" class="form-label">Observações</label>
-	        <textarea class="form-control" name="observacoes">{{$registro['observacoes']}}</textarea>
+	        <label for="observacoes_paciente" class="form-label">Observações</label>
+	        <textarea class="form-control" name="observacoes" id="observacoes_paciente">{{$registro['observacoes']}}</textarea>
 	    </div>
 
 	    <h5 class="mgt-px-30 w-100">Dados de Convênio</h5>

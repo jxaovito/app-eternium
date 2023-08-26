@@ -7,7 +7,7 @@
 }
 .container-paciente-visualizar .container-paciente .dados-principais {
   width: 25%;
-  height: 80%;
+  min-height: 80%;
   border-radius: 30px;
   box-shadow: 0px 0px 6px #bbb;
   padding: 2%;
@@ -16,6 +16,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--cor-logo-cliente-transp);
+  margin-bottom: 30px;
 }
 .container-paciente-visualizar .container-paciente .dados-principais .icone-nome {
   width: 120px;
