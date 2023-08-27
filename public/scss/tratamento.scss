@@ -43,6 +43,19 @@
 				width: 100%!important;
 			}
 		}
+
+		.credito-paciente{
+			background-color: var(--cor-logo-cliente);
+			color: #fff!important;
+			padding: 10px;
+			border-radius: 10px;
+			margin-top: 20px;
+			background-image: url('http://127.0.0.1:8001/img/credito-money.png');
+			background-attachment: inherit;
+			background-size: 6%;
+			background-repeat: no-repeat;
+			background-position: right;
+		}
 	}
 }
 

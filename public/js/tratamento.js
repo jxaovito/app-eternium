@@ -160,6 +160,12 @@ $(document).ready(function(){
 		var tipo_desconto = $(this).parents('.procedimentos-clone').find('[name="tipo_desconto[]"]').val();
 		var sessoes = $(this).parents('.procedimentos-clone').find('[name="sessoes_procedimento[]"]').val();
 
+		if($(this).attr('sessoes_consumidas') && $(this).val() < $(this).attr('sessoes_consumidas')){
+			alerta(`Já foram realizadas ${$(this).attr('sessoes_consumidas')} sessões. Você não pode definir uma quantidade de sessões menor do que já foi realizada.`, 'vermelho');
+			// $(this).val($(this).attr('sessoes_consumidas'));
+			// sessoes = $(this).attr('sessoes_consumidas');
+		}
+
 
 		valor = (valor ? real_para_float(valor) : 0) * sessoes;
 		desconto = desconto ? real_para_float(desconto) : 0;
@@ -177,7 +183,38 @@ $(document).ready(function(){
 		$(this).parents('.procedimentos-clone').find('[name="total_procedimento[]"]').trigger('input');
 
 		if(total < 0){
-			alerta('O valor do Procedimento não pode ser Negativo', 'vermelho');
+			if($(this).attr('sessoes_consumidas') && $('[name="pagamentos"]').is(':checked')){
+				var valor = $(this).parents('.procedimentos-clone').find('[name="valor_procedimento[]"]').val();
+				valor = valor ? real_para_float(valor) : 0;
+
+				valor = valor * sessoes;
+				var total = valor;
+				if(tipo_desconto == 'porcentagem' && desconto){
+					total = valor - (valor * desconto / 100);
+
+				}else if(tipo_desconto == 'real'){
+					total = valor - desconto;
+				}
+
+
+				var credito_paciente = $('[name="credito_paciente"]').val() ? real_para_float($('[name="credito_paciente"]').val()) : 0;
+				var valor = total * -1;
+				credito_paciente = credito_paciente + valor;
+				$('[name="credito_paciente"]').val(float_para_real(credito_paciente));
+				$(this).parents('.procedimentos-clone').find('[name="total_procedimento[]"]').val(`-${float_para_real(credito_paciente)}`);
+
+				var descontado = $('[name="credito_paciente"]').attr('descontado') ? $('[name="credito_paciente"]').attr('descontado') : '';
+				var descontar =  $(this).parents('.procedimentos-clone').find('[name="procedimento_id[]"]').val();
+
+				descontar = descontado != descontar && descontado ? descontado + ',' + descontar : descontar;
+				$('[name="credito_paciente"]').attr('descontado', descontar);
+
+				alerta('Você adicionou uma sessão menor do que já foi pago pelo <b>paciente</b>. O valor será <b>creditado</b> no registro do paciente.', 'amarelo', 12000);
+				$('.credito-paciente').parent('div').show('fast');
+
+			}else{
+				alerta('O valor do Procedimento não pode ser Negativo', 'vermelho');
+			}
 		}
 	});
 

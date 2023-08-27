@@ -186,17 +186,37 @@ class Tratamento_controller extends Controller{
                     $dataCarbon = Carbon::createFromFormat('Y-m-d', $data_vencimento);
                     $dataCarbon->addMonth(); // Incrementa 1 mês
                     $data_vencimento = $dataCarbon->format('Y-m-d');
+
+                    $fin_lancamento_parcela = array(
+                        'fin_lancamento_financeiro_id' => $fin_lancamento_financeiro_id,
+                        'data_vencimento' => $data_vencimento,
+                        'valor' => $total_por_parcela,
+                        'valor_restante' => $total_por_parcela,
+                        'quitado' => 'n',
+                    );
+
+                    $fin_lancamento_parcela_id = $this->Tratamento_model->insert_dados('fin_lancamento_parcela', $fin_lancamento_parcela);
+
+                }else{
+                    $fin_lancamento_parcela = array(
+                        'fin_lancamento_financeiro_id' => $fin_lancamento_financeiro_id,
+                        'data_vencimento' => date('Y-m-d'),
+                        'valor' => $total_por_parcela,
+                        'valor_restante' => '0.00',
+                        'quitado' => 's',
+                    );
+
+                    $fin_lancamento_parcela_id = $this->Tratamento_model->insert_dados('fin_lancamento_parcela', $fin_lancamento_parcela);
+
+                    $fin_lancamento_parcela_pagamento = array(
+                        'fin_lancamento_parcela_id' => $fin_lancamento_parcela_id,
+                        'data_pagamento' => date('Y-m-d'),
+                        'subtotal' => $total_por_parcela,
+                        'total' => $total_por_parcela,
+                    );
+
+                    $fin_lancamento_parcela_pagamento__id = $this->Tratamento_model->insert_dados('fin_lancamento_parcela_pagamento', $fin_lancamento_parcela_pagamento);
                 }
-
-                $fin_lancamento_parcela = array(
-                    'fin_lancamento_financeiro_id' => $fin_lancamento_financeiro_id,
-                    'data_vencimento' => $data_vencimento,
-                    'valor' => $total_por_parcela,
-                    'valor_restante' => $total_por_parcela,
-                    'quitado' => 'n',
-                );
-
-                $fin_lancamento_parcela_id = $this->Tratamento_model->insert_dados('fin_lancamento_parcela', $fin_lancamento_parcela);
             }
         }
         
@@ -254,6 +274,7 @@ class Tratamento_controller extends Controller{
         $registros = $this->Tratamento_model->get_tratamento_editar($id);
         foreach($registros as $key => $registro){
             $registros[$key]['procedimentos'] = $this->Tratamento_model->get_procedimentos_tratamento($registro['id']);
+            $registros[$key]['parcelas'] = $this->Tratamento_model->get_all_table('fin_lancamento_parcela', array('fin_lancamento_financeiro_id' => $registro['fin_lancamento_financeiro_id']));
         }
         // echo '<pre>';
         // var_dump($registros);

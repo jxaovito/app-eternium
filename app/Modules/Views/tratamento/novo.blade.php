@@ -226,7 +226,7 @@
     	</div>
 
     	<div class="w-25">
-    		<input type="text" name="nome_procedimento[]" class="form-control busca_procedimento_tratamento">
+    		<input type="text" name="nome_procedimento[]" class="form-control busca_procedimento_tratamento" autocomplete="off">
     		<input type="hidden" class="autocomplete_procedimento_id" name="procedimento_id[]">
     	</div>
 

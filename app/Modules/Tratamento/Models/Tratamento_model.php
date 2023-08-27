@@ -95,7 +95,7 @@ class Tratamento_model extends Model {
 
     function get_tratamento_editar($tratamento_id){
     	return $this->setTable('tratamento as t')
-    				->select('t.id', 't.profissional_id', 't.paciente_id', 'pa.nome AS paciente', 't.especialidade_id', 't.convenio_id', 't.observacoes', 't.sessoes_contratada', 't.subtotal', 't.desconto_real', 't.desconto_porcento', 't.tipo_desconto', 't.total', 't.fin_lancamento', 'flf.data_vencimento', 'flf.fin_forma_pagamento_id', 'flf.fin_parcelas_pagamento_id', 'flf.fin_categoria_id', 'flf.fin_subcategoria_id', 'flf.fin_conta_id')
+    				->select('t.id', 't.profissional_id', 't.paciente_id', 'pa.nome AS paciente', 't.especialidade_id', 't.convenio_id', 't.observacoes', 't.sessoes_contratada', 't.subtotal', 't.desconto_real', 't.desconto_porcento', 't.tipo_desconto', 't.total', 't.fin_lancamento', 'flf.data_vencimento', 'flf.fin_forma_pagamento_id', 'flf.fin_parcelas_pagamento_id', 'flf.fin_categoria_id', 'flf.fin_subcategoria_id', 'flf.fin_conta_id', 'flf.id as fin_lancamento_financeiro_id')
     				->join('paciente as pa', function($join){
     					$join->on('pa.id', '=', 't.paciente_id');
     				})
