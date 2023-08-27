@@ -46,7 +46,7 @@ class Tratamento_model extends Model {
 
     function get_tratamento_visualizar($tratamento_id){
     	return $this->setTable('tratamento as t')
-    				->select('t.id as tratamento_id', 'pro.nome AS profissional', 'pa.nome AS paciente', 'pa.imagem AS imagem_paciente', 'es.nome AS especialidade', 'es.cor_fundo AS cor_fundo_esp', 'es.cor_fonte AS cor_fonte_esp', 'co.nome AS convenio', 't.data_hora', 't.sessoes_contratada', 't.sessoes_consumida', 'pa.matricula', 't.observacoes', 't.subtotal', 't.desconto_real', 't.desconto_porcento', 't.total', 't.fin_lancamento', 'flf.data_vencimento', 'fc.nome AS categoria', 'fs.nome AS subcategoria', 'ffp.nome AS forma_pagamento', 'fct.nome AS conta', 'fpp.parcela', 'flf.id as fin_lancamento_financeiro_id')
+    				->select('t.id as tratamento_id', 'pro.nome AS profissional', 'pa.nome AS paciente', 'pa.imagem AS imagem_paciente', 'pa.telefone_principal', 'pa.email', 'pa.data_nascimento', 'es.nome AS especialidade', 'es.cor_fundo AS cor_fundo_esp', 'es.cor_fonte AS cor_fonte_esp', 'co.nome AS convenio', 't.data_hora', 't.sessoes_contratada', 't.sessoes_consumida', 'pa.matricula', 't.observacoes', 't.subtotal', 't.desconto_real', 't.desconto_porcento', 't.total', 't.fin_lancamento', 'flf.data_vencimento', 'fc.nome AS categoria', 'fs.nome AS subcategoria', 'ffp.nome AS forma_pagamento', 'fct.nome AS conta', 'fpp.parcela', 'flf.id as fin_lancamento_financeiro_id')
     				->leftJoin('profissional as pro', function($join){
     					$join->on('pro.id', '=', 't.profissional_id');
     				})
@@ -84,11 +84,25 @@ class Tratamento_model extends Model {
 
     function get_procedimentos_tratamento($tratamento_id){
     	return $this->setTable('tratamento_has_procedimento as thp')
-    				->select('thp.sessoes_contratada', 'thp.sessoes_consumida', 'thp.subtotal', 'thp.desconto_real', 'thp.desconto_porcento', 'thp.tipo_desconto', 'thp.total', 'cp.nome as procedimento')
+    				->select('thp.procedimento_id', 'cp.nome as procedimento', 'cp.codigo', 'cp.valor as procedimento_valor', 'thp.sessoes_contratada', 'thp.sessoes_consumida', 'thp.subtotal', 'thp.desconto_real', 'thp.desconto_porcento', 'thp.tipo_desconto', 'thp.total', 'thp.tipo_desconto')
     				->join('convenio_procedimento as cp', function($join){
     					$join->on('cp.id', '=', 'thp.procedimento_id');
     				})
     				->where('thp.tratamento_id', '=', $tratamento_id)
+    				->get()
+    				->toArray();
+    }
+
+    function get_tratamento_editar($tratamento_id){
+    	return $this->setTable('tratamento as t')
+    				->select('t.id', 't.profissional_id', 't.paciente_id', 'pa.nome AS paciente', 't.especialidade_id', 't.convenio_id', 't.observacoes', 't.sessoes_contratada', 't.subtotal', 't.desconto_real', 't.desconto_porcento', 't.tipo_desconto', 't.total', 't.fin_lancamento', 'flf.data_vencimento', 'flf.fin_forma_pagamento_id', 'flf.fin_parcelas_pagamento_id', 'flf.fin_categoria_id', 'flf.fin_subcategoria_id', 'flf.fin_conta_id')
+    				->join('paciente as pa', function($join){
+    					$join->on('pa.id', '=', 't.paciente_id');
+    				})
+    				->leftJOin('fin_lacamento_financeiro as flf', function($join){
+    					$join->on('flf.tratamento_id', '=', 't.id');
+    				})
+    				->where('t.id', '=', $tratamento_id)
     				->get()
     				->toArray();
     }

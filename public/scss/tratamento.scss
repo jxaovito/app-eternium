@@ -47,8 +47,45 @@
 }
 
 .container-tratamento-visualizar{
+	.content-principal{
+		width: 78%;
+		border-radius: 20px;
+		box-shadow: 0px 0px 2px #9d9d9d;
+		padding: 15px;
+		min-height: 450px;
+
+		.especialidade_list{
+			padding: 5px 10px;
+			border-radius: 4px;
+		}
+
+		.div-resumo-tratamento{
+			background-color: var(--cor-logo-cliente);
+			color: #fff!important;
+			padding: 10px;
+			border-radius: 10px;
+			margin-top: 20px;
+		}
+	}
 	.content-profile{
+		width: 20%;
+		display: flex;
+		justify-content: center;
+		border-radius: 20px;
+		box-shadow: 0px 0px 2px #9d9d9d;
+		padding: 15px;
+		height: auto;
+		position: sticky;
+		top: 20px;
+		align-items: start;
+		flex-wrap: wrap;
+
 		.data-user{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+
 			.imagem_paciente{
 				$tamanho-img-paciente: 150px;
 				.circle{
@@ -75,10 +112,10 @@
 				}
 
 				.circle-half-black{
-					border-left-color: var(--cor-logo-cliente-transp);
-					border-right-color: var(--cor-logo-cliente-transp);
-					border-top-color: var(--cor-logo-cliente);
-					border-bottom-color: var(--cor-logo-cliente-transp);
+					border-left-color: #fff;
+					border-right-color: #fff;
+					border-top-color: #fff;
+					border-bottom-color: #fff;
 				}
 			}
 		}

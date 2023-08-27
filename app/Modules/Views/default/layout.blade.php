@@ -80,7 +80,7 @@
         <style>
             :root{
                 --cor-logo-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>;
-                --cor-logo-cliente-transp: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>4f;
+                --cor-logo-cliente-transp: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>36;
                 --cor-font-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_font'] ?>;
                 --cor-menu-superior-cliente: <?= array_column(session('config_dados'), 'valor', 'variavel')['cor_menu_topo'] ?>;
                 --font-regular: 'Montserrat-Regular', sans-serif;

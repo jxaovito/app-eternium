@@ -201,7 +201,7 @@
 									<div class="progress w-100 d-flex flex-wrap" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 									  <div class="progress-bar h-20px" style="width: {{$porcentagem}}%"></div>
 									  <div class="div-text-sessoes-progress w-100 d-flex justify-content-center relative {{$porcentagem ? 'top--20px' : ''}}">
-										  	<span class="absolute">{{$registro['sessoes_contratada']}}/{{$registro['sessoes_consumida']}}</span>
+										  	<span class="absolute">{{$registro['sessoes_consumida']}}/{{$registro['sessoes_contratada']}}</span>
 									  	</div>
 									</div>
 								</div>
@@ -217,7 +217,7 @@
 											class="ph ph-caret-right icone-nome minimo pointer"
 										></i>
 									</a>
-									<a href="">
+									<a href="/tratamento/editar/{{$registro['tratamento_id']}}">
 										<i 
 											data-bs-toggle="tooltip"
 				                            data-bs-placement="bottom"

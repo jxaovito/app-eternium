@@ -150,7 +150,7 @@ class Tratamento_controller extends Controller{
                 'fin_conta_id' => $request['conta'],
             );
 
-            $fin_lacamento_financeiro_id = $this->Tratamento_model->insert_dados('fin_lacamento_financeiro', $fin_lacamento_financeiro);
+            $fin_lancamento_financeiro_id = $this->Tratamento_model->insert_dados('fin_lacamento_financeiro', $fin_lacamento_financeiro);
 
             $nome_usuario_corrente = $this->Tratamento_model->get_all_table('usuario', array('id' => session('usuario_id')))[0]['nome'];
 
@@ -159,7 +159,7 @@ class Tratamento_controller extends Controller{
                 'data_hora_interacao' => date('Y-m-d H:i:s'),
                 'usuario_id_interacao' => session('usuario_id'),
                 'nome' => $nome_usuario_corrente,
-                'fin_lancamento_financeiro_id' => $fin_lacamento_financeiro_id,
+                'fin_lancamento_financeiro_id' => $fin_lancamento_financeiro_id,
                 'data_hora' => date('Y-m-d H:i:s'),
                 'data_vencimento' => $data_vencimento,
                 'interessado_paciente_id' => $request['paciente_id'],
@@ -189,7 +189,7 @@ class Tratamento_controller extends Controller{
                 }
 
                 $fin_lancamento_parcela = array(
-                    'fin_lacamento_financeiro_id' => $fin_lacamento_financeiro_id,
+                    'fin_lancamento_financeiro_id' => $fin_lancamento_financeiro_id,
                     'data_vencimento' => $data_vencimento,
                     'valor' => $total_por_parcela,
                     'valor_restante' => $total_por_parcela,
@@ -228,10 +228,40 @@ class Tratamento_controller extends Controller{
         foreach($registros as $key => $registro){
             $registros[$key]['procedimentos'] = $this->Tratamento_model->get_procedimentos_tratamento($registro['tratamento_id']);
             $registros[$key]['parcelas'] = $this->Tratamento_model->get_all_table('fin_lancamento_parcela', array('fin_lancamento_financeiro_id' => $registro['fin_lancamento_financeiro_id']));
+            $registros[$key]['idade'] = (isset($registro['data_nascimento']) ? Carbon::parse($registro['data_nascimento'])->diffInYears(Carbon::now()) : 'Idade não cadastrada');
+            $registros[$key]['data_nascimento'] = (isset($registro['data_nascimento']) ? date_format(date_create_from_format('Y-m-d', $registro['data_nascimento']), 'd/m/Y') : '');
         }
 
+        $_dados['registros'] = $registros;
         $_dados['pagina'] = 'tratamento';
 
         return view('tratamento.visualizar', $_dados);
+    }
+
+    public function editar(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Editar Tratamento');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+        $id = request()->route('id');
+
+        $_dados['convenios'] = $this->Tratamento_model->get_all_table('convenio', array('deletado' => '0'));
+        $_dados['forma_pagamento'] = $this->Tratamento_model->get_all_table('fin_forma_pagamento', array('deletado' => '0'), 'nome');
+        $_dados['parcelas_pagamento'] = $this->Tratamento_model->get_all_table('fin_parcelas_pagamento', null, 'parcela');
+        $_dados['contas'] = $this->Tratamento_model->get_all_table('fin_conta', null, 'nome');
+        $_dados['categorias'] = $this->Tratamento_model->get_all_table('fin_categoria', array('deletado' => '0'), 'nome');
+        $_dados['especialidades'] = $this->Tratamento_model->get_all_table('especialidade', array('deletado' => '0'));
+        $_dados['profissionais'] = $this->Tratamento_model->get_al_profissional();
+
+        $registros = $this->Tratamento_model->get_tratamento_editar($id);
+        foreach($registros as $key => $registro){
+            $registros[$key]['procedimentos'] = $this->Tratamento_model->get_procedimentos_tratamento($registro['id']);
+        }
+        // echo '<pre>';
+        // var_dump($registros);
+        // exit;
+        
+        $_dados['registros'] = $registros;
+        $_dados['pagina'] = 'tratamento';
+
+        return view('tratamento.editar', $_dados);
     }
 }

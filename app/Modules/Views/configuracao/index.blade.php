@@ -82,7 +82,7 @@
 			</div>
 			<div class="w-48">
 				<div class="mgb-px-10 d-flex justify-content-between">
-					<div class="w-25 d-flex justify-content-center align-itens-center">
+					<div class="w-25 d-flex justify-content-center align-items-center">
 						<img id="logo_empresa_preview" class="max-w-150px max-h-60px" src="{{asset('clientes/'.session('conexao_id').'/img/'.$dados['logo']['valor'])}}">
 					</div>
 					<div class="w-75">
