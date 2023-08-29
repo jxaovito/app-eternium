@@ -9,7 +9,7 @@
 		@csrf
 		<div class="mb-3 w-40">
             <label for="busca_paciente_tratamento" class="form-label" required>Paciente</label>
-            <input type="text" class="form-control" id="busca_paciente_tratamento" placeholder="" name="nome" autofocus="autofocus" required autocomplete="off">
+            <input type="text" class="form-control" id="busca_paciente_tratamento" placeholder="" name="nome" autofocus="autofocus" required autocomplete="off"  autocomplete="off">
             <input type="hidden" class="autocomplete_paciente_id" name="paciente_id">
         </div>
 
@@ -96,14 +96,14 @@
 
         <div class="mb-3 w-10">
             <label for="" class="form-label" required>Total de Sessões</label>
-            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control">
+            <input type="text" readonly readonly-disabled name="total_sessoes" class="form-control" autocomplete="off">
         </div>
 
         <div class="mb-3 w-10">
             <label for="" class="form-label" required>Subtotal</label>
             <div class="div-money">
                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                <input type="text" readonly readonly-disabled name="subtotal" class="form-control money">
+                <input type="text" readonly readonly-disabled name="subtotal" class="form-control money" autocomplete="off">
             </div>
         </div>
 
@@ -111,7 +111,7 @@
             <label for="" class="form-label">Descontos em R$</label>
             <div class="div-money">
                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                <input type="text" name="desconto_real" class="form-control money">
+                <input type="text" name="desconto_real" class="form-control money" autocomplete="off">
             </div>
         </div>
 
@@ -119,7 +119,7 @@
             <label for="" class="form-label">Descontos em %</label>
             <div class="div-money">
                 <label for="valor_procedimento" class="moeda"><span>%</span></label>
-                <input type="text" name="desconto_porcentagem" class="form-control money">
+                <input type="text" name="desconto_porcentagem" class="form-control money" autocomplete="off">
             </div>
         </div>
 
@@ -127,7 +127,7 @@
             <label for="" class="form-label" required>Total</label>
             <div class="div-money">
                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                <input type="text" readonly readonly-disabled name="total" class="form-control money">
+                <input type="text" readonly readonly-disabled name="total" class="form-control money" autocomplete="off">
             </div>
         </div>
 
@@ -222,7 +222,7 @@
 <div class="clones d-none">
     <div class="procedimentos-clone w-100 d-flex flex-wrap justify-content-between mgb-px-5">
     	<div class="w-15">
-    		<input type="text" name="codigo_procedimento[]" class="form-control busca_procedimento_codigo_tratamento">
+    		<input type="text" name="codigo_procedimento[]" class="form-control busca_procedimento_codigo_tratamento" autocomplete="off">
     	</div>
 
     	<div class="w-25">
@@ -231,20 +231,20 @@
     	</div>
 
     	<div class="w-15">
-    		<input type="text" name="sessoes_procedimento[]" class="form-control number">
+    		<input type="text" name="sessoes_procedimento[]" class="form-control number" autocomplete="off">
     	</div>
 
     	<div class="w-10">
     		<div class="div-money">
     	    	<label for="valor_procedimento" class="moeda"><span>R$</span></label>
-    	    	<input type="text" name="valor_procedimento[]" class="form-control money">
+    	    	<input type="text" name="valor_procedimento[]" class="form-control money" autocomplete="off">
     	    </div>
     	</div>
 
     	<div class="w-10">
     		<div class="div-money-opc">
     	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
-    	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto">
+    	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto" autocomplete="off">
     	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="real">
     	    </div>
     	</div>
@@ -252,7 +252,7 @@
     	<div class="w-10 text-center">
             <div class="div-money">
                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled >
+                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled autocomplete="off">
             </div>
     	</div>
 

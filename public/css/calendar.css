@@ -1,5 +1,60 @@
-.toastui-calendar-milestone, .toastui-calendar-task, .toastui-calendar-allday, .toastui-calendar-panel-resizer {
+.container-agenda .toastui-calendar-milestone, .container-agenda .toastui-calendar-task, .container-agenda .toastui-calendar-allday, .container-agenda .toastui-calendar-panel-resizer {
   display: none !important;
+}
+.container-agenda .header {
+  display: flex;
+  flex-wra: wrap;
+}
+.container-agenda .header .alternar-datas {
+  height: 40px;
+  margin-bottom: 30px;
+}
+.container-agenda .header .alternar-datas .voltar-datas {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cor-logo-cliente-transp);
+  border-radius: 5px 0px 0px 5px;
+  border: solid 2px var(--cor-logo-cliente);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.container-agenda .header .alternar-datas .voltar-datas:hover {
+  filter: brightness(0);
+}
+.container-agenda .header .alternar-datas .hoje {
+  background-color: #ccc;
+  height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-top: solid 2px var(--cor-logo-cliente);
+  border-bottom: solid 2px var(--cor-logo-cliente);
+  background-color: var(--cor-logo-cliente-transp);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.container-agenda .header .alternar-datas .hoje:hover {
+  filter: brightness(0);
+}
+.container-agenda .header .alternar-datas .avancar-datas {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cor-logo-cliente-transp);
+  border-radius: 0px 5px 5px 0px;
+  border: solid 2px var(--cor-logo-cliente);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.container-agenda .header .alternar-datas .avancar-datas:hover {
+  filter: brightness(0);
+}
+.container-agenda .header .selecionar-data {
+  width: 10%;
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=calendar.css.map */

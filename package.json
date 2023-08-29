@@ -14,5 +14,9 @@
         "sass": "^1.64.2",
         "sass-loader": "^13.3.2",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "tui-date-picker": "^4.3.3",
+        "tui-time-picker": "^2.1.6"
     }
 }

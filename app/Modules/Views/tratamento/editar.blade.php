@@ -77,13 +77,13 @@
         			<label>Desconto</label>
         		</div>
 
-        		<div class="w-10 text-center">
-        			<label>Total</label>
-        		</div>
-
                 <div class="w-10 text-center">
                     <label>Unitário por sessão</label>
                 </div>
+
+        		<div class="w-10 text-center">
+        			<label>Total</label>
+        		</div>
 
         		<div class="w-10 text-center">
         			<label>Remover</label>
@@ -93,20 +93,20 @@
                 @foreach($registro['procedimentos'] as $procedimento)
                     <div class="procedimentos-clone w-100 d-flex flex-wrap justify-content-between mgb-px-5">
                         <div class="w-5">
-                            <input type="text" name="codigo_procedimento[]" class="form-control busca_procedimento_codigo_tratamento" value="{{$procedimento['codigo']}}">
+                            <input type="text" name="codigo_procedimento[]" class="form-control busca_procedimento_codigo_tratamento" value="{{$procedimento['codigo']}}" autocomplete="off">
                         </div>
 
                         <div class="w-25">
-                            <input type="text" name="nome_procedimento[]" class="form-control busca_procedimento_tratamento" value="{{$procedimento['procedimento']}}">
+                            <input type="text" name="nome_procedimento[]" class="form-control busca_procedimento_tratamento" value="{{$procedimento['procedimento']}}" autocomplete="off">
                             <input type="hidden" class="autocomplete_procedimento_id" name="procedimento_id[]" value="{{$procedimento['procedimento_id']}}">
                         </div>
 
                         <div class="w-7">
-                            <input type="text" name="sessoes_procedimento[]" class="form-control number" value="{{$procedimento['sessoes_contratada']}}" sessoes_consumidas="{{$procedimento['sessoes_consumida']}}">
+                            <input type="text" name="sessoes_procedimento[]" class="form-control number" value="{{$procedimento['sessoes_contratada']}}" sessoes_consumidas="{{$procedimento['sessoes_consumida']}}" autocomplete="off">
                         </div>
 
                         <div class="w-7">
-                            <input type="text" name="sessoes_consumida[]" class="form-control number" value="{{$procedimento['sessoes_consumida']}}" readonly readonly-disabled sessoes-contratada-anteriormente="{{$procedimento['sessoes_contratada']}}">
+                            <input type="text" name="sessoes_consumida[]" class="form-control number" value="{{$procedimento['sessoes_consumida']}}" readonly readonly-disabled sessoes-contratada-anteriormente="{{$procedimento['sessoes_contratada']}}" autocomplete="off">
                         </div>
 
                         <div class="w-10">
@@ -118,6 +118,7 @@
                                     class="form-control money"
                                     value="{{$procedimento['procedimento_valor']}}"
                                     {{$procedimento['sessoes_consumida'] != 0 || $registro['fin_lancamento'] ? 'readonly readonly-disabled' : ''}}
+                                    autocomplete="off"
                                 >
                             </div>
                         </div>
@@ -144,6 +145,7 @@
                                     id="valor_desconto"
                                     value="{{$desconto}}"
                                     {{$procedimento['sessoes_consumida'] != 0 || $registro['fin_lancamento'] ? 'readonly readonly-disabled' : ''}}
+                                    autocomplete="off"
                                 >
                                 <input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="{{$tipo_desconto}}">
                             </div>
@@ -152,14 +154,14 @@
                         <div class="w-10 text-center">
                             <div class="div-money">
                                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled value="{{$procedimento['total']}}">
+                                <input type="text" class="form-control money" readonly readonly-disabled value="{{number_format($procedimento['total'] / $procedimento['sessoes_contratada'], 2)}}" autocomplete="off">
                             </div>
                         </div>
 
                         <div class="w-10 text-center">
                             <div class="div-money">
                                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                                <input type="text" class="form-control money" readonly readonly-disabled value="{{number_format($procedimento['total'] / $procedimento['sessoes_contratada'], 2)}}">
+                                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled value="{{$procedimento['total']}}" autocomplete="off">
                             </div>
                         </div>
 
@@ -433,38 +435,45 @@
 
 <div class="clones d-none">
     <div class="procedimentos-clone w-100 d-flex flex-wrap justify-content-between mgb-px-5">
-    	<div class="w-15">
+    	<div class="w-5">
     		<input type="text" name="codigo_procedimento[]" class="form-control busca_procedimento_codigo_tratamento">
     	</div>
 
     	<div class="w-25">
-    		<input type="text" name="nome_procedimento[]" class="form-control busca_procedimento_tratamento">
+    		<input type="text" name="nome_procedimento[]" class="form-control busca_procedimento_tratamento" autocomplete="off">
     		<input type="hidden" class="autocomplete_procedimento_id" name="procedimento_id[]">
     	</div>
 
     	<div class="w-15">
-    		<input type="text" name="sessoes_procedimento[]" class="form-control number">
+    		<input type="text" name="sessoes_procedimento[]" class="form-control number" autocomplete="off">
     	</div>
 
     	<div class="w-10">
     		<div class="div-money">
     	    	<label for="valor_procedimento" class="moeda"><span>R$</span></label>
-    	    	<input type="text" name="valor_procedimento[]" class="form-control money">
+    	    	<input type="text" name="valor_procedimento[]" class="form-control money" autocomplete="off">
     	    </div>
     	</div>
 
     	<div class="w-10">
     		<div class="div-money-opc">
     	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
-    	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto">
+    	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto" autocomplete="off">
     	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="real">
     	    </div>
     	</div>
 
+        <div class="w-10 text-center">
+            <div class="div-money">
+                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <input type="text" class="form-control money" readonly readonly-disabled value="" autocomplete="off">
+            </div>
+        </div>
+
     	<div class="w-10 text-center">
             <div class="div-money">
                 <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled >
+                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled autocomplete="off">
             </div>
     	</div>
 
