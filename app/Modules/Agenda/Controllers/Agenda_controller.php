@@ -27,6 +27,14 @@ class Agenda_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Agenda');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
+        $profissional_id = request()->route('id');
+        $profissionais = $this->Agenda_model->get_profissionais();
+        foreach($profissionais as $key => $prof){
+            $profissionais[$key]['especialidade'] = $this->Agenda_model->get_especialidade_by_profissional_id($prof['id']);
+        }
+        $_dados['profissionais'] = $profissionais;
+        $_dados['profissional_id'] = ($profissional_id ? $profissional_id : $profissionais[0]['id']);
+        $_dados['especialidades'] = $this->Agenda_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['pagina'] = 'agenda';
 
         return view('agenda.index', $_dados);

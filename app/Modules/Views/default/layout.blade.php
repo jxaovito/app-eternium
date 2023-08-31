@@ -151,8 +151,8 @@
 
         {{-- Calenddar --}}
         @if(isset($pagina) && $pagina == 'agenda')
-            <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
-            <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+            <script type="text/javascript" src="{{ asset('js/min/toastui-calendar.min.js') }}"></script>
+            <link rel="stylesheet" href="{{ asset('css/min/toastui-calendar.min.css') }}">
             <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
             <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
         @endif

@@ -1,13 +1,22 @@
+.container-agenda {
+  display: flex;
+  flex-wrap: wrap;
+}
+.container-agenda .cor_especialidade {
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 3px;
+}
 .container-agenda .toastui-calendar-milestone, .container-agenda .toastui-calendar-task, .container-agenda .toastui-calendar-allday, .container-agenda .toastui-calendar-panel-resizer {
   display: none !important;
 }
 .container-agenda .header {
   display: flex;
   flex-wra: wrap;
+  width: 100%;
 }
 .container-agenda .header .alternar-datas {
   height: 40px;
-  margin-bottom: 30px;
 }
 .container-agenda .header .alternar-datas .voltar-datas {
   height: 40px;
@@ -52,9 +61,32 @@
 .container-agenda .header .alternar-datas .avancar-datas:hover {
   filter: brightness(0);
 }
-.container-agenda .header .selecionar-data {
-  width: 10%;
-  margin-left: 20px;
+.container-agenda #calendar {
+  width: 100%;
+}
+.container-agenda .bg-modal-agenda {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4509803922);
+  z-index: 999;
+}
+.container-agenda .contents-modal {
+  display: none;
+  z-index: 9991;
+  width: 30%;
+  position: relative;
+  right: -1.24%;
+}
+.container-agenda .modal-agendamento {
+  width: 100%;
+  height: 70%;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 /*# sourceMappingURL=calendar.css.map */

@@ -503,3 +503,25 @@ function real_para_float(valor){
 		return 0.0;
 	}
 }
+
+function data_para_br(data){
+	if(data){
+		var data = data.split('-')
+		var data_formatada = `${data[2]}/${data[1]}/${data[0]}`;
+		return data_formatada;
+
+	}else{
+		return '';
+	}
+}
+
+function data_para_us(data){
+	if(data){
+		var data = data.split('/')
+		var data_formatada = `${data[0]}-${data[1]}-${data[2]}`;
+		return data_formatada;
+
+	}else{
+		return '';
+	}
+}

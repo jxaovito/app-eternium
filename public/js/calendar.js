@@ -125,19 +125,49 @@ $(document).ready(function(){
         childList: true, // Observar adições/remoções de nós filhos
         subtree: true // Observar todos os nós descendentes
     });
-});
 
+    $(document).on('click', '.close-modal-agenda', function(){
+        console.log('teste');
+        $('.contents-modal').hide('fast');
+        $('.toastui-calendar-popup-overlay').click();
+        setTimeout(function(){
+            $('#calendar').css('width', '100%');
+        },100);
+    });
+});
 
 function popup_nativo_abertura() {
     // const target = document.querySelector('.toastui-calendar-popup-overlay');
-    const target = document.querySelector('.toastui-calendar-popup-container');
+    const target = document.querySelector('.toastui-calendar-popup-overlay');
     
     // Se o elemento existir e for visível
     if(target && getComputedStyle(target).display !== 'none'){
-        console.log($('.toastui-calendar-popup-container').find('[name="start"]').val())
-        console.log($('.toastui-calendar-popup-container').find('[name="end"]').val())
+        if($('.toastui-calendar-popup-container').find('[name="start"]').val() && $('.toastui-calendar-popup-container').find('[name="end"]').val()){
+            $('.toastui-calendar-event-detail-popup-slot').hide();
+            $('.toastui-calendar-event-form-popup-slot').hide();
 
-        // $('.toastui-calendar-popup-overlay').hide();
-        // $('.toastui-calendar-popup-container').hide();
+            const data_inicio = $('.toastui-calendar-popup-container').find('[name="start"]').val().split(' ')[0];
+            const data_fim = $('.toastui-calendar-popup-container').find('[name="end"]').val().split(' ')[0];
+
+            const hora_inicio = $('.toastui-calendar-popup-container').find('[name="start"]').val().split(' ')[1];
+            const hora_fim = $('.toastui-calendar-popup-container').find('[name="end"]').val().split(' ')[1];
+
+            criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim);
+            
+        }
+    }else{
+        $('.close-modal-agenda').trigger('click');
     }
+}
+
+function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
+    $('#calendar').css('width', '70%');
+    $('.contents-modal').show('fast');
+
+    var modal = $('.criar-agendamento');
+
+    modal.find('[name="data_inicio"]').val(data_para_br(data_inicio))
+    modal.find('[name="data_fim"]').val(data_para_br(data_fim))
+    modal.find('[name="hora_inicio"]').val(hora_inicio)
+    modal.find('[name="hora_fim"]').val(hora_fim)
 }
