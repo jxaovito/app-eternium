@@ -1,34 +1,34 @@
-$(document).ready(function(){
-    // Cria uma instância do calendário
-    const calendar = new tui.Calendar('#calendar', {
-        usageStatistics: false,
-        defaultView: 'week', // Modo de exibição padrão (semana, mês, etc.)
-        useCreationPopup: true, // Desativar pop-up para criar eventos
-        useDetailPopup: true, // Desativar pop-up para detalhes de eventos
-        isReadOnly: false, //Ativa somente leitura no calendário
-        scheduleFilter(schedule) {
-            return schedule.category !== 'milestone' && schedule.category !== 'task';
-        },
-        language: 'pt-BR',
-        week: {
-            dayNames: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-        },
-        week: {
-            startDayOfWeek: 1,
-        },
-        timezone: {
-            zones: [
-                {
-                    timezoneOffset: -180, // Offset para o horário de Brasília (em minutos)
-                    displayLabel: 'Brasília',
-                    tooltip: 'Horário de Brasília',
-                },
-            ]
-          },
-        hourStart: 0, // Começa às 00:00 (formato de 24 horas)
-        hourEnd: 24,  // Termina às 24:00 (formato de 24 horas)
-    });
+// Cria uma instância do calendário
+const calendar = new tui.Calendar('#calendar', {
+    usageStatistics: false,
+    defaultView: 'week', // Modo de exibição padrão (semana, mês, etc.)
+    useCreationPopup: true, // Desativar pop-up para criar eventos
+    useDetailPopup: true, // Desativar pop-up para detalhes de eventos
+    isReadOnly: false, //Ativa somente leitura no calendário
+    scheduleFilter(schedule) {
+        return schedule.category !== 'milestone' && schedule.category !== 'task';
+    },
+    language: 'pt-BR',
+    week: {
+        dayNames: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    },
+    week: {
+        startDayOfWeek: 1,
+    },
+    timezone: {
+        zones: [
+            {
+                timezoneOffset: -180, // Offset para o horário de Brasília (em minutos)
+                displayLabel: 'Brasília',
+                tooltip: 'Horário de Brasília',
+            },
+        ]
+      },
+    hourStart: 0, // Começa às 00:00 (formato de 24 horas)
+    hourEnd: 24,  // Termina às 24:00 (formato de 24 horas)
+});
 
+$(document).ready(function(){
     // Ativar PopUp
     calendar.setOptions({
       useFormPopup: true,
@@ -38,12 +38,8 @@ $(document).ready(function(){
     // Iniciando Agendas
     calendar.setCalendars([
       {
-        id: '1',
-        name: 'Gustavo Rieper',
-        color: '#ffffff',
-        backgroundColor: '#9e5fff',
-        dragBackgroundColor: '#9e5fff',
-        borderColor: '#9e5fff',
+        id: $('[type="hidden"][name="profissional_id"]').val(),
+        name: $('[type="hidden"][name="profissional_nome"]').val(),
       },
     ]);
 
@@ -87,26 +83,10 @@ $(document).ready(function(){
     });
 
     // Mudar a visualização da Agenda
-    // calendar.changeView('month');
-    calendar.changeView('week');
-    // calendar.changeView('day');
-
-    calendar.createEvents([
-      {
-        id: '1',
-        calendarId: '1',
-        title: 'Weekly Meeting',
-        start: '2023-08-28T20:00:00',
-        end: '2023-08-28T21:00:00',
-        body: 'Aqui vai uma descrição do Atendimento',
-        color: '#fff',
-        backgroundColor: '#ccc',
-        borderColor: 'red',
-      },
-    ]);
-
-    const firstEvent = calendar.getEvent('event1', 'cal1');
-    const secondEvent = calendar.getEvent('event2', 'cal2');
+    calendar.changeView($('[name="visualizacao_agenda"]').val());
+    $(document).on('click', '.calendar-visualizacao', function(){
+        calendar.changeView($(this).attr('tipo'));
+    });
 
     const observer = new MutationObserver(popup_nativo_abertura);
     const parent = document.body;
@@ -167,16 +147,16 @@ $(document).ready(function(){
                 $('select.convenio').trigger('change');
 
                 if(data.tratamento){
-                    $('[name="tratamento"]').val('');
-                    $('[name="tratamento"]').find('option').remove();
-                    $('[name="tratamento"]').append(`<option value="">Selecione...</option>`);
+                    $('[name="tratamento_id"]').val('');
+                    $('[name="tratamento_id"]').find('option').remove();
+                    $('[name="tratamento_id"]').append(`<option value="">Selecione...</option>`);
 
                     $.each(data.tratamento, function(index, value){
                         if(value.sessoes_consumida != value.sessoes_contratada){
                             if(data.tratamento.length > 1){
-                                $('[name="tratamento"]').append(`<option value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
+                                $('[name="tratamento_id"]').append(`<option value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
                             }else{
-                                $('[name="tratamento"]').append(`<option selected="selected" value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
+                                $('[name="tratamento_id"]').append(`<option selected="selected" value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
                             }
                         }
                     });
@@ -185,7 +165,7 @@ $(document).ready(function(){
         });
     });
 
-    // Criar novo Agendamento
+    // Criar novo Agendamento (Salvar novo agendamento)
     $(document).on('click', '.salvar-novo-agendamento', function(){
         var results = $(this).parents('form').serialize().split('&');
         var dados = {};
@@ -215,24 +195,24 @@ $(document).ready(function(){
 
         var data_hora_fim = ano+'-'+mes+'-'+dia+'T'+horas+':'+minutos+':00';
 
-        console.log(dados);
-
-        calendar.createEvents([
-            {
-                id: '2',
-                calendarId: '1',
-                title: dados.paciente,
-                start: data_hora_inicio,
-                end: data_hora_fim,
-                body: dados.observacoes,
-                color: '#fff',
-                backgroundColor: '#ccc',
-                borderColor: 'red',
+        $.ajax({
+            url: '/agenda/criar_agendamento',
+            type: 'post',
+            data: {
+                dados: dados,
+                profissional_id: $('[type="hidden"][name="profissional_id"]').val(),
+                _token: dados._token,
             },
-        ]);
+            dataType: 'json',
+            success: function(data){
+                atualizar_agenda()
+            },
+        });
 
         $('.close-modal-agenda').trigger('click');
     });
+
+    atualizar_agenda();
 });
 
 var focus_paciente = 0;
@@ -278,4 +258,83 @@ function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
             focus_paciente++;
         }, 500);
     }
+}
+
+function atualizar_agenda(){
+    var data_inicio_agenda = $('[name="data_inicio_agenda"]').val();
+    var data_fim_agenda = $('[name="data_fim_agenda"]').val();
+    var profissional_id = $('[name="profissional_id"]').val();
+    var _token = $('[name="_token"]').val();
+    calendar.clear();
+
+    $.ajax({
+        url: '/agenda/atualizar_agenda',
+        type: 'post',
+        data: {
+            _token: _token,
+            data_inicio_agenda: data_inicio_agenda,
+            data_fim_agenda: data_fim_agenda,
+            profissional_id: profissional_id,
+        },
+        dataType: 'json',
+        success: function(data){
+            if(data){
+                $.each(data, function(index, dado){
+                    var sessao = '';
+                    var cor_fundo = dado.cor_fundo;
+
+                    if(dado.sessao){
+                        sessao = `${dado.sessao}/${dado.sessoes_contratada}`;
+                    }else{
+                        sessao = 'Reserva';
+                        cor_fundo = cor_fundo+63;
+                    }
+
+                    if(dado.whatsapp){
+                        if(dado.whatsapp == 'enviar'){
+                            lembrete = '⚪';
+
+                        }else if(dado.whatsapp == 'enviado'){
+                            lembrete = '🟢';
+
+                        }else if(dado.whatsapp == 'erro_enviar'){
+                            lembrete = '🔴';
+
+                        }else if(dado.whatsapp == 'respondido'){
+                            lembrete = '🔵';
+                        }
+                    }else{
+                        lembrete = '';
+                    }
+
+                    calendar.createEvents([
+                        {
+                            id: dado.agenda_id,
+                            calendarId: dado.profissional_id,
+                            title: `${lembrete} ${dado.paciente} (${sessao})`,
+                            start: `${dado.data_inicio}T${dado.hora_inicio}`,
+                            end: `${dado.data_fim}T${dado.hora_fim}`,
+                            body: dado.observacoes,
+                            color: dado.cor_fonte,
+                            backgroundColor: cor_fundo,
+                            borderColor: dado.cor_fundo,
+                        },
+                    ]);
+                });
+            }
+
+            if($('.criar-agendamento form [type="hidden"][name="_token"]').val()){
+                $('.criar-agendamento form [type="hidden"][name="_token"]').attr('_token', $('.criar-agendamento form [type="hidden"][name="_token"]').val());
+            }
+            $('.criar-agendamento form').find('input').val('');
+            $('.criar-agendamento form').find('select').val('');
+            $('.criar-agendamento form').find('select').find('option').remove();
+            $('.criar-agendamento form').find('select').trigger('change');
+            $('.criar-agendamento form').find('textarea').val('');
+            $('.criar-agendamento form').find('[name="tipo-agendamento"]').val('1');
+            $('.criar-agendamento .tipo-agendamento').find('span').removeClass('active');
+            $('.criar-agendamento .tipo-agendamento').find('[tipo="1"]').addClass('active');
+            $('.criar-agendamento form [type="hidden"][name="_token"]').val($('.criar-agendamento form [type="hidden"][name="_token"]').attr('_token'));
+        },
+    });
 }

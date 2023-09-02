@@ -22,6 +22,11 @@
 					<input type="text" class="date form-control" value="{{date('d-m-Y')}}">
 				</div>
 			</div>
+			<div class="btn-group mgb-px-5" role="group">
+				  <button type="button" class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente" tipo="day" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Dia</button>
+				  <button type="button" class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente" tipo="week" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Semana</button>
+				  <button type="button" class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente" tipo="month" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Mês</button>
+			</div>
 		</div>
 
 		<div class="w-45">
@@ -29,35 +34,38 @@
 			<div class="d-flex flex-wrap justify-content-start align-items-center">
 				@if($profissionais)
 					@foreach($profissionais as $prof)
-						@if($prof['imagem'])
-							<span
-								class="icone-nome w-40px h-40px mgl-px-5 mgr-px-5 {{($profissional_id != $prof['id'] ? 'opacity-05' : '')}} pointer"
-								data-bs-toggle="tooltip"
-				                data-bs-placement="bottom"
-				                data-bs-custom-class="custom-tooltip"
-				                data-bs-title="{{$prof['nome']}}"
-							>
-								<img class="w-40px h-40px" src="{{asset('clientes/'.session('conexao_id').'/usuario/'.$prof['imagem'])}}">
-							</span>
-						@else
-							@php
-								$nome = explode(' ', $prof['nome']);
-								if(count($nome) > 1){
-								    $iniciais = strtolower(substr($nome[0], 0, 1) . substr($nome[1], 0, 1));
-								}else{
-								    $iniciais = strtolower(substr($prof['nome'], 0, 2));
-								}
-							@endphp
-							<span
-								class="icone-nome w-40px h-40px mgl-px-5 mgr-px-5 {{($profissional_id != $prof['id'] ? 'opacity-05' : '')}} pointer pequeno {{$iniciais}}"
-								data-bs-toggle="tooltip"
-				                data-bs-placement="bottom"
-				                data-bs-custom-class="custom-tooltip"
-				                data-bs-title="{{$prof['nome']}}"
-							>
-								{{strtoupper($iniciais)}}
-							</span>
-						@endif
+						<a href="{{$profissional_id != $prof['id'] ? '/agenda/'.$prof['id'] : '#'}}   ">
+
+							@if($prof['imagem'])
+								<span
+									class="icone-nome w-40px h-40px mgl-px-5 mgr-px-5 {{($profissional_id != $prof['id'] ? 'opacity-05' : '')}} pointer"
+									data-bs-toggle="tooltip"
+					                data-bs-placement="bottom"
+					                data-bs-custom-class="custom-tooltip"
+					                data-bs-title="{{$prof['nome']}}"
+								>
+									<img class="w-40px h-40px" src="{{asset('clientes/'.session('conexao_id').'/usuario/'.$prof['imagem'])}}">
+								</span>
+							@else
+								@php
+									$nome = explode(' ', $prof['nome']);
+									if(count($nome) > 1){
+									    $iniciais = strtolower(substr($nome[0], 0, 1) . substr($nome[1], 0, 1));
+									}else{
+									    $iniciais = strtolower(substr($prof['nome'], 0, 2));
+									}
+								@endphp
+								<span
+									class="icone-nome w-40px h-40px mgl-px-5 mgr-px-5 {{($profissional_id != $prof['id'] ? 'opacity-05' : '')}} pointer pequeno {{$iniciais}}"
+									data-bs-toggle="tooltip"
+					                data-bs-placement="bottom"
+					                data-bs-custom-class="custom-tooltip"
+					                data-bs-title="{{$prof['nome']}}"
+								>
+									{{strtoupper($iniciais)}}
+								</span>
+							@endif
+						</a>
 					@endforeach
 				@endif
 			</div>
@@ -77,9 +85,25 @@
 					@endforeach
 				@endif
 			</div>
+			@if($whatsapp_automatico)
+				<div class="w-70 d-flex flex-wrap mgt-px-20 justify-content-between user-select-none">
+					<sup class="w-100 mgb-px-5">Status de envio dos Lembretes dos agendamentos</sup>
+					<span class="opacity-05 font-13">⚪ Enviar</span>
+					<span class="opacity-05 font-13">🟢 Enviado</span>
+					<span class="opacity-05 font-13">🔴 Erro ao Enviar</span>
+					<span class="opacity-05 font-13">🔵 Respondido</span>
+				</div>
+			@endif
 		</div>
 	</div>
 	<div id="calendar" style="height: 100vh"></div>
+	{{-- Início Hiddens --}}
+	<input type="hidden" name="visualizacao_agenda" value="{{$visualizacao_agenda}}">
+	<input type="hidden" name="data_inicio_agenda" value="{{$data_inicio_agenda}}">
+	<input type="hidden" name="data_fim_agenda" value="{{$data_fim_agenda}}">
+	<input type="hidden" name="profissional_id" value="{{$profissional_id}}">
+	<input type="hidden" name="profissional_nome" value="{{$profissional_nome}}">
+	{{-- Final Hiddens --}}
 
 	<div class="bg-modal-agenda"></div>
 	<div class="contents-modal">
@@ -120,9 +144,9 @@
 					</div>
 
 					<div class="w-100 mgb-px-5 d-flex justify-content-between align-items-center mgt-px-5 tipo-agendamento">
-						<span class="w-48 text-center active" tipo="agendamento">Agendamento</span>
-						<span class="w-48 text-center" tipo="bloqueio">Bloquear Horário</span>
-						<input type="hidden" name="tipo-agendamento" value="agendamento">
+						<span class="w-48 text-center active" tipo="1">Agendamento</span>
+						<span class="w-48 text-center" tipo="2">Bloquear Horário</span>
+						<input type="hidden" name="tipo-agendamento" value="1">
 					</div>
 
 					<div class="form-floating w-100">
@@ -132,6 +156,13 @@
 					</div>
 
 					<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5">
+						<label class="w-100" for="tratamento">Tratamento</label>
+						<select class="select2 tratamento" id="tratamento" name="tratamento_id">
+							<option value="">Selecione...</option>
+						</select>
+					</div>
+
+					<div class="w-100 d-none flex-wrap mgt-px-5 mgb-px-5">
 						<label class="w-100" for="convenio">Convenio</label>
 						<select class="select2 convenio" id="convenio" name="convenio">
 							<option value="">Selecione...</option>
@@ -143,21 +174,14 @@
 						</select>
 					</div>
 
-					<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5">
-						<label class="w-100" for="tratamento">Tratamento</label>
-						<select class="select2 tratamento" id="tratamento" name="tratamento">
-							<option value="">Selecione...</option>
-						</select>
-					</div>
-
 					<div class="form-floating w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 h-120px">
 						<textarea class="form-control w-100 h-120px" placeholder="Observações" id="observacoes" name="observacoes"></textarea>
 						<label class="w-100" for="observacoes">Observações</label>
 					</div>
 
 					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda">Cancelar <i class="ph ph-x"></i></span>
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento"><i class="ph ph-check"></i> Salvar</span>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> Cancelar</span>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Salvar <i class="ph ph-check"></i></span>
 					</div>
 				</form>
 			</div>

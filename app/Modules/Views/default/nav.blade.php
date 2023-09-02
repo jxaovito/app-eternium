@@ -41,6 +41,11 @@
                         <i class="ph ph-user-gear"></i>
                         Configurações da Empresa
                     </a>
+
+                    <a href="/configuracao/agenda">
+                        <i class="ph ph-calendar-blank"></i>
+                        Configurações da Agenda
+                    </a>
                 </div>
             </div>
             @php endif @endphp

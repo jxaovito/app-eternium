@@ -65,4 +65,33 @@ class Agenda_model extends Model {
                     ->get()
                     ->toArray();
     }
+
+    function get_agendamentos($data_inicio_agenda, $data_fim_agenda, $profissional_id){
+        return $this->setTable('agenda as a')
+                    ->select('a.id as agenda_id', 'a.data_inicio', 'a.hora_inicio', 'a.data_fim', 'a.hora_fim', 'a.sessao', 'a.observacoes', 'e.id AS especialidade_id', 't.id AS tratamento_id', 'e.cor_fundo', 'e.cor_fonte', 'p.nome AS paciente', 't.profissional_id', 't.sessoes_contratada', 'a.reserva', 'a.whatsapp', 'a.confirmacao')
+                    ->leftJoin('tratamento as t', function($join){
+                        $join->on('t.id', '=', 'a.tratamento_id');
+                    })
+                    ->leftJoin('paciente as p', function($join){
+                        $join->on('p.id', '=', 't.paciente_id');
+                    })
+                    ->leftJoin('especialidade as e', function($join){
+                        $join->on('e.id', '=', 't.especialidade_id');
+                    })
+                    ->whereBetween('data_inicio', [$data_inicio_agenda, $data_fim_agenda])
+                    ->where('a.profissional_id', '=', $profissional_id)
+                    ->get()
+                    ->toArray();
+    }
+
+    function get_agendamentos_futuros($agenda_id, $data_inicio, $hora_inicio, $tratamento_id){
+        return $this->setTable('agenda as a')
+                    ->select('*')
+                    ->where('a.id', '!=', $agenda_id)
+                    ->where('a.data_inicio', '>=', $data_inicio)
+                    ->where('a.hora_inicio', '>=', $hora_inicio)
+                    ->where('a.tratamento_id', '=', $tratamento_id)
+                    ->get()
+                    ->toArray();
+    }
 }

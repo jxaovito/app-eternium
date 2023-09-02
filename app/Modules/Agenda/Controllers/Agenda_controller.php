@@ -32,12 +32,154 @@ class Agenda_controller extends Controller{
         foreach($profissionais as $key => $prof){
             $profissionais[$key]['especialidade'] = $this->Agenda_model->get_especialidade_by_profissional_id($prof['id']);
         }
-        $_dados['profissionais'] = $profissionais;
+
+        $_dados['visualizacao_agenda'] = $this->Agenda_model->get_all_table('agenda_configuracao', array('identificador' => 'visualizacao_agenda'))[0]['valor'];
+        if($_dados['visualizacao_agenda'] == 'day'){
+            $_dados['data_inicio_agenda'] = date('Y-m-d');
+            $_dados['data_fim_agenda'] = date('Y-m-d');
+
+        }else if($_dados['visualizacao_agenda'] == 'week'){
+            $hoje = new \DateTime();
+            $primeiro_dia_semana = 1;
+            $dia_semana_atual = $hoje->format('w');
+            $dias_para_inicio_semana = ($dia_semana_atual - $primeiro_dia_semana + 7) % 7;
+
+            // Calcula a data de início da semana
+            $inicio_semana = clone $hoje;
+            $intervalo = new \DateInterval('P' . $dias_para_inicio_semana . 'D');
+            $inicio_semana->sub($intervalo);
+
+            // Calcula a data de fim da semana (7 dias após o início)
+            $fim_semana = clone $inicio_semana;
+            $intervalo = new \DateInterval('P6D');
+            $fim_semana->add($intervalo);
+
+            // Formata as datas no formato desejado (por exemplo, Y-m-d)
+            $_dados['data_inicio_agenda'] = $inicio_semana->format('Y-m-d');
+            $_dados['data_fim_agenda'] = $fim_semana->format('Y-m-d');
+
+        }else if($_dados['visualizacao_agenda'] == 'month'){
+            $hoje = new \DateTime();
+            $primeiro_dia_semana = 1;
+            $dia_semana_atual = $hoje->format('w');
+            $dias_para_inicio_semana = ($dia_semana_atual - $primeiro_dia_semana + 7) % 7;
+
+            // Calcula a data de início da semana
+            $inicio_semana = clone $hoje;
+            $intervalo = new \DateInterval('P' . $dias_para_inicio_semana . 'D');
+            $inicio_semana->sub($intervalo);
+
+            // Calcula a data de fim da semana (7 dias após o início)
+            $fim_semana = clone $inicio_semana;
+            $intervalo = new \DateInterval('P6D');
+            $fim_semana->add($intervalo);
+
+            // Calcula o primeiro dia do mês atual e ajusta para subtrair 7 dias
+            $primeiro_dia_mes = clone $hoje;
+            $primeiro_dia_mes->modify('first day of this month');
+            $primeiro_dia_mes->sub(new \DateInterval('P7D'));
+            $_dados['data_inicio_agenda'] = $primeiro_dia_mes->format('Y-m-d');
+
+            // Calcula o último dia do mês atual e ajusta para adicionar 7 dias
+            $ultimo_dia_mes = clone $hoje;
+            $ultimo_dia_mes->modify('last day of this month');
+            $ultimo_dia_mes->add(new \DateInterval('P7D'));
+
+            $_dados['data_fim_agenda'] = $ultimo_dia_mes->format('Y-m-d');
+            
+        }
+
+        // Profissional da agenda atual
         $_dados['profissional_id'] = ($profissional_id ? $profissional_id : $profissionais[0]['id']);
+        $_dados['profissional_nome'] = $this->Agenda_model->get_all_table('profissional', array('id' => $_dados['profissional_id']))[0]['nome'];
+
+        // Permissões/Configurações
+        $_dados['whatsapp_automatico'] = $this->Agenda_model->get_all_table('configuracao', array('variavel' => 'whatsapp_automatico'))[0]['valor'];
+
+        $_dados['profissionais'] = $profissionais;
         $_dados['especialidades'] = $this->Agenda_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['convenios'] = $this->Agenda_model->get_all_table('convenio', array('deletado' => '0'));
         $_dados['pagina'] = 'agenda';
 
         return view('agenda.index', $_dados);
+    }
+
+    public function criar_agendamento(Request $request){
+        $dados = $request->input('dados');
+        $profissional_id = $request->input('profissional_id');
+
+        $tratamento = $this->Agenda_model->get_all_table('tratamento', array('id' => $dados['tratamento_id']))[0];
+        $agendamentos = $this->Agenda_model->get_all_table('agenda', array('tratamento_id' => $dados['tratamento_id']));
+        $dados_agendamento = array();
+
+        $data_inicio = date_format(date_create_from_format('d/m/Y', $dados['data_inicio']), 'Y-m-d');
+        $data_fim = date_format(date_create_from_format('d/m/Y', $dados['data_fim']), 'Y-m-d');
+
+        if(!$agendamentos){
+            $dados_agendamento = array(
+                'data_inicio' => $data_inicio,
+                'data_fim' => $data_fim,
+                'hora_inicio' => $dados['hora_inicio'].':00',
+                'hora_fim' => $dados['hora_fim'].':00',
+                'tratamento_id' => $dados['tratamento_id'],
+                'agenda_tipo_agendamento_id' => $dados['tipo-agendamento'],
+                'profissional_id' => $profissional_id,
+                'sessao' => 1,
+                'observacoes' => $dados['observacoes'],
+            );
+
+            $agenda_id = $this->Agenda_model->insert_dados('agenda', $dados_agendamento);
+
+        }else{
+            $sessao = 1;
+            foreach($agendamentos as $key => $agendamento){
+                if($agendamento['data_inicio'] < $data_inicio){
+                   $sessao++; 
+
+                }else if($agendamento['data_inicio'] == $data_inicio && $agendamento['hora_inicio'] <= $dados['hora_inicio']){
+                    $sessao++;                    
+                }
+            }
+
+            $dados_agendamento = array(
+                'data_inicio' => $data_inicio,
+                'data_fim' => $data_fim,
+                'hora_inicio' => $dados['hora_inicio'].':00',
+                'hora_fim' => $dados['hora_fim'].':00',
+                'tratamento_id' => $dados['tratamento_id'],
+                'agenda_tipo_agendamento_id' => $dados['tipo-agendamento'],
+                'profissional_id' => $profissional_id,
+                'sessao' => $sessao,
+                'observacoes' => $dados['observacoes'],
+            );
+
+            $agenda_id = $this->Agenda_model->insert_dados('agenda', $dados_agendamento);
+
+            $agendamentos = $this->Agenda_model->get_agendamentos_futuros($agenda_id, $data_inicio, $dados['hora_inicio'].':00', $dados['tratamento_id']);
+
+            if($agendamentos){
+                $sessao++;
+                foreach($agendamentos as $key => $agendamento){
+                    if($tratamento['sessoes_contratada'] < $sessao){
+                        $this->Agenda_model->update_table('agenda', array('id' => $agendamento['id']), array('reserva' => 's'));
+                    }else{
+                        $this->Agenda_model->update_table('agenda', array('id' => $agendamento['id']), array('sessao' => $sessao));
+                    }
+                    $sessao++;
+                }
+            }
+        }
+
+        echo json_encode($agenda_id);
+    }
+
+    public function atualizar_agenda(Request $request){
+        $data_inicio_agenda = $request->input('data_inicio_agenda');
+        $data_fim_agenda = $request->input('data_fim_agenda');
+        $profissional_id = $request->input('profissional_id');
+
+        $agendamentos = $this->Agenda_model->get_agendamentos($data_inicio_agenda, $data_fim_agenda, $profissional_id);
+
+        echo json_encode($agendamentos);
     }
 }

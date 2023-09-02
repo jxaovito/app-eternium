@@ -90,6 +90,7 @@ class Configuracao_controller extends Controller{
         $dados = array();
         $dados[] = array('tipo' => 'sistema', 'variavel' => 'qtd_usuarios', 'nome' => 'Quantidade de Usuários', 'valor' => $request['qtd_usuarios']);
         $dados[] = array('tipo' => 'sistema', 'variavel' => 'publico_alvo', 'nome' => 'Nome do Público Álvo', 'valor' => $request['publico_alvo']);
+        $dados[] = array('tipo' => 'sistema', 'variavel' => 'whatsapp_automatico', 'nome' => 'Lembrete de Whatsapp Autmático', 'valor' => $request['whatsapp_automatico']);
 
         $this->Configuracao_model->delete_dados('configuracao', array('tipo' => 'sistema'));
         foreach($dados as $key => $dado){
@@ -99,5 +100,37 @@ class Configuracao_controller extends Controller{
         session(['tipo_mensagem' => 'success']);
         session(['mensagem' => 'Configurações Atualizadas com sucesso!']);
         return redirect()->route('configuracao');
+    }
+
+    public function agenda(){
+        $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Configurações da Agenda');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $_dados['configuracoes_agenda'] = $this->Configuracao_model->get_all_table('agenda_configuracao', array());
+        $_dados['pagina'] = 'configuracao';
+
+        return view('configuracao.configuracao_agenda', $_dados);
+    }
+
+    public function agenda_salvar(Request $request){
+        $check_auth = checkAuthentication($this->class, 'agenda', 'Configurações da Agenda');
+        if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
+
+        $request = $request->all();
+        unset($request['_token']);
+
+        foreach($request as $identificador => $valor){
+            $update = $this->Configuracao_model->update_table('agenda_configuracao', array('identificador' => $identificador), array('valor' => $valor));
+        }
+
+        if($update){
+            session(['tipo_mensagem' => 'success']);
+            session(['mensagem' => 'Configurações Atualizadas com sucesso!']);
+        }else{
+            session(['tipo_mensagem' => 'danger']);
+            session(['mensagem' => 'Houve um erro ao Atualizar as configurações!']);
+        }
+
+        return redirect()->route('configuracao_agenda');
     }
 }

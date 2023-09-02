@@ -166,6 +166,38 @@
 				</div>
 			</div>
 
+			<div class="w-48">
+				<div class="mgb-px-10">
+					<label>Envio de Lembrete Automático</label>
+					<div class="form-check">
+					  	<input
+					  		type="radio"
+					  		class="form-check-input"
+					  		name="whatsapp_automatico"
+					  		id="whatsapp_automatico1" value="1"
+					  		{{$sistema['whatsapp_automatico']['valor'] ? 'checked="checked"' : ''}}
+					  	>
+					  	<label class="form-check-label" for="whatsapp_automatico1">
+				    		Sim
+					  	</label>
+					</div>
+
+					<div class="form-check">
+					  	<input
+					  		type="radio"
+					  		class="form-check-input"
+					  		name="whatsapp_automatico"
+					  		id="whatsapp_automatico0"
+					  		value="0"
+					  		{{$sistema['whatsapp_automatico']['valor'] ? '' : 'checked="checked"'}}
+					  	>
+					  	<label class="form-check-label" for="whatsapp_automatico0">
+					    	Não
+					  	</label>
+					</div>
+				</div>
+			</div>
+
 			<div class="w-100 d-flex justify-content-end">
 				<button class="btn btn-success bg-cor-logo-cliente" type="submit">Salvar <i class="ph ph-check"></i></button>
 			</div>

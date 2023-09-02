@@ -137,11 +137,21 @@ body{
         background: var(--cor-logo-cliente)!important;
         color: var(--cor-font-cliente)!important;
         border: none!important;
+        transition: all 0.3s;
+
+        &:hover{
+            opacity: 0.9;
+        }
     }
     .bg-transp-cor-logo-cliente{
         background: var(--cor-logo-cliente-transp)!important;
         color: var(--cor-font-cliente)!important;
         border: none!important;
+        transition: all 0.3s;
+
+        &:hover{
+            opacity: 0.9;
+        }
     }
 
     .aba{

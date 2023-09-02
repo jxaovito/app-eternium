@@ -131,11 +131,19 @@ body .bg-cor-logo-cliente {
   background: var(--cor-logo-cliente) !important;
   color: var(--cor-font-cliente) !important;
   border: none !important;
+  transition: all 0.3s;
+}
+body .bg-cor-logo-cliente:hover {
+  opacity: 0.9;
 }
 body .bg-transp-cor-logo-cliente {
   background: var(--cor-logo-cliente-transp) !important;
   color: var(--cor-font-cliente) !important;
   border: none !important;
+  transition: all 0.3s;
+}
+body .bg-transp-cor-logo-cliente:hover {
+  opacity: 0.9;
 }
 body .aba {
   display: flex;
