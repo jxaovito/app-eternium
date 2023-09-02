@@ -515,6 +515,18 @@ function data_para_br(data){
 	}
 }
 
+function data_hora_para_br(data){
+	if(data){
+		var data_hora = data.split(' ');
+		var data = data_hora[0].split('-')
+		var data_formatada = `${data[2]}/${data[1]}/${data[0]} ${data_hora[1]}`;
+		return data_formatada;
+
+	}else{
+		return '';
+	}
+}
+
 function data_para_us(data){
 	if(data){
 		var data = data.split('/')

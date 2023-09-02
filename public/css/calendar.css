@@ -87,6 +87,34 @@
   background-color: #fff;
   padding: 10px;
   border-radius: 8px;
+  padding: 1%;
+}
+.container-agenda .modal-agendamento .content-modal form .tipo-agendamento {
+  height: 40px;
+  border-radius: 4px;
+  border: solid 2px var(--cor-logo-cliente);
+  background-color: var(--cor-logo-cliente-transp);
+}
+.container-agenda .modal-agendamento .content-modal form .tipo-agendamento span {
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius: 4px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.container-agenda .modal-agendamento .content-modal form .tipo-agendamento span.active {
+  background-color: var(--cor-logo-cliente);
+  color: var(--cor-font-cliente);
+  opacity: 1 !important;
+}
+.container-agenda .modal-agendamento .content-modal form .tipo-agendamento span:hover {
+  opacity: 0.5;
+  background-color: var(--cor-logo-cliente);
+  color: var(--cor-font-cliente);
 }
 
 /*# sourceMappingURL=calendar.css.map */

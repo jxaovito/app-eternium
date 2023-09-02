@@ -98,6 +98,7 @@
 			</div>
 			<div class="content-modal">
 				<form class="d-flex flex-wrap w-100 justify-content-between">
+					@csrf
 					<div class="form-floating w-49">
 					  	<input type="text" class="form-control mgb-px-5 date" id="data_inicial" placeholder="{{date('d/m/Y')}}" value="" name="data_inicio">
 					  	<label for="data_inicial">Data Inicial</label>
@@ -116,6 +117,47 @@
 					<div class="form-floating w-49">
 					  	<input type="text" class="form-control mgb-px-5 time" id="hora_fim" placeholder="00:00" value="" name="hora_fim">
 					  	<label for="hora_fim">Hora Final</label>
+					</div>
+
+					<div class="w-100 mgb-px-5 d-flex justify-content-between align-items-center mgt-px-5 tipo-agendamento">
+						<span class="w-48 text-center active" tipo="agendamento">Agendamento</span>
+						<span class="w-48 text-center" tipo="bloqueio">Bloquear Horário</span>
+						<input type="hidden" name="tipo-agendamento" value="agendamento">
+					</div>
+
+					<div class="form-floating w-100">
+						<input type="text" class="form-control mgb-px-5" id="busca_paciente_tratamento" placeholder="Paciente" name="paciente" autocomplete="off">
+						<label for="busca_paciente_tratamento">Paciente</label>
+						<input type="hidden" class="autocomplete_paciente_id" name="paciente_id">
+					</div>
+
+					<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5">
+						<label class="w-100" for="convenio">Convenio</label>
+						<select class="select2 convenio" id="convenio" name="convenio">
+							<option value="">Selecione...</option>
+							@if($convenios)
+								@foreach($convenios as $registro)
+									<option value="{{$registro['id']}}">{{$registro['nome']}}</option>
+								@endforeach
+							@endif
+						</select>
+					</div>
+
+					<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5">
+						<label class="w-100" for="tratamento">Tratamento</label>
+						<select class="select2 tratamento" id="tratamento" name="tratamento">
+							<option value="">Selecione...</option>
+						</select>
+					</div>
+
+					<div class="form-floating w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 h-120px">
+						<textarea class="form-control w-100 h-120px" placeholder="Observações" id="observacoes" name="observacoes"></textarea>
+						<label class="w-100" for="observacoes">Observações</label>
+					</div>
+
+					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda">Cancelar <i class="ph ph-x"></i></span>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento"><i class="ph ph-check"></i> Salvar</span>
 					</div>
 				</form>
 			</div>

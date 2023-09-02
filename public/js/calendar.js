@@ -45,14 +45,6 @@ $(document).ready(function(){
         dragBackgroundColor: '#9e5fff',
         borderColor: '#9e5fff',
       },
-      {
-        id: '2',
-        name: 'Bruna Vinter',
-        color: '#ffffff',
-        backgroundColor: '#00a9ff',
-        dragBackgroundColor: '#00a9ff',
-        borderColor: '#00a9ff',
-      },
     ]);
 
     // Inicializa o calendário
@@ -106,13 +98,10 @@ $(document).ready(function(){
         title: 'Weekly Meeting',
         start: '2023-08-28T20:00:00',
         end: '2023-08-28T21:00:00',
-      },
-      {
-        id: '2',
-        calendarId: '2',
-        title: 'Weekly Meeting',
-        start: '2023-08-28T09:00:00',
-        end: '2023-08-28T10:00:00',
+        body: 'Aqui vai uma descrição do Atendimento',
+        color: '#fff',
+        backgroundColor: '#ccc',
+        borderColor: 'red',
       },
     ]);
 
@@ -127,15 +116,126 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.close-modal-agenda', function(){
-        console.log('teste');
         $('.contents-modal').hide('fast');
         $('.toastui-calendar-popup-overlay').click();
         setTimeout(function(){
             $('#calendar').css('width', '100%');
         },100);
     });
+
+    $(document).on('click', '.criar-agendamento .tipo-agendamento span', function(){
+        if(!$(this).hasClass('active')){
+            $(this).parent('div').find('.active').removeClass('active');
+            $(this).addClass('active');
+            $(this).parent('div').find('[name="tipo-agendamento"]').val($(this).attr('tipo'));
+        }
+    });
+
+    $('#busca_paciente_tratamento').on('input', function(){
+        var self = $(this);
+        if($(this).val().length > 0){
+            var nome = $(this).val();
+            var token = $('[name="_token"]').val();
+
+            $.ajax({
+              url: '/paciente/busca_paciente_by_nome',
+              type: 'post',
+              data: { nome: nome, _token: token },
+              dataType: 'json',
+                success: function(data){
+                    autocomplete(data.data, self, 'autocomplete_paciente_id');
+                }
+            });
+        }
+    });
+
+    $(document).on('change', '.autocomplete_paciente_id', function(){
+        var id = $(this).val();
+        var token = $('[name="_token"]').val();
+
+        $.ajax({
+            url: '/paciente/busca_paciente_by_id',
+            type: 'post',
+            data:{ 
+                id: id,
+                tratamento: true,
+                _token: token,
+            },
+            dataType: 'json',
+            success: function(data){
+                $('select.convenio').val(data.convenio_id);
+                $('select.convenio').trigger('change');
+
+                if(data.tratamento){
+                    $('[name="tratamento"]').val('');
+                    $('[name="tratamento"]').find('option').remove();
+                    $('[name="tratamento"]').append(`<option value="">Selecione...</option>`);
+
+                    $.each(data.tratamento, function(index, value){
+                        if(value.sessoes_consumida != value.sessoes_contratada){
+                            if(data.tratamento.length > 1){
+                                $('[name="tratamento"]').append(`<option value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
+                            }else{
+                                $('[name="tratamento"]').append(`<option selected="selected" value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
+                            }
+                        }
+                    });
+                }
+            },
+        });
+    });
+
+    // Criar novo Agendamento
+    $(document).on('click', '.salvar-novo-agendamento', function(){
+        var results = $(this).parents('form').serialize().split('&');
+        var dados = {};
+
+        for(var i = 0; i < results.length; i++){
+            var pair = results[i].split('=');
+            dados[pair[0]] = decodeURIComponent(pair[1]);
+        }
+
+        var data_parts = dados.data_inicio.split("/");
+        var dia = data_parts[0];
+        var mes = data_parts[1];
+        var ano = data_parts[2];
+        var hora_parts = dados.hora_inicio.split(":");
+        var horas = hora_parts[0];
+        var minutos = hora_parts[1];
+
+        var data_hora_inicio = ano+'-'+mes+'-'+dia+'T'+horas+':'+minutos+':00';
+
+        var data_parts = dados.data_fim.split("/");
+        var dia = data_parts[0];
+        var mes = data_parts[1];
+        var ano = data_parts[2];
+        var hora_parts = dados.hora_fim.split(":");
+        var horas = hora_parts[0];
+        var minutos = hora_parts[1];
+
+        var data_hora_fim = ano+'-'+mes+'-'+dia+'T'+horas+':'+minutos+':00';
+
+        console.log(dados);
+
+        calendar.createEvents([
+            {
+                id: '2',
+                calendarId: '1',
+                title: dados.paciente,
+                start: data_hora_inicio,
+                end: data_hora_fim,
+                body: dados.observacoes,
+                color: '#fff',
+                backgroundColor: '#ccc',
+                borderColor: 'red',
+            },
+        ]);
+
+        $('.close-modal-agenda').trigger('click');
+    });
 });
 
+var focus_paciente = 0;
 function popup_nativo_abertura() {
     // const target = document.querySelector('.toastui-calendar-popup-overlay');
     const target = document.querySelector('.toastui-calendar-popup-overlay');
@@ -157,6 +257,7 @@ function popup_nativo_abertura() {
         }
     }else{
         $('.close-modal-agenda').trigger('click');
+        focus_paciente = 0;
     }
 }
 
@@ -166,8 +267,15 @@ function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
 
     var modal = $('.criar-agendamento');
 
-    modal.find('[name="data_inicio"]').val(data_para_br(data_inicio))
-    modal.find('[name="data_fim"]').val(data_para_br(data_fim))
-    modal.find('[name="hora_inicio"]').val(hora_inicio)
-    modal.find('[name="hora_fim"]').val(hora_fim)
+    modal.find('[name="data_inicio"]').val(data_para_br(data_inicio));
+    modal.find('[name="data_fim"]').val(data_para_br(data_fim));
+    modal.find('[name="hora_inicio"]').val(hora_inicio);
+    modal.find('[name="hora_fim"]').val(hora_fim);
+
+    if(!focus_paciente){
+        setTimeout(function(){
+            modal.find('[name="paciente"]').focus();
+            focus_paciente++;
+        }, 500);
+    }
 }

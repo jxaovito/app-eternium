@@ -54,6 +54,25 @@ class Paciente_model extends Model {
 	    return $query->paginate(20);
     }
 
+    function get_all_tratamento_ativo($paciente_id){
+    	return $this->setTable('tratamento as t')
+    				->select('t.id as tratamento_id', 't.data_hora', 't.sessoes_contratada', 't.sessoes_consumida', 'p.nome AS paciente', 'e.nome AS especialidade', 'pr.nome AS profissional')
+    				->join('paciente as p', function($join){
+    					$join->on('p.id', '=', 't.paciente_id');
+    				})
+    				->join('profissional as pr', function($join){
+    					$join->on('pr.id', '=', 't.profissional_id');
+    				})
+    				->join('especialidade as e', function($join){
+    					$join->on('e.id', '=', 't.especialidade_id');
+    				})
+    				->where('p.id', '=', $paciente_id)
+    				->where('t.sessoes_contratada', '!=', 't.sessoes_consumida')
+    				->orderBy('t.data_hora', 'ASC')
+    				->get()
+    				->toArray();
+    }
+
     function get_all_table($table, $where = null){
 		$this->setTable($table);
 	

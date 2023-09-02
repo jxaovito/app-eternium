@@ -35,6 +35,7 @@ class Agenda_controller extends Controller{
         $_dados['profissionais'] = $profissionais;
         $_dados['profissional_id'] = ($profissional_id ? $profissional_id : $profissionais[0]['id']);
         $_dados['especialidades'] = $this->Agenda_model->get_all_table('especialidade', array('deletado' => '0'));
+        $_dados['convenios'] = $this->Agenda_model->get_all_table('convenio', array('deletado' => '0'));
         $_dados['pagina'] = 'agenda';
 
         return view('agenda.index', $_dados);

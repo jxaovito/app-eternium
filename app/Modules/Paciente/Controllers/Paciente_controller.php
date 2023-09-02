@@ -294,8 +294,13 @@ class Paciente_controller extends Controller{
 
     public function busca_paciente_by_id(Request $request){
         $id = $request->input('id');
+        $tratamento = $request->input('tratamento');
 
         $registros = $this->Paciente_model->get_all_pacientes($id)[0];
+
+        if($tratamento){
+            $registros['tratamento'] = $this->Paciente_model->get_all_tratamento_ativo($id);
+        }
 
         echo json_encode($registros);
     }
