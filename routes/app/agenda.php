@@ -8,5 +8,6 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
     // API's
     Route::post('/agenda/criar_agendamento', [Agenda_controller::class, 'criar_agendamento'])->name('criar_agendamento');
     Route::post('/agenda/atualizar_agenda', [Agenda_controller::class, 'atualizar_agenda'])->name('atualizar_agenda');
+    Route::post('/agenda/busca_agendamento', [Agenda_controller::class, 'busca_agendamento'])->name('busca_agendamento');
     
 });

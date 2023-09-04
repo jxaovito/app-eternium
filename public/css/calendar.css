@@ -88,6 +88,7 @@
   padding: 10px;
   border-radius: 8px;
   padding: 1%;
+  display: none;
 }
 .container-agenda .modal-agendamento .content-modal form .tipo-agendamento {
   height: 40px;

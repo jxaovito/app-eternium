@@ -94,4 +94,34 @@ class Agenda_model extends Model {
                     ->get()
                     ->toArray();
     }
+
+    function get_agendamento($agenda_id){
+        return $this->setTable('agenda as a')
+                    ->select('a.id', 'a.data_inicio', 'a.data_fim', 'a.hora_inicio', 'a.hora_fim', 'a.sessao', 'a.observacoes', 'a.whatsapp', 'a.reserva', 'ata.nome AS tipo_agendamento', 'pa.id as paciente_id', 'pa.nome AS paciente', 'pa.telefone_principal', 'co.nome AS convenio', 'pro.nome AS profissional', 'pro.id as profissional_id', 't.id as tratamento_id', 't.sessoes_contratada', DB::raw('GROUP_CONCAT(cp.nome SEPARATOR "[|]") AS procedimentos'), DB::raw('GROUP_CONCAT(cp.id SEPARATOR ",") AS id_procedimentos'), DB::raw('GROUP_CONCAT(thp.id SEPARATOR ",") AS tratamento_has_procedimento'), DB::raw('GROUP_CONCAT(thp.sessoes_contratada SEPARATOR ",") AS sessoes_contratada_proc'), DB::raw('GROUP_CONCAT(thp.sessoes_consumida SEPARATOR ",") AS sessoes_consumida_proc'))
+                    ->join('agenda_tipo_agendamento as ata', function($join){
+                        $join->on('ata.id', '=', 'a.agenda_tipo_agendamento_id');
+                    })
+                    ->join('tratamento as t', function($join){
+                        $join->on('t.id', '=', 'a.tratamento_id');
+                    })
+                    ->join('paciente as pa', function($join){
+                        $join->on('pa.id', '=', 't.paciente_id');
+                    })
+                    ->join('profissional as pro', function($join){
+                        $join->on('pro.id', '=', 'a.profissional_id');
+                    })
+                    ->join('convenio as co', function($join){
+                        $join->on('co.id', '=', 't.convenio_id');
+                    })
+                    ->leftJoin('tratamento_has_procedimento as thp', function($join){
+                        $join->on('thp.tratamento_id', '=', 't.id');
+                    })
+                    ->leftJoin('convenio_procedimento as cp', function($join){
+                        $join->on('cp.id', '=', 'thp.procedimento_id');
+                    })
+                    ->where('a.id', '=', $agenda_id)
+                    ->groupBy('t.id')
+                    ->get()
+                    ->toArray();
+    }
 }

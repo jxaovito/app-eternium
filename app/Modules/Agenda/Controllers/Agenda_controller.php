@@ -182,4 +182,12 @@ class Agenda_controller extends Controller{
 
         echo json_encode($agendamentos);
     }
+
+    public function busca_agendamento(Request $request){
+        $agenda_id = $request->input('agenda_id');
+
+        $agendamento = $this->Agenda_model->get_agendamento($agenda_id);
+
+        echo json_encode($agendamento);
+    }
 }

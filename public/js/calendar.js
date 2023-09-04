@@ -32,7 +32,7 @@ $(document).ready(function(){
     // Ativar PopUp
     calendar.setOptions({
       useFormPopup: true,
-      useDetailPopup: true,
+      useDetailPopup: false,
     });
 
     // Iniciando Agendas
@@ -45,10 +45,6 @@ $(document).ready(function(){
 
     // Inicializa o calendário
     calendar.render();
-
-    calendar.on('beforeCreateEvent', (eventObj) => {
-      console.log(eventObj);
-    });
 
     // Nomeando os dias da semana
     calendar.setOptions({
@@ -100,6 +96,8 @@ $(document).ready(function(){
         $('.toastui-calendar-popup-overlay').click();
         setTimeout(function(){
             $('#calendar').css('width', '100%');
+            $('.criar-agendamento').hide();
+            $('.visualizar-agendamento').hide();
         },100);
     });
 
@@ -212,7 +210,13 @@ $(document).ready(function(){
         $('.close-modal-agenda').trigger('click');
     });
 
+    // Atualiza agenda
     atualizar_agenda();
+
+    // Ao clicar no Evento
+    calendar.on('clickEvent', ({ event }) => {
+        visualizar_agendamento(event.id)
+    });
 });
 
 var focus_paciente = 0;
@@ -236,7 +240,6 @@ function popup_nativo_abertura() {
             
         }
     }else{
-        $('.close-modal-agenda').trigger('click');
         focus_paciente = 0;
     }
 }
@@ -244,6 +247,7 @@ function popup_nativo_abertura() {
 function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
     $('#calendar').css('width', '70%');
     $('.contents-modal').show('fast');
+    $('.visualizar-agendamento').hide('fast');
 
     var modal = $('.criar-agendamento');
 
@@ -251,6 +255,7 @@ function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
     modal.find('[name="data_fim"]').val(data_para_br(data_fim));
     modal.find('[name="hora_inicio"]').val(hora_inicio);
     modal.find('[name="hora_fim"]').val(hora_fim);
+    modal.show();
 
     if(!focus_paciente){
         setTimeout(function(){
@@ -258,6 +263,73 @@ function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
             focus_paciente++;
         }, 500);
     }
+}
+
+function visualizar_agendamento(agenda_id){
+    $('#calendar').css('width', '70%');
+    $('.contents-modal').show('fast');
+    $('.criar-agendamento').hide('fast');
+    var _token = $('[name="_token"]').val();
+
+    var modal = $('.visualizar-agendamento');
+    modal.show();
+    
+    $.ajax({
+        url: '/agenda/busca_agendamento',
+        type: 'post',
+        data: {
+            _token: _token,
+            agenda_id: agenda_id
+        },
+        dataType: 'json',
+        success: function(data){
+            console.log(data);
+            $.each(data, function(index, dado){
+                var hora_inicio = `${dado.hora_inicio.split(':')[0]}:${dado.hora_inicio.split(':')[1]}`;
+                var hora_fim = `${dado.hora_fim.split(':')[0]}:${dado.hora_fim.split(':')[1]}`;
+
+                modal.find('.header-modal').find('h4').text(dado.tipo_agendamento);
+                modal.find('[name="data_inicio"]').val(data_para_br(dado.data_inicio));
+                modal.find('[name="data_fim"]').val(data_para_br(dado.data_fim));
+                modal.find('[name="hora_inicio"]').val(hora_inicio);
+                modal.find('[name="hora_fim"]').val(hora_fim);
+                modal.find('[name="paciente"]').val(dado.paciente);
+                modal.find('[name="paciente_id"]').val(dado.paciente_id);
+                modal.find('[name="paciente_id"]').val(dado.paciente_id);
+                modal.find('[name="profissional"]').val(dado.profissional);
+                modal.find('[name="profissional_id"]').val(dado.profissional_id);
+                modal.find('[name="tratamento"]').val(dado.sessao != null ? `${dado.sessao}/${dado.sessoes_contratada}` : 'Reserva ');
+                modal.find('[name="tratamento_id"]').val(dado.tratamento_id);
+
+                modal.find('.procedimentos').html('');
+                var procedimentos = dado.procedimentos.split('[|]');
+                var id_procedimentos = dado.id_procedimentos.split(',');
+                var tratamento_has_procedimento = dado.tratamento_has_procedimento.split(',');
+                var sessoes_contratada = dado.sessoes_contratada_proc.split(',');
+                var sessoes_consumida = dado.sessoes_consumida_proc.split(',');
+                $.each(procedimentos, function(i, val){
+                    clone = modal.find('.procedimento_clone').clone();
+                    clone.removeClass('procedimento_clone');
+                    clone.removeClass('d-none');
+                    clone.find('[name="procedimento[]"]').val(val);
+                    clone.find('[name="procedimento_id[]"').val(id_procedimentos[i]);
+                    clone.find('[name="tratamento_has_procedimento_id[]"').val(tratamento_has_procedimento[i]);
+                    var label_sessao_consumida = 'Sessão consumida';
+                    if(sessoes_consumida[i] > 1){
+                        label_sessao_consumida = 'Sessões consumidas';
+                    }
+
+                    var label_sessao_contratada = 'sessao contratada';
+                    if(sessoes_contratada[i] > 1){
+                        label_sessao_contratada = 'sessões contratadas';
+                    }
+                    clone.find('label').text(`${sessoes_consumida[i]} ${label_sessao_consumida} de ${sessoes_contratada[i]} ${label_sessao_contratada}`);
+
+                    modal.find('.procedimentos').append(clone);
+                });
+            });
+        },
+    });
 }
 
 function atualizar_agenda(){

@@ -185,8 +185,101 @@
 					</div>
 				</form>
 			</div>
-			<div class="footer-modal">
+		</div>
+		<div class="modal-agendamento visualizar-agendamento">
+			<div class="header-modal d-flex justify-content-between align-items-center">
+				<h4>Novo Agendamento</h4>
+				<span>
+					<i
+						class="ph ph-x pointer close-modal-agenda"
+						data-bs-toggle="tooltip"
+		                data-bs-placement="bottom"
+		                data-bs-custom-class="custom-tooltip"
+		                data-bs-title="Fechar"
+					></i>
+				</span>
+			</div>
+			<div class="content-modal">
+				<form class="d-flex flex-wrap w-100 justify-content-between">
+					<div class="form-floating w-49">
+					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_inicial" placeholder="{{date('d/m/Y')}}" value="" name="data_inicio">
+					  	<label for="data_inicial">Data Inicial</label>
+					</div>
 
+					<div class="form-floating w-49">
+					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_fim" placeholder="{{date('d/m/Y')}}" value="" name="data_fim">
+					  	<label for="data_fim">Data Fim</label>
+					</div>
+
+					<div class="form-floating w-49">
+					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="hora_inicial" placeholder="00:00" value="" name="hora_inicio">
+					  	<label for="hora_inicial">Hora Inicial</label>
+					</div>
+
+					<div class="form-floating w-49">
+					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="hora_fim" placeholder="00:00" value="" name="hora_fim">
+					  	<label for="hora_fim">Hora Final</label>
+					</div>
+
+					<div class="form-floating w-100">
+						<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Paciente" name="paciente" autocomplete="off">
+						<label>Paciente</label>
+					</div>
+
+					<div class="form-floating w-100">
+						<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Profissional" name="profissional" autocomplete="off">
+						<label>Profissional</label>
+						<input type="hidden" name="profissional_id">
+					</div>
+
+					<div class="form-floating w-100">
+						<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Tratamento" name="tratamento" autocomplete="off">
+						<label>Tratamento</label>
+						<input type="hidden" name="tratamento_id">
+					</div>
+
+					<div class="w-100">
+						<hr>
+					</div>
+
+					<div class="w-80">
+					  	<label>Procedimento</label>
+					</div>
+
+					<div class="w-19">
+					  	<label>Sessão</label>
+					</div>
+
+					<div class="w-100 d-flex flex-wrap procedimentos">
+
+					</div>
+
+					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> Cancelar</span>
+						{{-- <span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Salvar <i class="ph ph-check"></i></span> --}}
+					</div>
+				</form>
+
+				{{-- Clone --}}
+				<div class="w-100 procedimento_clone d-none">
+					<div class="w-100 d-flex justify-content-between mgb-px-5">
+						<div class="form-floating w-80">
+						  	<input type="text" class="form-control w-100" readonly placeholder="Procedimento" name="procedimento[]" autocomplete="off">
+						  	<label></label>
+						</div>
+						<input type="hidden" name="tratamento_has_procedimento_id[]">
+						<input type="hidden" name="procedimento_id[]">
+						<input type="text" name="sessao[]" class="form-control w-19 number">
+					</div>
+				</div>
+				{{-- <div class="w-100 procedimento_clone d-none">
+					<div class="w-100 d-flex justify-content-between mgb-px-5">
+						<input type="text" class="form-control w-80" readonly placeholder="Procedimento" name="procedimento[]" autocomplete="off">
+						<input type="hidden" name="tratamento_has_procedimento_id[]">
+						<input type="hidden" name="procedimento_id[]">
+						<input type="text" name="sessao[]" class="form-control w-19">
+					</div>
+				</div> --}}
 			</div>
 		</div>
 	</div>
