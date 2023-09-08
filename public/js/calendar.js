@@ -56,23 +56,230 @@ $(document).ready(function(){
     // Retorceder / Avançar Datas
     $(document).on('click', '.alternar-datas .voltar-datas, .alternar-datas .avancar-datas, .alternar-datas .hoje', function(){
         if($(this).hasClass('voltar-datas')){
+            var tipo_agenda = $('.calendar-visualizacao.active').attr('tipo');
+
+            if(tipo_agenda == 'month'){
+                var data_inicio_anterior = $('[name="data_inicio_mes"]').val();
+                var data_fim_anterior = $('[name="data_fim_mes"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_inicio = new Date(data_inicio_anterior);
+                var data_fim = new Date(data_fim_anterior);
+
+                // Subtrai 1 mês da data de início
+                data_inicio.setMonth(data_inicio.getMonth() - 1);
+                data_fim.setMonth(data_fim.getMonth() - 1);
+
+                data_inicio.setDate(data_inicio.getDate() + 1);
+                data_fim.setDate(data_fim.getDate() + 1);
+
+                var data_inicio = data_inicio.getFullYear() + '-' + (data_inicio.getMonth() + 1).toString().padStart(2, '0') + '-' + data_inicio.getDate().toString().padStart(2, '0');
+                var data_fim = data_fim.getFullYear() + '-' + (data_fim.getMonth() + 1).toString().padStart(2, '0') + '-' + data_fim.getDate().toString().padStart(2, '0');
+
+                $('[name="data_inicio_mes"]').val(data_inicio);
+                $('[name="data_fim_mes"]').val(data_fim);
+            
+            }else if(tipo_agenda == 'week'){
+                var data_inicio_anterior = $('[name="data_inicio_semana"]').val();
+                var data_fim_anterior = $('[name="data_fim_semana"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_inicio = new Date(data_inicio_anterior);
+                var data_fim = new Date(data_fim_anterior);
+
+                data_inicio.setDate(data_inicio.getDate() - 6);
+                data_fim.setDate(data_fim.getDate() - 6);
+
+                var data_inicio = data_inicio.getFullYear() + '-' + (data_inicio.getMonth() + 1).toString().padStart(2, '0') + '-' + data_inicio.getDate().toString().padStart(2, '0');
+                var data_fim = data_fim.getFullYear() + '-' + (data_fim.getMonth() + 1).toString().padStart(2, '0') + '-' + data_fim.getDate().toString().padStart(2, '0');
+
+                $('[name="data_inicio_semana"]').val(data_inicio);
+                $('[name="data_fim_semana"]').val(data_fim);
+            
+            }else{
+                var data_hoje = $('[name="data_hoje"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_hoje = new Date(data_hoje);
+
+                var data_inicio = data_hoje.getFullYear() + '-' + (data_hoje.getMonth() + 1).toString().padStart(2, '0') + '-' + data_hoje.getDate().toString().padStart(2, '0');
+                var data_fim = data_inicio;
+
+                $('[name="data_hoje"]').val(data_inicio);
+            }
+
+
+            atualizar_agenda(data_inicio, data_fim);
             calendar.move(-1);
 
         }else if($(this).hasClass('avancar-datas')){
+            var tipo_agenda = $('.calendar-visualizacao.active').attr('tipo');
+            if(tipo_agenda == 'month'){
+                var data_inicio_anterior = $('[name="data_inicio_mes"]').val();
+                var data_fim_anterior = $('[name="data_fim_mes"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_inicio = new Date(data_inicio_anterior);
+                var data_fim = new Date(data_fim_anterior);
+
+                // Subtrai 1 mês da data de início
+                data_inicio.setMonth(data_inicio.getMonth() + 1);
+                data_fim.setMonth(data_fim.getMonth() + 1);
+
+                data_inicio.setDate(data_inicio.getDate() + 1);
+                data_fim.setDate(data_fim.getDate() + 1);
+
+                var data_inicio = data_inicio.getFullYear() + '-' + (data_inicio.getMonth() + 1).toString().padStart(2, '0') + '-' + data_inicio.getDate().toString().padStart(2, '0');
+                var data_fim = data_fim.getFullYear() + '-' + (data_fim.getMonth() + 1).toString().padStart(2, '0') + '-' + data_fim.getDate().toString().padStart(2, '0');
+
+                $('[name="data_inicio_mes"]').val(data_inicio);
+                $('[name="data_fim_mes"]').val(data_fim);
+            
+            }else if(tipo_agenda == 'week'){
+                var data_inicio_anterior = $('[name="data_inicio_semana"]').val();
+                var data_fim_anterior = $('[name="data_fim_semana"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_inicio = new Date(data_inicio_anterior);
+                var data_fim = new Date(data_fim_anterior);
+
+                data_inicio.setDate(data_inicio.getDate() + 8);
+                data_fim.setDate(data_fim.getDate() + 8);
+
+                var data_inicio = data_inicio.getFullYear() + '-' + (data_inicio.getMonth() + 1).toString().padStart(2, '0') + '-' + data_inicio.getDate().toString().padStart(2, '0');
+                var data_fim = data_fim.getFullYear() + '-' + (data_fim.getMonth() + 1).toString().padStart(2, '0') + '-' + data_fim.getDate().toString().padStart(2, '0');
+
+                $('[name="data_inicio_semana"]').val(data_inicio);
+                $('[name="data_fim_semana"]').val(data_fim);
+            
+            }else{
+                var data_hoje = $('[name="data_hoje"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_hoje = new Date(data_hoje);
+
+                data_hoje.setDate(data_hoje.getDate() + 2);
+
+                var data_inicio = data_hoje.getFullYear() + '-' + (data_hoje.getMonth() + 1).toString().padStart(2, '0') + '-' + data_hoje.getDate().toString().padStart(2, '0');
+                var data_fim = data_inicio;
+
+                $('[name="data_hoje"]').val(data_inicio);
+            }
+
+            atualizar_agenda(data_inicio, data_fim);
             calendar.move(1);
         
         }else{
+            var tipo_agenda = $('.calendar-visualizacao.active').attr('tipo');
+            if(tipo_agenda == 'month'){
+                var data_inicio_anterior = $('[name="data_inicio_mes_padrao"]').val();
+                var data_fim_anterior = $('[name="data_fim_mes_padrao"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_inicio = new Date(data_inicio_anterior);
+                var data_fim = new Date(data_fim_anterior);
+
+                var data_inicio = data_inicio.getFullYear() + '-' + (data_inicio.getMonth() + 1).toString().padStart(2, '0') + '-' + data_inicio.getDate().toString().padStart(2, '0');
+                var data_fim = data_fim.getFullYear() + '-' + (data_fim.getMonth() + 1).toString().padStart(2, '0') + '-' + data_fim.getDate().toString().padStart(2, '0');
+
+                $('[name="data_inicio_mes"]').val(data_inicio);
+                $('[name="data_fim_mes"]').val(data_fim);
+            
+            }else if(tipo_agenda == 'week'){
+                var data_inicio_anterior = $('[name="data_inicio_semana_padrao"]').val();
+                var data_fim_anterior = $('[name="data_fim_semana_padrao"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_inicio = new Date(data_inicio_anterior);
+                var data_fim = new Date(data_fim_anterior);
+
+                var data_inicio = data_inicio.getFullYear() + '-' + (data_inicio.getMonth() + 1).toString().padStart(2, '0') + '-' + data_inicio.getDate().toString().padStart(2, '0');
+                var data_fim = data_fim.getFullYear() + '-' + (data_fim.getMonth() + 1).toString().padStart(2, '0') + '-' + data_fim.getDate().toString().padStart(2, '0');
+
+                $('[name="data_inicio_semana"]').val(data_inicio);
+                $('[name="data_fim_semana"]').val(data_fim);
+            
+            }else{
+                var data_hoje = $('[name="data_hoje"]').val();
+
+                // Cria objetos Date a partir das datas anteriores
+                var data_hoje = new Date(data_hoje);
+
+                data_hoje.setDate(data_hoje.getDate() + 1);
+
+                var data_inicio = data_hoje.getFullYear() + '-' + (data_hoje.getMonth() + 1).toString().padStart(2, '0') + '-' + data_hoje.getDate().toString().padStart(2, '0');
+                var data_fim = data_inicio;
+
+                $('[name="data_hoje"]').val(data_inicio);
+            }
+
+            atualizar_agenda(data_inicio, data_fim);
             calendar.today();
         }
     });
 
     // Ir para data expecífica
     $(document).on('change', '.container-agenda .selecionar-data .date', function(){
+        var tipo_agenda = $('.calendar-visualizacao.active').attr('tipo');
         var date = $(this).val();
         date = date.split('/');
 
         if((date[0] && date[1] && date[2]) && (date[2].length == 4)){
-            calendar.setDate(date[2]+'-'+date[1]+'-'+date[0]);
+            data_selecionada = date[2]+'-'+date[1]+'-'+date[0];
+
+            if(tipo_agenda == 'month'){
+                var data = new Date(data_selecionada);
+
+                // Encontrar o primeiro dia do mês
+                var primeiro_dia_mes = new Date(data.getFullYear(), data.getMonth(), 1);
+                primeiro_dia_mes.setDate(primeiro_dia_mes.getDate() - 7);
+
+                // Encontrar o último dia do mês
+                var ultimo_dia_mes = new Date(data.getFullYear(), data.getMonth() + 1, 0);
+                ultimo_dia_mes.setDate(ultimo_dia_mes.getDate() + 14);
+
+                var data_inicio = `${primeiro_dia_mes.getFullYear()}-${String(primeiro_dia_mes.getMonth() + 1).padStart(2, '0')}-${String(primeiro_dia_mes.getDate()).padStart(2, '0')}`;
+                var data_fim = `${ultimo_dia_mes.getFullYear()}-${String(ultimo_dia_mes.getMonth() + 1).padStart(2, '0')}-${String(ultimo_dia_mes.getDate()).padStart(2, '0')}`;
+
+                $('[name="data_inicio_mes"]').val(data_inicio);
+                $('[name="data_fim_mes"]').val(data_fim);
+
+            }else if(tipo_agenda == 'week'){
+                var data = new Date(data_selecionada);
+                var dia_semana = data.getDay();
+                var dia_inicio_semana = -dia_semana + 1;
+                var dia_fim_semana = 7 - dia_semana;
+
+                var primeiro_dia_semana = new Date(data);
+                primeiro_dia_semana.setDate(data.getDate() + dia_inicio_semana);
+
+                var ultimo_dia_semana = new Date(data);
+                ultimo_dia_semana.setDate(data.getDate() + dia_fim_semana);
+
+                var data_inicio = `${primeiro_dia_semana.getFullYear()}-${String(primeiro_dia_semana.getMonth() + 1).padStart(2, '0')}-${String(primeiro_dia_semana.getDate()).padStart(2, '0')}`;
+                var data_fim = `${ultimo_dia_semana.getFullYear()}-${String(ultimo_dia_semana.getMonth() + 1).padStart(2, '0')}-${String(ultimo_dia_semana.getDate()).padStart(2, '0')}`;
+
+                $('[name="data_inicio_semana"]').val(data_inicio);
+                $('[name="data_fim_semana"]').val(data_fim);
+            
+            }else{
+                // Cria objetos Date a partir das datas anteriores
+                var data_hoje = new Date(data_selecionada);
+
+                data_hoje.setDate(data_hoje.getDate() + 1);
+
+                var data_inicio = data_hoje.getFullYear() + '-' + (data_hoje.getMonth() + 1).toString().padStart(2, '0') + '-' + data_hoje.getDate().toString().padStart(2, '0');
+                var data_fim = data_inicio;
+
+                $('[name="data_hoje"]').val(data_inicio);
+
+                data_hoje.setDate(data_hoje.getDate() + 1);
+                var data_selecionada = data_hoje.getFullYear() + '-' + (data_hoje.getMonth() + 1).toString().padStart(2, '0') + '-' + data_hoje.getDate().toString().padStart(2, '0');
+            }
+
+            atualizar_agenda(data_inicio, data_fim);
+            calendar.setDate(data_selecionada);
+
         }else{
             alerta('Data inválida!', 'vermelho');
         }
@@ -81,7 +288,63 @@ $(document).ready(function(){
     // Mudar a visualização da Agenda
     calendar.changeView($('[name="visualizacao_agenda"]').val());
     $(document).on('click', '.calendar-visualizacao', function(){
-        calendar.changeView($(this).attr('tipo'));
+        var tipo = $(this).attr('tipo');
+        $(this).parent('div').find('button').removeClass('active');
+        $(this).addClass('active');
+
+        if(tipo == 'month'){
+            var data_atual = new Date();
+            var inicio_mes = new Date(data_atual.getFullYear(), data_atual.getMonth(), 1);
+            var ultimo_dia_mes = new Date(data_atual.getFullYear(), data_atual.getMonth() + 1, 0);
+
+            var inicio_mes_menos_7_dias = new Date(inicio_mes);
+            inicio_mes_menos_7_dias.setDate(inicio_mes_menos_7_dias.getDate() - 7);
+
+            var ultimo_dia_mes_menos_7_dia = new Date(ultimo_dia_mes);
+            ultimo_dia_mes_menos_7_dia.setDate(ultimo_dia_mes_menos_7_dia.getDate() + 7);
+
+            var formatoData = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            var data_inicio = inicio_mes_menos_7_dias.toLocaleDateString('pt-BR', formatoData);
+            var data_fim = ultimo_dia_mes_menos_7_dia.toLocaleDateString('pt-BR', formatoData);
+
+        }else if(tipo == 'week'){
+            var data_atual = new Date();
+            var primeiro_dia_semana = new Date(data_atual.getFullYear(), data_atual.getMonth(), data_atual.getDate() - data_atual.getDay());
+
+            var data_inicio_semana = new Date(primeiro_dia_semana);
+            data_inicio_semana.setDate(data_inicio_semana.getDate() + 1);
+
+            var data_fim_semana = new Date(data_inicio_semana);
+            data_fim_semana.setDate(data_fim_semana.getDate() + 6);
+
+            var formatoData = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            var data_inicio = data_inicio_semana.toLocaleDateString('pt-BR', formatoData);
+            var data_fim = data_fim_semana.toLocaleDateString('pt-BR', formatoData);
+
+        }else{
+            var data_atual = new Date();
+            var formatoData = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            var data_inicio = data_atual.toLocaleDateString('pt-BR', formatoData);
+            var data_fim = data_atual.toLocaleDateString('pt-BR', formatoData);
+        }
+
+        atualizar_agenda(data_inicio, data_fim);
+
+        if(data_inicio.indexOf('/') != -1){
+            var data_inicio = `${data_inicio.split('/')[2]}-${data_inicio.split('/')[1]}-${data_inicio.split('/')[0]}`;
+        }else{
+            var data_inicio = data_inicio;
+        }
+
+        if(data_fim.indexOf('/') != -1){
+            var data_fim = `${data_fim.split('/')[2]}-${data_fim.split('/')[1]}-${data_fim.split('/')[0]}`;
+        }else{
+            var data_fim = data_fim;
+        }
+        $('[name="data_inicio_agenda"]').val(data_inicio);
+        $('[name="data_fim_agenda"]').val(data_fim);
+
+        calendar.changeView(tipo);
     });
 
     const observer = new MutationObserver(popup_nativo_abertura);
@@ -283,7 +546,6 @@ function visualizar_agendamento(agenda_id){
         },
         dataType: 'json',
         success: function(data){
-            console.log(data);
             $.each(data, function(index, dado){
                 var hora_inicio = `${dado.hora_inicio.split(':')[0]}:${dado.hora_inicio.split(':')[1]}`;
                 var hora_fim = `${dado.hora_fim.split(':')[0]}:${dado.hora_fim.split(':')[1]}`;
@@ -332,12 +594,31 @@ function visualizar_agendamento(agenda_id){
     });
 }
 
-function atualizar_agenda(){
-    var data_inicio_agenda = $('[name="data_inicio_agenda"]').val();
-    var data_fim_agenda = $('[name="data_fim_agenda"]').val();
+function atualizar_agenda(data_inicio = false, data_fim = false){
     var profissional_id = $('[name="profissional_id"]').val();
     var _token = $('[name="_token"]').val();
     calendar.clear();
+
+    if(!data_inicio){
+        var data_inicio_agenda = $('[name="data_inicio_agenda"]').val();
+    }else{
+        if(data_inicio.indexOf('/') != -1){
+            var data_inicio_agenda = `${data_inicio.split('/')[2]}-${data_inicio.split('/')[1]}-${data_inicio.split('/')[0]}`;
+        }else{
+            var data_inicio_agenda = data_inicio;
+        }
+    }
+
+    if(!data_fim){
+        var data_fim_agenda = $('[name="data_fim_agenda"]').val();
+
+    }else{
+        if(data_fim.indexOf('/') != -1){
+            var data_fim_agenda = `${data_fim.split('/')[2]}-${data_fim.split('/')[1]}-${data_fim.split('/')[0]}`;
+        }else{
+            var data_fim_agenda = data_fim;
+        }
+    }
 
     $.ajax({
         url: '/agenda/atualizar_agenda',

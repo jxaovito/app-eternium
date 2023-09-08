@@ -89,6 +89,33 @@ class Agenda_controller extends Controller{
             
         }
 
+        /** ---- Configuraç~ode datas para pegar o MES ---- */
+        // Define o início do mês corrente e subtrai 7 dias
+        $data_atual = Carbon::now();
+        $data_mes_inicio = $data_atual->startOfMonth()->subDays(7);
+
+        // Define o último dia do mês corrente e soma 14 dias
+        $data_atual = Carbon::now();
+        $data_mes_fim = $data_atual->endOfMonth()->addDays(14);
+
+        // Atribui os valores às variáveis
+        $_dados['data_inicio_mes'] = $data_mes_inicio->toDateString();
+        $_dados['data_fim_mes'] = $data_mes_fim->toDateString();
+        /** ---- Configuraç~ode datas para pegar o MES ---- */
+
+        /** ---- Configuraç~ode datas para pegar o SEMANA ---- */
+        // Define o início do mês corrente e subtrai 7 dias
+        $data_atual = Carbon::now();
+        Carbon::setWeekStartsAt(Carbon::MONDAY);
+        Carbon::setWeekEndsAt(Carbon::SUNDAY);
+
+        // Atribui os valores às variáveis
+        $_dados['data_inicio_semana'] = $data_atual->startOfWeek()->toDateString();
+        $_dados['data_fim_semana'] = $data_atual->endOfWeek()->toDateString();
+        /** ---- Configuraç~ode datas para pegar o SEMANA ---- */
+
+
+
         // Profissional da agenda atual
         $_dados['profissional_id'] = ($profissional_id ? $profissional_id : $profissionais[0]['id']);
         $_dados['profissional_nome'] = $this->Agenda_model->get_all_table('profissional', array('id' => $_dados['profissional_id']))[0]['nome'];

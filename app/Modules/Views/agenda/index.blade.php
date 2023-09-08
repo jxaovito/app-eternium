@@ -23,9 +23,30 @@
 				</div>
 			</div>
 			<div class="btn-group mgb-px-5" role="group">
-				  <button type="button" class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente" tipo="day" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Dia</button>
-				  <button type="button" class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente" tipo="week" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Semana</button>
-				  <button type="button" class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente" tipo="month" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Mês</button>
+				<button
+				  	type="button"
+				  	class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente {{$visualizacao_agenda == 'day' ? 'active' : ''}}"
+				  	tipo="day"
+				  	style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+				>
+					Dia
+				</button>
+				<button
+					type="button"
+					class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente {{$visualizacao_agenda == 'week' ? 'active' : ''}}"
+					tipo="week"
+					style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+				>
+					Semana
+				</button>
+				<button
+					type="button"
+					class="btn btn-primary calendar-visualizacao bg-cor-logo-cliente {{$visualizacao_agenda == 'month' ? 'active' : ''}}"
+					tipo="month"
+					style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+				>
+					Mês
+				</button>
 			</div>
 		</div>
 
@@ -98,12 +119,30 @@
 	</div>
 	<div id="calendar" style="height: 100vh"></div>
 	{{-- Início Hiddens --}}
-	<input type="hidden" name="visualizacao_agenda" value="{{$visualizacao_agenda}}">
-	<input type="hidden" name="data_inicio_agenda" value="{{$data_inicio_agenda}}">
-	<input type="hidden" name="data_fim_agenda" value="{{$data_fim_agenda}}">
-	<input type="hidden" name="profissional_id" value="{{$profissional_id}}">
-	<input type="hidden" name="profissional_nome" value="{{$profissional_nome}}">
+		<input type="hidden" name="visualizacao_agenda" value="{{$visualizacao_agenda}}">
+		<input type="hidden" name="data_inicio_agenda" value="{{$data_inicio_agenda}}">
+		<input type="hidden" name="data_fim_agenda" value="{{$data_fim_agenda}}">
+		<input type="hidden" name="data_hoje_fim_agenda" value="{{$data_fim_agenda}}">
+		<input type="hidden" name="profissional_id" value="{{$profissional_id}}">
+		<input type="hidden" name="profissional_nome" value="{{$profissional_nome}}">
 	{{-- Final Hiddens --}}
+
+	{{-- Valores de datas para configuração do Calendar --}}
+		<input type="hidden" name="data_hoje" value="{{date('Y-m-d')}}">
+
+		<input type="hidden" name="data_inicio_semana" value="{{$data_inicio_semana}}">	
+		<input type="hidden" name="data_fim_semana" value="{{$data_fim_semana}}">
+
+		<input type="hidden" name="data_inicio_mes" value="{{$data_inicio_mes}}">	
+		<input type="hidden" name="data_fim_mes" value="{{$data_fim_mes}}">
+
+		{{-- Data Padrão Sem alterações de Navegação --}}
+		<input type="hidden" name="data_inicio_semana_padrao" value="{{$data_inicio_semana}}">	
+		<input type="hidden" name="data_fim_semana_padrao" value="{{$data_fim_semana}}">
+
+		<input type="hidden" name="data_inicio_mes_padrao" value="{{$data_inicio_mes}}">	
+		<input type="hidden" name="data_fim_mes_padrao" value="{{$data_fim_mes}}">
+	{{-- Valores de datas para configuração do Calendar --}}
 
 	<div class="bg-modal-agenda"></div>
 	<div class="contents-modal">
