@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
     Route::post('/paciente/filtrar', [Paciente_controller::class, 'filtrar'])->name('filtrar');
     Route::get('/paciente/limpar_filtro', [Paciente_controller::class, 'limpar_filtro'])->name('limpar_filtro');
 
+    // API
     Route::post('/paciente/busca_paciente_by_nome', [Paciente_controller::class, 'busca_paciente_by_nome'])->name('busca_paciente_by_nome');
     Route::post('/paciente/busca_paciente_by_id', [Paciente_controller::class, 'busca_paciente_by_id'])->name('busca_paciente_by_id');
 });

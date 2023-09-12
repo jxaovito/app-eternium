@@ -25,4 +25,66 @@ $(document).ready(function(){
             $('.content-profile').css('z-index', '999');
         }
     });
+
+    // Expandir/Recolher menu
+    $(document).on('click', '.lateral-nav .content-nav .content-expand i', function(){
+        const container = $('.lateral-nav .content-nav .content-menus a span');
+        var tipo = '';
+        var element = $(this);
+
+        if(container.is(':visible')){
+            $(this).addClass('ph-caret-right');
+            $(this).removeClass('ph-caret-left');
+            container.parents('.lateral-nav').animate({ width: '4%' }, 500);
+            container.parent('a').find('i').animate({ width: '90%' }, 500);
+            container.hide('fast');
+            $('.content-page').css('width', '92.5%');
+            tipo = 'ocultar';
+            element.tooltip('dispose');
+            element.attr('data-bs-title', 'Mostrar Menu');
+            element.tooltip();
+
+            $.each(container.parent('a').find('i'), function(){
+                $(this).parent('a').tooltip('dispose');
+                $(this).parent('a').attr('data-bs-toggle', 'tooltip');
+                $(this).parent('a').attr('data-bs-placement', 'right');
+                $(this).parent('a').attr('data-bs-custom-class', 'custom-tooltip');
+                $(this).parent('a').attr('data-bs-title', $(this).parent('a').attr('data-tooltip'));
+                $(this).parent('a').tooltip();
+            });
+
+        }else{
+            $(this).addClass('ph-caret-left');
+            $(this).removeClass('ph-caret-right');
+            container.parent('a').find('i').css('width', '20%');
+            container.parents('.lateral-nav').css('width', '15%');
+            $('.content-page').css('width', '82.5%');
+            container.show('fast');
+            tipo = 'mostrar';
+            element.tooltip('dispose');
+            element.attr('data-bs-title', 'Ocultar Menu');
+            element.tooltip();
+
+            $.each(container.parent('a').find('i'), function(){
+                $(this).parent('a').tooltip('dispose');
+                $(this).parent('a').removeAttr('data-bs-toggle');
+                $(this).parent('a').removeAttr('data-bs-placement');
+                $(this).parent('a').removeAttr('data-bs-custom-class');
+                $(this).parent('a').removeAttr('data-bs-title');
+            });
+        }
+
+        $.ajax({
+            url: '/configuracao/menu',
+            type: 'post',
+            data: {
+                tipo: tipo,
+                _token: $('#form_menu [name="_token"]').val(),
+            },
+            dataType: 'json',
+            success: function(data){
+                
+            },
+        });
+    });
 });

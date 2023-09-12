@@ -69,6 +69,7 @@ class Auth_controller extends Controller {
             session(['usuario_email' => $usuario['email']]);
             session(['config_dados' => $config_dados]);
             session(['config_preferencias' => $config_preferencias]);
+            session(['menu' => 'mostrar']);
 
     		return redirect()->route('agenda');
 

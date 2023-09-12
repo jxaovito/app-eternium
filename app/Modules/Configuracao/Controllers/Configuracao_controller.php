@@ -133,4 +133,10 @@ class Configuracao_controller extends Controller{
 
         return redirect()->route('configuracao_agenda');
     }
+
+    public function menu(Request $request){
+        $tipo = $request->input('tipo');
+
+        session(['menu' => $tipo]);
+    }
 }

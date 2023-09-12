@@ -1,3 +1,40 @@
+@php
+if(!session('menu') || session('menu') == 'mostrar'){
+    $mostrar_menu = true;
+    $titulo = 'inline-block';
+    $width_i = '20%';
+    $width_nav_lateral = '15%';
+    $width_content_page = '82.5%';
+    $btn_action_menu = 'ph-caret-left';
+    $tooltip = 'Ocultar Menu';
+
+}else{
+    $mostrar_menu = false;
+    $titulo = 'none';
+    $width_i = '90%';
+    $width_nav_lateral = '4%';
+    $width_content_page = '92.5%';
+    $btn_action_menu = 'ph-caret-right';
+    $tooltip = 'Mostrar Menu';
+}
+@endphp
+<style>
+    .lateral-nav{
+        width:{{$width_nav_lateral}};
+    }
+    .content-page{
+        width:{{$width_content_page}};
+    }
+    .lateral-nav .content-nav .content-menus a span{
+        display:{{$titulo}};
+    }
+    .lateral-nav .content-menus .menu i{
+        width:{{$width_i}};
+    }
+</style>
+<form id="form_menu">
+    @csrf
+</form>
 <div class="top-nav">
     <div class="content-nav">
         <div class="content-logo">
@@ -100,7 +137,13 @@
 <div class="lateral-nav">
     <div class="content-nav">
         <div class="content-expand">
-            <i class="ph ph-caret-left"></i>
+            <i
+                class="ph {{$btn_action_menu}}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="{{$tooltip}}"
+            ></i>
         </div>
         <div class="content-menus">
             <?php
@@ -111,6 +154,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'agenda' ? '/agenda' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Agenda"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Agenda"
             >
                 <i class="ph ph-calendar-blank"></i>
                 <span>Agenda</span>
@@ -125,6 +180,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'paciente' ? '/paciente' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'paciente' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Pacientes"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Pacientes"
             >
                 <i class="ph ph-users-three"></i>
                 <span>Pacientes</span>
@@ -139,6 +206,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'profissional' ? '/profissional' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'profissional' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Profissionais"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Profissionais"
             >
                 <i class="ph ph-user-list"></i>
                 <span>Profissionais</span>
@@ -153,6 +232,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'convenio' ? '/convenio' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'convenio' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Convênios"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Convênios"
             >
                 <i class="ph ph-identification-card"></i>
                 <span>Convênios</span>
@@ -167,6 +258,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'especialidade' ? '/especialidade' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'especialidade' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Especialidades"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Especialidades"
             >
                 <i class="ph ph-bookmarks"></i>
                 <span>Especialidades</span>
@@ -181,6 +284,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'procedimento' ? '/procedimento' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'procedimento' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Procedimentos"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Procedimentos"
             >
                 <i class="ph ph-heart-half"></i>
                 <span>Procedimentos</span>
@@ -195,6 +310,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'tratamento' ? '/tratamento' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'tratamento' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Tratamentos"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Tratamentos"
             >
                 <i class="ph ph-hand-heart"></i>
                 <span>Tratamentos</span>
@@ -209,6 +336,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'financeiro' ? '/financeiro' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'financeiro' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Financeiro"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Financeiro"
             >
                 <i class="ph ph-currency-dollar"></i>
                 <span>Financeiro</span>
@@ -223,6 +362,18 @@
             <a 
                 href="{{ isset($pagina) && $pagina != 'relatorio' ? '/relatorio' : '#' }}" 
                 class="menu {{ isset($pagina) && $pagina == 'relatorio' ? 'active' : '' }}"
+                <?= !$mostrar_menu
+                    ? 
+                        '
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="Relatórios"
+                        '
+                    :
+                        ''
+                ?>
+                data-tooltip="Relatórios"
             >
                 <i class="ph ph-scroll"></i>
                 <span>Relatórios</span>

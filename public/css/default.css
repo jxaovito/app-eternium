@@ -101,9 +101,9 @@ body container {
   flex-wrap: wrap;
 }
 body container .content-page {
-  width: 82.5%;
   margin-left: 1.5%;
   padding-top: 1%;
+  transition: width 0.3s ease;
 }
 body .background-modal-manual {
   position: fixed;

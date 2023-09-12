@@ -9,4 +9,7 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
 
     Route::get('/configuracao/agenda', [Configuracao_controller::class, 'agenda'])->name('configuracao_agenda');
     Route::post('/configuracao/agenda_salvar', [Configuracao_controller::class, 'agenda_salvar'])->name('configuracao_agenda_salvar');
+
+    // API
+    Route::post('/configuracao/menu', [Configuracao_controller::class, 'menu'])->name('menu');
 });
