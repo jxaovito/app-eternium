@@ -269,6 +269,12 @@ body .ph-whatsapp-logo {
 body .tooltip {
   z-index: 999999999999 !important;
 }
+body .modal {
+  z-index: 999999 !important;
+}
+body .modal-backdrop {
+  z-index: 99999 !important;
+}
 
 .loading-spinner {
   width: 100%;

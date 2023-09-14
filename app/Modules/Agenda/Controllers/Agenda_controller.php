@@ -136,66 +136,25 @@ class Agenda_controller extends Controller{
         $profissional_id = $request->input('profissional_id');
 
         $tratamento = $this->Agenda_model->get_all_table('tratamento', array('id' => $dados['tratamento_id']))[0];
-        $agendamentos = $this->Agenda_model->get_all_table('agenda', array('tratamento_id' => $dados['tratamento_id']));
-        $dados_agendamento = array();
 
         $data_inicio = date_format(date_create_from_format('d/m/Y', $dados['data_inicio']), 'Y-m-d');
         $data_fim = date_format(date_create_from_format('d/m/Y', $dados['data_fim']), 'Y-m-d');
 
-        if(!$agendamentos){
-            $dados_agendamento = array(
-                'data_inicio' => $data_inicio,
-                'data_fim' => $data_fim,
-                'hora_inicio' => $dados['hora_inicio'].':00',
-                'hora_fim' => $dados['hora_fim'].':00',
-                'tratamento_id' => $dados['tratamento_id'],
-                'agenda_tipo_agendamento_id' => $dados['tipo-agendamento'],
-                'profissional_id' => $profissional_id,
-                'sessao' => 1,
-                'observacoes' => $dados['observacoes'],
-            );
+        $dados_agendamento = array(
+            'data_inicio' => $data_inicio,
+            'data_fim' => $data_fim,
+            'hora_inicio' => $dados['hora_inicio'].':00',
+            'hora_fim' => $dados['hora_fim'].':00',
+            'tratamento_id' => $dados['tratamento_id'],
+            'agenda_tipo_agendamento_id' => $dados['tipo-agendamento'],
+            'profissional_id' => $profissional_id,
+            'sessao' => null,
+            'observacoes' => $dados['observacoes'],
+        );
 
-            $agenda_id = $this->Agenda_model->insert_dados('agenda', $dados_agendamento);
+        $agenda_id = $this->Agenda_model->insert_dados('agenda', $dados_agendamento);
 
-        }else{
-            $sessao = 1;
-            foreach($agendamentos as $key => $agendamento){
-                if($agendamento['data_inicio'] < $data_inicio){
-                   $sessao++; 
-
-                }else if($agendamento['data_inicio'] == $data_inicio && $agendamento['hora_inicio'] <= $dados['hora_inicio']){
-                    $sessao++;                    
-                }
-            }
-
-            $dados_agendamento = array(
-                'data_inicio' => $data_inicio,
-                'data_fim' => $data_fim,
-                'hora_inicio' => $dados['hora_inicio'].':00',
-                'hora_fim' => $dados['hora_fim'].':00',
-                'tratamento_id' => $dados['tratamento_id'],
-                'agenda_tipo_agendamento_id' => $dados['tipo-agendamento'],
-                'profissional_id' => $profissional_id,
-                'sessao' => $sessao,
-                'observacoes' => $dados['observacoes'],
-            );
-
-            $agenda_id = $this->Agenda_model->insert_dados('agenda', $dados_agendamento);
-
-            $agendamentos = $this->Agenda_model->get_agendamentos_futuros($agenda_id, $data_inicio, $dados['hora_inicio'].':00', $dados['tratamento_id']);
-
-            if($agendamentos){
-                $sessao++;
-                foreach($agendamentos as $key => $agendamento){
-                    if($tratamento['sessoes_contratada'] < $sessao){
-                        $this->Agenda_model->update_table('agenda', array('id' => $agendamento['id']), array('reserva' => 's'));
-                    }else{
-                        $this->Agenda_model->update_table('agenda', array('id' => $agendamento['id']), array('sessao' => $sessao));
-                    }
-                    $sessao++;
-                }
-            }
-        }
+        $this->reordenar_sessoes($dados['tratamento_id']);
 
         echo json_encode($agenda_id);
     }
@@ -216,5 +175,65 @@ class Agenda_controller extends Controller{
         $agendamento = $this->Agenda_model->get_agendamento($agenda_id);
 
         echo json_encode($agendamento);
+    }
+
+    // Remover Agendamento
+    public function remover_agendamento(Request $request){
+        $agenda_id = $request->input('agenda_id');
+        $tratamento_id = $request->input('tratamento_id');
+
+        $this->reordenar_sessoes($tratamento_id);
+
+        $this->Agenda_model->delete_dados('agenda', array('id' => $agenda_id));
+
+        echo json_encode(true);
+    }
+
+    private function reordenar_sessoes($tratamento_id){
+        $agendamentos = $this->Agenda_model->get_agendamentos_reordenar('agenda', array('tratamento_id' => $tratamento_id));
+
+        if($agendamentos){
+            $sessao = 1;
+            foreach($agendamentos as $key => $agendamento){
+                if($agendamento['sessoes_contratada'] < $sessao){
+                    $this->Agenda_model->update_table('agenda', array('id' => $agendamento['id']), array('sessao' => null, 'reserva' => 's'));
+                }else{
+                    $this->Agenda_model->update_table('agenda', array('id' => $agendamento['id']), array('sessao' => $sessao, 'reserva' => null));
+                }
+                $sessao++;
+            }
+        }
+    }
+
+    // Atualizar Agendamento
+    public function atualizar_agendamento(Request $request){
+        $agenda_id = $request->input('agenda_id');
+        $data_inicio = $request->input('data_inicio');
+        $data_fim = $request->input('data_fim');
+        $hora_inicio = $request->input('hora_inicio');
+        $hora_fim = $request->input('hora_fim');
+
+        $agendamento = $this->Agenda_model->get_agendamentos_reordenar('agenda', array('id' => $agenda_id));
+
+        if(!$data_inicio && !$hora_inicio){
+            $dados = array(
+                'data_fim' => $data_fim,
+                'hora_fim' => $hora_fim,
+            );
+
+        }else{
+            $dados = array(
+                'data_inicio' => $data_inicio,
+                'data_fim' => $data_fim,
+                'hora_inicio' => $hora_inicio,
+                'hora_fim' => $hora_fim,
+            );
+        }
+
+        $this->Agenda_model->update_table('agenda', array('id' => $agenda_id), $dados);
+
+        $this->reordenar_sessoes($agendamento[0]['tratamento_id']);
+
+        echo json_encode(true);
     }
 }

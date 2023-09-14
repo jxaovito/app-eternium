@@ -294,8 +294,20 @@
 					</div>
 
 					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> Cancelar</span>
-						{{-- <span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Salvar <i class="ph ph-check"></i></span> --}}
+						<div>
+							<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> Cancelar</span>
+							<span
+								type="submit"
+								class="btn btn-success bg-cor-logo-cliente remover remover_agendamento"
+								link="/agenda/remover_agendamento/"
+								titulo="Remover Convênio"
+								texto="Você tem certeza que deseja <b>Remover</b> este agendamento?"
+								btn-texto="Remover"
+							>
+								<i class="ph ph-trash"></i> Remover
+						</span>
+						</div>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-editar-agendamento">Salvar <i class="ph ph-check"></i></span>
 					</div>
 				</form>
 

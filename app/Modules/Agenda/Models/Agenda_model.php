@@ -124,4 +124,17 @@ class Agenda_model extends Model {
                     ->get()
                     ->toArray();
     }
+
+    function get_agendamentos_reordenar($tratamento_id){
+        return $this->setTable('agenda as a')
+                    ->select('a.*', 't.sessoes_contratada')
+                    ->leftJoin('tratamento as t', function($join){
+                        $join->on('t.id', '=', 'a.tratamento_id');
+                    })
+                    ->orderBy('data_inicio', 'asc')
+                    ->orderBy('hora_inicio', 'asc')
+                    ->get()
+                    ->toArray();
+
+    }
 }

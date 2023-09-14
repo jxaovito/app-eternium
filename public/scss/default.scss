@@ -309,6 +309,14 @@ body{
     .tooltip{
         z-index: 999999999999!important;
     }
+
+    .modal{
+        z-index: 999999!important;
+    }
+
+    .modal-backdrop{
+        z-index: 99999!important;
+    }
 }
 
 .loading-spinner{

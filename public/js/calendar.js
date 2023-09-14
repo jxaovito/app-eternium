@@ -31,7 +31,7 @@ const calendar = new tui.Calendar('#calendar', {
 $(document).ready(function(){
     // Ativar PopUp
     calendar.setOptions({
-      useFormPopup: true,
+      useFormPopup: false,
       useDetailPopup: false,
     });
 
@@ -347,16 +347,10 @@ $(document).ready(function(){
         calendar.changeView(tipo);
     });
 
-    const observer = new MutationObserver(popup_nativo_abertura);
-    const parent = document.body;
-    observer.observe(parent, {
-        childList: true, // Observar adições/remoções de nós filhos
-        subtree: true // Observar todos os nós descendentes
-    });
-
     $(document).on('click', '.close-modal-agenda', function(){
         $('.contents-modal').hide('fast');
         $('.toastui-calendar-popup-overlay').click();
+        calendar.clearGridSelections();
         setTimeout(function(){
             $('#calendar').css('width', '100%');
             $('.criar-agendamento').hide();
@@ -480,53 +474,114 @@ $(document).ready(function(){
     calendar.on('clickEvent', ({ event }) => {
         visualizar_agendamento(event.id)
     });
-});
 
-var focus_paciente = 0;
-function popup_nativo_abertura() {
-    // const target = document.querySelector('.toastui-calendar-popup-overlay');
-    const target = document.querySelector('.toastui-calendar-popup-overlay');
-    
-    // Se o elemento existir e for visível
-    if(target && getComputedStyle(target).display !== 'none'){
-        if($('.toastui-calendar-popup-container').find('[name="start"]').val() && $('.toastui-calendar-popup-container').find('[name="end"]').val()){
-            $('.toastui-calendar-event-detail-popup-slot').hide();
-            $('.toastui-calendar-event-form-popup-slot').hide();
-
-            const data_inicio = $('.toastui-calendar-popup-container').find('[name="start"]').val().split(' ')[0];
-            const data_fim = $('.toastui-calendar-popup-container').find('[name="end"]').val().split(' ')[0];
-
-            const hora_inicio = $('.toastui-calendar-popup-container').find('[name="start"]').val().split(' ')[1];
-            const hora_fim = $('.toastui-calendar-popup-container').find('[name="end"]').val().split(' ')[1];
-
-            criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim);
-            
-        }
-    }else{
-        focus_paciente = 0;
-    }
-}
-
-function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
-    $('#calendar').css('width', '70%');
-    $('.contents-modal').show('fast');
-    $('.visualizar-agendamento').hide('fast');
-
-    var modal = $('.criar-agendamento');
-
-    modal.find('[name="data_inicio"]').val(data_para_br(data_inicio));
-    modal.find('[name="data_fim"]').val(data_para_br(data_fim));
-    modal.find('[name="hora_inicio"]').val(hora_inicio);
-    modal.find('[name="hora_fim"]').val(hora_fim);
-    modal.show();
-
-    if(!focus_paciente){
+    // Remover Agendamento
+    $(document).on('click', '.remover_agendamento', function(){
+        const agenda_id = $(this).attr('agenda_id');
+        const tratamento_id = $(this).attr('tratamento_id');
         setTimeout(function(){
+            $('#modal_deletar').find('.modal-footer').find('a').attr('href', 'javascript:void(0);');
+            $('#modal_deletar').find('.modal-footer').find('a').attr('agenda_id', agenda_id);
+            $('#modal_deletar').find('.modal-footer').find('a').attr('tratamento_id', tratamento_id);
+            $('#modal_deletar').find('.modal-footer').find('a').removeClass('confirmacao_remover_agendamento');
+            $('#modal_deletar').find('.modal-footer').find('a').addClass('confirmacao_remover_agendamento');
+        }, 10)
+    });
+
+    // Confirmação para remover agendamento
+    $(document).on('click', '.confirmacao_remover_agendamento', function(){
+        $.ajax({
+            url: 'agenda/remover_agendamento',
+            type: 'post',
+            data: {
+                agenda_id: $(this).attr('agenda_id'),
+                tratamento_id: $(this).attr('tratamento_id'),
+                _token: $('#form_menu').find('[name="_token"]').val(),
+            },
+            dataType: 'json',
+            success: function(data){
+                
+            },
+        });
+    });
+
+
+    calendar.on('selectDateTime', ( event ) => {
+        var ano = event.start.getFullYear();
+        var mes = String(event.start.getMonth() + 1).padStart(2, '0'); // Mês é base 0, então adicionamos 1 e formatamos com 2 dígitos.
+        var dia = String(event.start.getDate()).padStart(2, '0');
+        var hora = String(event.start.getHours()).padStart(2, '0');
+        var minuto = String(event.start.getMinutes()).padStart(2, '0');
+        var segundo = String(event.start.getSeconds()).padStart(2, '0');
+
+        var data_inicio = `${ano}-${mes}-${dia}`;
+        var hora_inicio = `${hora}:${minuto}`;
+
+        var ano = event.end.getFullYear();
+        var mes = String(event.end.getMonth() + 1).padStart(2, '0'); // Mês é base 0, então adicionamos 1 e formatamos com 2 dígitos.
+        var dia = String(event.end.getDate()).padStart(2, '0');
+        var hora = String(event.end.getHours()).padStart(2, '0');
+        var minuto = String(event.end.getMinutes()).padStart(2, '0');
+        var segundo = String(event.end.getSeconds()).padStart(2, '0');
+
+        var data_fim = `${ano}-${mes}-${dia}`;
+        var hora_fim = `${hora}:${minuto}`;
+
+        criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim);
+    });
+
+    function criar_agendamento(data_inicio, data_fim, hora_inicio, hora_fim){
+        $('#calendar').css('width', '70%');
+        $('.contents-modal').show('fast');
+        $('.visualizar-agendamento').hide('fast');
+
+        var modal = $('.criar-agendamento');
+
+        modal.find('[name="data_inicio"]').val(data_para_br(data_inicio));
+        modal.find('[name="data_fim"]').val(data_para_br(data_fim));
+        modal.find('[name="hora_inicio"]').val(hora_inicio);
+        modal.find('[name="hora_fim"]').val(hora_fim);
+        modal.show();
+
+         setTimeout(function(){
             modal.find('[name="paciente"]').focus();
-            focus_paciente++;
         }, 500);
     }
-}
+
+    calendar.on('beforeUpdateEvent', function ({ event, changes }) {
+      const { id, calendarId } = event;
+      console.log(changes);
+
+      var data_inicio = null;
+      var hora_inicio = null;
+      if(changes.start){
+        var ano = changes.start.getFullYear();
+        var mes = String(changes.start.getMonth() + 1).padStart(2, '0'); // Mês é base 0, então adicionamos 1 e formatamos com 2 dígitos.
+        var dia = String(changes.start.getDate()).padStart(2, '0');
+        var hora = String(changes.start.getHours()).padStart(2, '0');
+        var minuto = String(changes.start.getMinutes()).padStart(2, '0');
+        var segundo = String(changes.start.getSeconds()).padStart(2, '0');
+
+        data_inicio = `${ano}-${mes}-${dia}`;
+        hora_inicio = `${hora}:${minuto}`;
+      }
+
+      var ano = changes.end.getFullYear();
+      var mes = String(changes.end.getMonth() + 1).padStart(2, '0'); // Mês é base 0, então adicionamos 1 e formatamos com 2 dígitos.
+      var dia = String(changes.end.getDate()).padStart(2, '0');
+      var hora = String(changes.end.getHours()).padStart(2, '0');
+      var minuto = String(changes.end.getMinutes()).padStart(2, '0');
+      var segundo = String(changes.end.getSeconds()).padStart(2, '0');
+
+      var data_fim = `${ano}-${mes}-${dia}`;
+      var hora_fim = `${hora}:${minuto}`;
+
+      atualizar_agendamento(id, data_inicio, data_fim, hora_inicio, hora_fim);
+
+      // calendar.updateEvent(id, calendarId, changes);
+      atualizar_agenda();
+    });
+});
 
 function visualizar_agendamento(agenda_id){
     $('#calendar').css('width', '70%');
@@ -562,6 +617,8 @@ function visualizar_agendamento(agenda_id){
                 modal.find('[name="profissional_id"]').val(dado.profissional_id);
                 modal.find('[name="tratamento"]').val(dado.sessao != null ? `${dado.sessao}/${dado.sessoes_contratada}` : 'Reserva ');
                 modal.find('[name="tratamento_id"]').val(dado.tratamento_id);
+                modal.find('.remover_agendamento').attr('agenda_id', dado.id);
+                modal.find('.remover_agendamento').attr('tratamento_id', dado.tratamento_id);
 
                 modal.find('.procedimentos').html('');
                 var procedimentos = dado.procedimentos.split('[|]');
@@ -590,6 +647,25 @@ function visualizar_agendamento(agenda_id){
                     modal.find('.procedimentos').append(clone);
                 });
             });
+        },
+    });
+}
+
+function atualizar_agendamento(agenda_id, data_inicio = null, data_fim = null, hora_inicio, hora_fim){
+    $.ajax({
+        url: '/agenda/atualizar_agendamento',
+        type: 'post',
+        data: {
+            agenda_id: agenda_id,
+            data_inicio: data_inicio,
+            data_fim: data_fim,
+            hora_inicio: hora_inicio,
+            hora_fim: hora_fim,
+            _token: $('#form_menu').find('[name="_token"]').val(),
+        },
+        dataType: 'json',
+        success: function(data){
+            
         },
     });
 }
@@ -671,6 +747,8 @@ function atualizar_agenda(data_inicio = false, data_fim = false){
                             color: dado.cor_fonte,
                             backgroundColor: cor_fundo,
                             borderColor: dado.cor_fundo,
+                            dragBackgroundColor: dado.cor_fundo+9,
+                            isReadOnly: false,
                         },
                     ]);
                 });

@@ -9,5 +9,7 @@ Route::group(['middleware' => ['web', 'dynamic.database'], 'namespace' => 'App\M
     Route::post('/agenda/criar_agendamento', [Agenda_controller::class, 'criar_agendamento'])->name('criar_agendamento');
     Route::post('/agenda/atualizar_agenda', [Agenda_controller::class, 'atualizar_agenda'])->name('atualizar_agenda');
     Route::post('/agenda/busca_agendamento', [Agenda_controller::class, 'busca_agendamento'])->name('busca_agendamento');
+    Route::post('/agenda/remover_agendamento', [Agenda_controller::class, 'remover_agendamento'])->name('remover_agendamento');
+    Route::post('/agenda/atualizar_agendamento', [Agenda_controller::class, 'atualizar_agendamento'])->name('atualizar_agendamento');
     
 });
