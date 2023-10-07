@@ -711,6 +711,33 @@ select {
   top: -20px;
 }
 
+.w-13px {
+  width: 13px !important;
+}
+
+.h-13px {
+  height: 13px !important;
+}
+
+.wp-branco {
+  color: #fff !important;
+}
+
+.wp-verde {
+  color: #4caf50 !important;
+}
+
+.wp-vermelho {
+  color: #f44336 !important;
+}
+
+.hover-opacity-1 {
+  transition: all 0.3s;
+}
+.hover-opacity-1:hover {
+  opacity: 1 !important;
+}
+
 .relative {
   position: relative;
 }
@@ -781,6 +808,46 @@ select {
 
 .align-itens-end {
   align-items: end !important;
+}
+
+.z-index-0 {
+  z-index: 0;
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-9 {
+  z-index: 9;
+}
+
+.z-index-10 {
+  z-index: 10;
+}
+
+.z-index-99 {
+  z-index: 99;
+}
+
+.z-index-100 {
+  z-index: 100;
+}
+
+.z-index-999 {
+  z-index: 999;
+}
+
+.z-index-1000 {
+  z-index: 1000;
+}
+
+.z-index-9999 {
+  z-index: 9999;
+}
+
+.z-index-10000 {
+  z-index: 10000;
 }
 
 .user-select-none {
@@ -1505,6 +1572,10 @@ select {
 
 .mgt-px-100 {
   margin-top: 100px;
+}
+
+.mgb-px-0 {
+  margin-bottom: 0px !important;
 }
 
 .mgb-px-1 {
@@ -4837,8 +4908,16 @@ select {
   font-size: 40px !important;
 }
 
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.font-weight-normal {
+  font-weight: normal;
+}
+
 .color-fff {
-  color: #fff;
+  color: #fff !important;
 }
 
 .color-000 {
@@ -5185,6 +5264,9 @@ a {
 }
 .alerta .bg_tipo_alerta.vermelho {
   background-color: #dc3545;
+}
+.alerta .toast-body {
+  background-color: #fff !important;
 }
 
 .pagamento_atrasado {

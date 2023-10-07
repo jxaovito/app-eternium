@@ -49,6 +49,40 @@
 						</div>
 					</div>
 				@endif
+
+				@if($configuracao['identificador'] == 'envio_lembrete_para_todos')
+					@if($whatsapp_automatico)
+						<div class="w-32">
+							<h5 class="bold"><i class="ph ph-whatsapp-logo"></i> Ativar envio de lembrete automático para todos os agendamentos</h5>
+							<div class="form-check">
+							  	<input
+							  		class="form-check-input"
+							  		type="radio"
+							  		name="envio_lembrete_para_todos"
+							  		id="sim"
+							  		value="sim"
+							  		{{$configuracao['valor'] == 'sim' ? 'checked="checked' : ''}}
+							  	>
+							  	<label class="form-check-label" for="sim">
+							    	Sim
+							  	</label>
+							</div>
+							<div class="form-check">
+							  	<input
+							  		class="form-check-input"
+							  		type="radio"
+							  		name="envio_lembrete_para_todos"
+							  		id="nao"
+							  		value="nao"
+							  		{{$configuracao['valor'] == 'nao' ? 'checked="checked' : ''}}
+							  	>
+							  	<label class="form-check-label" for="nao">
+							    	Não
+							  	</label>
+							</div>
+						</div>
+					@endif
+				@endif
 			@endforeach
 
 			<div class="w-100 d-flex justify-content-end">

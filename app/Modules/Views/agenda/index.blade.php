@@ -107,12 +107,20 @@
 				@endif
 			</div>
 			@if($whatsapp_automatico)
-				<div class="w-70 d-flex flex-wrap mgt-px-20 justify-content-between user-select-none">
+				<div class="w-70 d-flex flex-wrap mgt-px-20 mgb-px-10 justify-content-between user-select-none">
 					<sup class="w-100 mgb-px-5">Status de envio dos Lembretes dos agendamentos</sup>
-					<span class="opacity-05 font-13">⚪ Enviar</span>
-					<span class="opacity-05 font-13">🟢 Enviado</span>
-					<span class="opacity-05 font-13">🔴 Erro ao Enviar</span>
-					<span class="opacity-05 font-13">🔵 Respondido</span>
+					<div class="legendas-whatsapp-agenda">
+						<span class="font-13">
+							<svg class="w-13px h-13px relative top-px--1 wp-branco"><use xlink:href="#whatsapp"></use></svg> Enviar
+						</span>
+						<span class="font-13">
+							<svg class="w-13px h-13px relative top-px--1 wp-verde"><use xlink:href="#whatsapp"></use></svg> Enviado
+						</span>
+						<span class="font-13">
+							<svg class="w-13px h-13px relative top-px--1 wp-vermelho"><use xlink:href="#whatsapp"></use></svg> Erro ao Enviar
+						</span>
+						{{-- <span class="font-13">🔵 Respondido</span> --}}
+					</div>
 				</div>
 			@endif
 		</div>
@@ -159,6 +167,29 @@
 					></i>
 				</span>
 			</div>
+			@if($whatsapp_automatico)
+				<div class="d-flex w-100 mgb-px-10">
+					<sub class="d-flex w-100 align-items-center">
+						<div 
+							class="{{$envio_lembrete_para_todos != 'sim' ? 'opacity-05' : ''}} hover-opacity-1 ativar-lembrete-whats"
+							data-bs-toggle="tooltip"
+			                data-bs-placement="bottom"
+			                data-bs-custom-class="custom-tooltip"
+			                data-bs-title="Clique para ativar/desativar envio de lembrete automático deste agendamento."
+						>
+							<label for="redefinicao_senha" class="form-label user-select-none mgb-px-0 d-flex align-items-center pointer">
+								@if($envio_lembrete_para_todos == 'sim')
+									<i class="ph ph-check mgr-px-5"></i>
+								@else
+									<i class="ph ph-check mgr-px-5 d-none"></i>
+								@endif
+								Enviar Lembrete <svg class="w-13px h-13px relative top-px--1 wp-verde mgl-px-5"><use xlink:href="#whatsapp"></use></svg>
+								<input type="hidden" name="whatsapp" value="{{$envio_lembrete_para_todos == 'sim' ? 'enviar' : ''}}">
+							</label>
+						</div>
+					</sub>
+				</div>
+			@endif
 			<div class="content-modal">
 				<form class="d-flex flex-wrap w-100 justify-content-between">
 					@csrf
@@ -201,6 +232,18 @@
 						</select>
 					</div>
 
+					@php
+					    $modulo='tratamento';$funcao='novo';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
+					        return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+					    }))>0):
+					@endphp
+						<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 align-items-center">
+							<sup class="w-100 d-flex align-items-center font-weight-bold pointer mgt-px-5 btn_criar_tratamento_ag">
+								<i class="ph ph-plus mgr-px-5"></i> Criar tratamento
+							</sup>
+						</div>
+					@php endif @endphp
+
 					<div class="w-100 d-none flex-wrap mgt-px-5 mgb-px-5">
 						<label class="w-100" for="convenio">Convenio</label>
 						<select class="select2 convenio" id="convenio" name="convenio">
@@ -225,9 +268,29 @@
 				</form>
 			</div>
 		</div>
-		<div class="modal-agendamento visualizar-agendamento">
-			<div class="header-modal d-flex justify-content-between align-items-center">
-				<h4>Novo Agendamento</h4>
+		<div class="modal-agendamento visualizar-agendamento relative">
+			<div class="header-modal d-flex justify-content-between align-items-center relative">
+				<div class="d-flex align-items-start editar_dados_agendamento">
+					<h4>Visualizar Agendamento</h4>
+					<i
+						class="ph ph-pencil-simple mgl-px-5 pointer btn_editar_dados_agendamento"
+						data-bs-toggle="tooltip"
+		                data-bs-placement="bottom"
+		                data-bs-custom-class="custom-tooltip"
+		                data-bs-title="Editar Agendamento"
+		                style="background-color: var(--cor-logo-cliente-transp)!important;color: var(--cor-font-cliente)!important;"
+		                background-cliente="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>"
+		                background-cliente-transp="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>36"
+					></i>
+					<i
+						class="ph ph-x mgl-px-5 pointer d-none"
+						data-bs-toggle="tooltip"
+		                data-bs-placement="bottom"
+		                data-bs-custom-class="custom-tooltip"
+		                data-bs-title="Cancelar Edição"
+		                style="background-color: var(--cor-logo-cliente)!important;color: var(--cor-font-cliente)!important;"
+					></i>
+				</div>
 				<span>
 					<i
 						class="ph ph-x pointer close-modal-agenda"
@@ -240,41 +303,56 @@
 			</div>
 			<div class="content-modal">
 				<form class="d-flex flex-wrap w-100 justify-content-between">
-					<div class="form-floating w-49">
-					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_inicial" placeholder="{{date('d/m/Y')}}" value="" name="data_inicio">
-					  	<label for="data_inicial">Data Inicial</label>
-					</div>
+					<div class="dados_agendamento d-flex flex-wrap w-100 justify-content-between">
+						<div class="form-floating w-49">
+						  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_inicial_visualizar" placeholder="{{date('d/m/Y')}}" value="" name="data_inicio">
+						  	<input type="hidden" name="agenda_id" value="">
+						  	<label for="data_inicial">Data Inicial</label>
+						</div>
 
-					<div class="form-floating w-49">
-					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_fim" placeholder="{{date('d/m/Y')}}" value="" name="data_fim">
-					  	<label for="data_fim">Data Fim</label>
-					</div>
+						<div class="form-floating w-49">
+						  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_fim_visualizar" placeholder="{{date('d/m/Y')}}" value="" name="data_fim">
+						  	<label for="data_fim">Data Fim</label>
+						</div>
 
-					<div class="form-floating w-49">
-					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="hora_inicial" placeholder="00:00" value="" name="hora_inicio">
-					  	<label for="hora_inicial">Hora Inicial</label>
-					</div>
+						<div class="form-floating w-49">
+						  	<input type="text" class="form-control border-none mgb-px-5 hora" readonly id="hora_inicial" placeholder="00:00" value="" name="hora_inicio">
+						  	<label for="hora_inicial">Hora Inicial</label>
+						</div>
 
-					<div class="form-floating w-49">
-					  	<input type="text" class="form-control border-none mgb-px-5" readonly id="hora_fim" placeholder="00:00" value="" name="hora_fim">
-					  	<label for="hora_fim">Hora Final</label>
-					</div>
+						<div class="form-floating w-49">
+						  	<input type="text" class="form-control border-none mgb-px-5 hora" readonly id="hora_fim" placeholder="00:00" value="" name="hora_fim">
+						  	<label for="hora_fim">Hora Final</label>
+						</div>
 
-					<div class="form-floating w-100">
-						<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Paciente" name="paciente" autocomplete="off">
-						<label>Paciente</label>
-					</div>
+						<div class="form-floating w-100">
+							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Paciente" name="paciente" autocomplete="off">
+							<label>Paciente</label>
+						</div>
 
-					<div class="form-floating w-100">
-						<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Profissional" name="profissional" autocomplete="off">
-						<label>Profissional</label>
-						<input type="hidden" name="profissional_id">
-					</div>
+						<div class="form-floating w-100">
+							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Profissional" name="profissional_label" autocomplete="off">
+							<div class="select_profissional d-none mgt-px-30">
+								<select class="select2" name="profissional">
+									@foreach($profissionais as $profissional)
+										<option value="{{$profissional['id']}}">{{$profissional['nome']}}</option>
+									@endforeach;
+								</select>
+							</div>
+							<label>Profissional</label>
+							<input type="hidden" name="profissional_id">
+						</div>
 
-					<div class="form-floating w-100">
-						<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Tratamento" name="tratamento" autocomplete="off">
-						<label>Tratamento</label>
-						<input type="hidden" name="tratamento_id">
+						<div class="form-floating w-100">
+							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Tratamento" name="tratamento" autocomplete="off">
+							<label>Tratamento</label>
+							<input type="hidden" name="tratamento_id">
+						</div>
+
+						<div class="form-floating w-100 observacoes-agendamento d-none">
+							<textarea class="form-control w-100 border-none" readonly placeholder="Observações" id="observacoes" name="observacoes" rows="2"></textarea>
+							<label>Observações</label>
+						</div>
 					</div>
 
 					<div class="w-100">

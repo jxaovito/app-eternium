@@ -423,7 +423,12 @@ $(document).ready(function(){
     // Criar novo Agendamento (Salvar novo agendamento)
     $(document).on('click', '.salvar-novo-agendamento', function(){
         var results = $(this).parents('form').serialize().split('&');
+        var whatsapp = $(this).parents('.criar-agendamento').find('[name="whatsapp"]').val();
         var dados = {};
+
+        if(whatsapp){
+            results.push(`whatsapp=${whatsapp}`);
+        }
 
         for(var i = 0; i < results.length; i++){
             var pair = results[i].split('=');
@@ -491,7 +496,7 @@ $(document).ready(function(){
     // Confirmação para remover agendamento
     $(document).on('click', '.confirmacao_remover_agendamento', function(){
         $.ajax({
-            url: 'agenda/remover_agendamento',
+            url: '/agenda/remover_agendamento',
             type: 'post',
             data: {
                 agenda_id: $(this).attr('agenda_id'),
@@ -500,7 +505,11 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(data){
-                
+                atualizar_agenda();
+                $('#modal_deletar').find('.modal-footer').find('[data-bs-dismiss="modal"]').click();
+                $('.visualizar-agendamento').find('.close-modal-agenda').click();
+
+                alerta('Removido com sucesso!', 'azul')
             },
         });
     });
@@ -550,7 +559,6 @@ $(document).ready(function(){
 
     calendar.on('beforeUpdateEvent', function ({ event, changes }) {
       const { id, calendarId } = event;
-      console.log(changes);
 
       var data_inicio = null;
       var hora_inicio = null;
@@ -577,9 +585,180 @@ $(document).ready(function(){
       var hora_fim = `${hora}:${minuto}`;
 
       atualizar_agendamento(id, data_inicio, data_fim, hora_inicio, hora_fim);
+    });
 
-      // calendar.updateEvent(id, calendarId, changes);
-      atualizar_agenda();
+    // Editar dados do agendamento
+    $(document).on('click', '.editar_dados_agendamento i', function(){
+        const container = $('.visualizar-agendamento');
+        const element = $('.editar_dados_agendamento .btn_editar_dados_agendamento');
+        const self = $(this);
+
+        if(element.hasClass('ph-pencil-simple')){
+            $('.bg_modal_editar_agendamento').remove();
+            $('.contents-modal').append('<div class="bg_modal_editar_agendamento"></div>');
+            container.find('.dados_agendamento').addClass('z-index-10');
+            container.find('.header-modal').addClass('z-index-10');
+
+            container.find('.ph-x').removeClass('d-none');
+            element.removeClass('ph-pencil-simple');
+            element.addClass('ph-check');
+            element.css('background-color', element.attr('background-cliente')+'!important');
+
+            element.tooltip('dispose');
+            element.attr('data-bs-title', 'Salvar Edição');
+            element.tooltip();
+
+            // Btn de Remover Agendamento
+            container.find('.remover_agendamento').attr('readonly-disabled', 'readonly-disabled');
+            container.find('.remover_agendamento').attr('readonly', 'readonly');
+            container.find('.remover_agendamento').addClass('subclass_remover_agendamento');
+            container.find('.remover_agendamento').removeClass('remover');
+            container.find('.remover_agendamento').removeClass('remover_agendamento');
+
+            // Btn de Salvar
+            container.find('.salvar-editar-agendamento').attr('readonly-disabled', 'readonly-disabled');
+            container.find('.salvar-editar-agendamento').attr('readonly', 'readonly');
+            container.find('.salvar-editar-agendamento').addClass('subclass_salvar-editar-agendamento');
+            container.find('.salvar-editar-agendamento').removeClass('salvar-editar-agendamento');
+
+            // Btn de Cancelar
+            container.find('.close-modal-agenda').attr('readonly-disabled', 'readonly-disabled');
+            container.find('.close-modal-agenda').attr('readonly', 'readonly');
+            container.find('.close-modal-agenda').addClass('subclass_close-modal-agenda');
+            container.find('.close-modal-agenda').removeClass('close-modal-agenda');
+
+            // Altaração dos elementos Inputs
+            container.find('[name="data_inicio"]').removeAttr('readonly');
+            container.find('[name="data_inicio"]').removeClass('border-none');
+            container.find('[name="data_inicio"]').addClass('data');
+
+            container.find('[name="data_fim"]').removeAttr('readonly');
+            container.find('[name="data_fim"]').removeClass('border-none');
+            container.find('[name="data_fim"]').addClass('data');
+            data();
+
+            container.find('[name="hora_inicio"]').removeAttr('readonly');
+            container.find('[name="hora_inicio"]').removeClass('border-none');
+
+            container.find('[name="hora_fim"]').removeAttr('readonly');
+            container.find('[name="hora_fim"]').removeClass('border-none');
+
+            container.find('[name="profissional_label"]').hide();
+            container.find('.select_profissional').removeClass('d-none');
+
+            container.find('.observacoes-agendamento').removeClass('d-none');
+            container.find('[name="observacoes"]').removeAttr('readonly');
+            container.find('[name="observacoes"]').removeClass('border-none');
+
+        }else{
+
+            // Salvar edição de dados do agendamento
+            if(self.hasClass('btn_editar_dados_agendamento')){
+                agenda_id = container.find('[name="agenda_id"]').val();
+                data_inicio = data_para_us(container.find('[name="data_inicio"]').val());
+                data_fim = data_para_us(container.find('[name="data_fim"]').val());
+                hora_inicio = container.find('[name="hora_inicio"]').val();
+                hora_fim = container.find('[name="hora_fim"]').val();
+                profissional_id = container.find('[name="profissional"]').val();
+                observacoes = container.find('[name="observacoes"]').val();
+
+                atualizar_agendamento(agenda_id, data_inicio, data_fim, hora_inicio, hora_fim, profissional_id, observacoes);
+
+                if(profissional_id != container.find('[name="profissional_id"]').val()){
+                    $('.close-modal-agenda').click();
+                }
+            }
+
+            $('.bg_modal_editar_agendamento').remove();
+            container.find('.dados_agendamento').removeClass('z-index-10');
+            container.find('.header-modal').removeClass('z-index-10');
+
+            container.find('.editar_dados_agendamento').find('.ph-x').addClass('d-none');
+            element.removeClass('ph-check');
+            element.addClass('ph-pencil-simple');
+            element.css('background-color', element.attr('background-cliente-transp')+'!important');
+
+            element.tooltip('dispose');
+            element.attr('data-bs-title', 'Editar Agendamento');
+            element.tooltip();
+
+            // Btn de Remover Agendamento
+            container.find('.subclass_remover_agendamento').removeAttr('readonly-disabled');
+            container.find('.subclass_remover_agendamento').removeAttr('readonly');
+            container.find('.subclass_remover_agendamento').addClass('remover_agendamento');
+            container.find('.subclass_remover_agendamento').addClass('remover');
+            container.find('.subclass_remover_agendamento').removeClass('subclass_remover_agendamento');
+
+            // Btn de Salvar
+            container.find('.subclass_salvar-editar-agendamento').removeAttr('readonly-disabled', 'readonly-disabled');
+            container.find('.subclass_salvar-editar-agendamento').removeAttr('readonly', 'readonly');
+            container.find('.subclass_salvar-editar-agendamento').addClass('salvar-editar-agendamento');
+            container.find('.subclass_salvar-editar-agendamento').removeClass('subclass_salvar-editar-agendamento');
+
+            // Btn de Cancelar
+            container.find('.subclass_close-modal-agenda').removeAttr('readonly-disabled', 'readonly-disabled');
+            container.find('.subclass_close-modal-agenda').removeAttr('readonly', 'readonly');
+            container.find('.subclass_close-modal-agenda').addClass('close-modal-agenda');
+            container.find('.subclass_close-modal-agenda').removeClass('subclass_close-modal-agenda');
+
+            // Alteração dos elementos inputs
+            container.find('[name="data_inicio"]').attr('readonly', 'readonly');
+            container.find('[name="data_inicio"]').addClass('border-none');
+            container.find('[name="data_inicio"]').removeClass('data');
+
+            container.find('[name="data_fim"]').addClass('border-none');
+            container.find('[name="data_fim"]').attr('readonly', 'readonly');
+            container.find('[name="data_fim"]').removeClass('data');
+
+            container.find('[name="hora_inicio"]').addClass('border-none');
+            container.find('[name="hora_inicio"]').attr('readonly', 'readonly');
+
+            container.find('[name="hora_fim"]').addClass('border-none');
+            container.find('[name="hora_fim"]').attr('readonly', 'readonly');
+
+            container.find('[name="profissional_label"]').show();
+            container.find('.select_profissional').addClass('d-none');
+
+            if(!container.find('[name="observacoes"]').val()){
+                container.find('.observacoes-agendamento').addClass('d-none');
+            }
+            container.find('[name="observacoes"]').addClass('border-none');
+            container.find('[name="observacoes"]').attr('readonly', 'readonly');
+        }
+    });
+
+    // Resolver bug que ao renderizar edição de datas para visualziar agendaento, ao cancelar bloquear a possibilidade de editar a data
+    $(document).on('click', '.visualizar-agendamento [name="data_inicio"], .visualizar-agendamento [name="data_fim"]', function(){
+        if($(this).attr('readonly')){
+            setTimeout(function(){
+                $('#ui-datepicker-div').remove();
+            }, 100);
+        }
+    });
+    $(document).on('click', function(){
+        if(!$('#ui-datepicker-div').length){
+            data();
+        }
+    });
+
+    $(document).on('click', '.bg_modal_editar_agendamento', function(){
+        alerta('Salve ou cancele a edição do agendamento!', 'azul')
+    });
+
+    // Ativa/desativa envio de lembrete automático para agendamento
+    $(document).on('click', '.ativar-lembrete-whats', function(){
+        if($(this).find('.ph-check').is(':visible')){
+            $(this).addClass('opacity-05');
+            $(this).find('.ph-check').addClass('d-none');
+            $(this).parents('.criar-agendamento').find('[name="whatsapp"]').val('');
+            alerta('Desativado envio de lembrete automático para este agendamento.', 'azul');
+
+        }else{
+            $(this).removeClass('opacity-05');
+            $(this).find('.ph-check').removeClass('d-none');
+            $(this).parents('.criar-agendamento').find('[name="whatsapp"]').val('enviar');
+            alerta('Ativado envio de lembrete automático para este agendamento.', 'azul');
+        }
     });
 });
 
@@ -606,19 +785,32 @@ function visualizar_agendamento(agenda_id){
                 var hora_fim = `${dado.hora_fim.split(':')[0]}:${dado.hora_fim.split(':')[1]}`;
 
                 modal.find('.header-modal').find('h4').text(dado.tipo_agendamento);
+                modal.find('[name="agenda_id"]').val(dado.id);
                 modal.find('[name="data_inicio"]').val(data_para_br(dado.data_inicio));
+                modal.find('[name="data_inicio"]').attr('value', data_para_br(dado.data_inicio));
                 modal.find('[name="data_fim"]').val(data_para_br(dado.data_fim));
+                modal.find('[name="data_fim"]').attr('value', data_para_br(dado.data_fim));
                 modal.find('[name="hora_inicio"]').val(hora_inicio);
                 modal.find('[name="hora_fim"]').val(hora_fim);
                 modal.find('[name="paciente"]').val(dado.paciente);
                 modal.find('[name="paciente_id"]').val(dado.paciente_id);
                 modal.find('[name="paciente_id"]').val(dado.paciente_id);
-                modal.find('[name="profissional"]').val(dado.profissional);
+                modal.find('[name="profissional_label"]').val(dado.profissional);
                 modal.find('[name="profissional_id"]').val(dado.profissional_id);
+                modal.find('[name="profissional"]').val(dado.profissional_id);
+                modal.find('[name="profissional"]').trigger('change');
                 modal.find('[name="tratamento"]').val(dado.sessao != null ? `${dado.sessao}/${dado.sessoes_contratada}` : 'Reserva ');
                 modal.find('[name="tratamento_id"]').val(dado.tratamento_id);
                 modal.find('.remover_agendamento').attr('agenda_id', dado.id);
                 modal.find('.remover_agendamento').attr('tratamento_id', dado.tratamento_id);
+
+                if(dado.observacoes){
+                    modal.find('.observacoes-agendamento').removeClass('d-none');
+                    modal.find('[name="observacoes"]').val(dado.observacoes);
+                }else{
+                    modal.find('.observacoes-agendamento').addClass('d-none');
+                    modal.find('[name="observacoes"]').val('');
+                }
 
                 modal.find('.procedimentos').html('');
                 var procedimentos = dado.procedimentos.split('[|]');
@@ -638,7 +830,7 @@ function visualizar_agendamento(agenda_id){
                         label_sessao_consumida = 'Sessões consumidas';
                     }
 
-                    var label_sessao_contratada = 'sessao contratada';
+                    var label_sessao_contratada = 'sessão contratada';
                     if(sessoes_contratada[i] > 1){
                         label_sessao_contratada = 'sessões contratadas';
                     }
@@ -651,7 +843,7 @@ function visualizar_agendamento(agenda_id){
     });
 }
 
-function atualizar_agendamento(agenda_id, data_inicio = null, data_fim = null, hora_inicio, hora_fim){
+function atualizar_agendamento(agenda_id, data_inicio = null, data_fim = null, hora_inicio, hora_fim, profissional_id = null, observacoes = null){
     $.ajax({
         url: '/agenda/atualizar_agendamento',
         type: 'post',
@@ -661,6 +853,8 @@ function atualizar_agendamento(agenda_id, data_inicio = null, data_fim = null, h
             data_fim: data_fim,
             hora_inicio: hora_inicio,
             hora_fim: hora_fim,
+            profissional_id: profissional_id,
+            observacoes: observacoes,
             _token: $('#form_menu').find('[name="_token"]').val(),
         },
         dataType: 'json',
@@ -668,6 +862,8 @@ function atualizar_agendamento(agenda_id, data_inicio = null, data_fim = null, h
             
         },
     });
+
+    atualizar_agenda();
 }
 
 function atualizar_agenda(data_inicio = false, data_fim = false){
@@ -767,5 +963,34 @@ function atualizar_agenda(data_inicio = false, data_fim = false){
             $('.criar-agendamento .tipo-agendamento').find('[tipo="1"]').addClass('active');
             $('.criar-agendamento form [type="hidden"][name="_token"]').val($('.criar-agendamento form [type="hidden"][name="_token"]').attr('_token'));
         },
+        complete: function(){
+            setTimeout(function(){
+                $('.toastui-calendar-template-time span').each(function(){
+                    if($(this).text().indexOf('⚪') != -1){
+                        $(this).html(`<svg class="w-13px h-13px relative top-px--1 wp-branco" data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-title="Envio de Lembrete Pendente"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('⚪', '')}`);
+                        $(this).find('svg').tooltip();
+                    }
+
+                    if($(this).text().indexOf('🟢') != -1){
+                        $(this).html(`<svg class="w-13px h-13px relative top-px--1 wp-verde" data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-title="Envio de Lembrete Realizado"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('🟢', '')}`);
+                        $(this).find('svg').tooltip();
+                    }
+
+                    if($(this).text().indexOf('🔴') != -1){
+                        $(this).html(`<svg class="w-13px h-13px relative top-px--1 wp-vermelho" data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            data-bs-custom-class="custom-tooltip"
+                            data-bs-title="Falha ao Enviar Lembrete"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('🔴', '')}`);
+                        $(this).find('svg').tooltip();
+                    }
+                });
+            }, 100);
+        }
     });
 }

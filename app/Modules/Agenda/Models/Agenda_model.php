@@ -131,6 +131,7 @@ class Agenda_model extends Model {
                     ->leftJoin('tratamento as t', function($join){
                         $join->on('t.id', '=', 'a.tratamento_id');
                     })
+                    ->where('a.tratamento_id', '=', $tratamento_id)
                     ->orderBy('data_inicio', 'asc')
                     ->orderBy('hora_inicio', 'asc')
                     ->get()

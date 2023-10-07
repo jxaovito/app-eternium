@@ -75,6 +75,17 @@
 				opacity: 0.7;
 			}
 		}
+
+		.legendas-whatsapp-agenda{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			background-color: var(--cor-logo-cliente-transp);
+			padding: 4px;
+			border-radius: 4px;
+			color: #fff;
+		}
 	}
 
 	#calendar{
@@ -98,6 +109,31 @@
 		width: 30%;
 		position: relative;
 		right: -1.24%;
+
+		.visualizar-agendamento{
+			.editar_dados_agendamento{
+				i{
+					border-radius: 50%;
+					padding: 5px;
+				}
+			}
+
+			.observacoes-agendamento{
+				textarea{
+					min-height: 80px;
+				}
+			}
+		}
+
+		.bg_modal_editar_agendamento{
+			position: fixed;
+			left: 0;
+			top: 0;
+			height: 100%;
+			width: 100%;
+			background-color: #fff0;
+			z-index: 9;
+		}
 	}
 
 	.modal-agendamento{
@@ -108,6 +144,15 @@
 		border-radius: 8px;
 		padding: 1%;
 		display: none;
+
+		.ativar-lembrete-whats{
+			padding: 5px;
+			background-color: #d1d7e8;
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+			border: solid 2px #274392;
+		}
 
 		.content-modal{
 			form{
@@ -140,6 +185,15 @@
 							color: var(--cor-font-cliente);
 						}
 					}
+				}
+			}
+
+			.btn_criar_tratamento_ag{
+				color: #5f5f5f;
+				transition: all 0.3s;
+
+				&:hover{
+					color: #000;
 				}
 			}
 		}

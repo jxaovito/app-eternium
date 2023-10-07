@@ -107,6 +107,7 @@ class Configuracao_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['configuracoes_agenda'] = $this->Configuracao_model->get_all_table('agenda_configuracao', array());
+        $_dados['whatsapp_automatico'] = $this->Configuracao_model->get_all_table('configuracao', array('variavel' => 'whatsapp_automatico'))[0]['valor'];
         $_dados['pagina'] = 'configuracao';
 
         return view('configuracao.configuracao_agenda', $_dados);

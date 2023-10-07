@@ -122,6 +122,7 @@ class Agenda_controller extends Controller{
 
         // Permissões/Configurações
         $_dados['whatsapp_automatico'] = $this->Agenda_model->get_all_table('configuracao', array('variavel' => 'whatsapp_automatico'))[0]['valor'];
+        $_dados['envio_lembrete_para_todos'] = $this->Agenda_model->get_all_table('agenda_configuracao', array('identificador' => 'envio_lembrete_para_todos'))[0]['valor'];
 
         $_dados['profissionais'] = $profissionais;
         $_dados['especialidades'] = $this->Agenda_model->get_all_table('especialidade', array('deletado' => '0'));
@@ -150,6 +151,7 @@ class Agenda_controller extends Controller{
             'profissional_id' => $profissional_id,
             'sessao' => null,
             'observacoes' => $dados['observacoes'],
+            'whatsapp' => (isset($dados['whatsapp']) && $dados['whatsapp'] ? $dados['whatsapp'] : null),
         );
 
         $agenda_id = $this->Agenda_model->insert_dados('agenda', $dados_agendamento);
@@ -190,7 +192,7 @@ class Agenda_controller extends Controller{
     }
 
     private function reordenar_sessoes($tratamento_id){
-        $agendamentos = $this->Agenda_model->get_agendamentos_reordenar('agenda', array('tratamento_id' => $tratamento_id));
+        $agendamentos = $this->Agenda_model->get_agendamentos_reordenar($tratamento_id);
 
         if($agendamentos){
             $sessao = 1;
@@ -202,6 +204,8 @@ class Agenda_controller extends Controller{
                 }
                 $sessao++;
             }
+        }else{
+            $this->Agenda_model->update_table('agenda', array('tratamento_id' => $tratamento_id), array('sessao' => 1, 'reserva' => null));
         }
     }
 
@@ -212,23 +216,19 @@ class Agenda_controller extends Controller{
         $data_fim = $request->input('data_fim');
         $hora_inicio = $request->input('hora_inicio');
         $hora_fim = $request->input('hora_fim');
+        $profissional = $request->input('profissional_id');
+        $observacoes = $request->input('observacoes');
 
-        $agendamento = $this->Agenda_model->get_agendamentos_reordenar('agenda', array('id' => $agenda_id));
+        $agendamento = $this->Agenda_model->get_all_table('agenda', array('id' => $agenda_id));
 
-        if(!$data_inicio && !$hora_inicio){
-            $dados = array(
-                'data_fim' => $data_fim,
-                'hora_fim' => $hora_fim,
-            );
-
-        }else{
-            $dados = array(
-                'data_inicio' => $data_inicio,
-                'data_fim' => $data_fim,
-                'hora_inicio' => $hora_inicio,
-                'hora_fim' => $hora_fim,
-            );
-        }
+        $dados = array(
+            'data_inicio' => ($data_inicio ? $data_inicio : $agendamento[0]['data_inicio']),
+            'data_fim' => ($data_fim ? $data_fim : $agendamento[0]['data_fim']),
+            'hora_inicio' => ($hora_inicio ? $hora_inicio : $agendamento[0]['hora_inicio']),
+            'hora_fim' => ($hora_fim ? $hora_fim : $agendamento[0]['hora_fim']),
+            'profissional_id' => ($profissional ? $profissional : $agendamento[0]['profissional_id']),
+            'observacoes' => ($observacoes ? $observacoes : $agendamento[0]['observacoes']),
+        );
 
         $this->Agenda_model->update_table('agenda', array('id' => $agenda_id), $dados);
 

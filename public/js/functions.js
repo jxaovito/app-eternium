@@ -15,22 +15,7 @@ $(document).ready(function(){
 
   	divTexto.text(novoTexto);
 
-	$(function(){
-	    $(".date, .data").datepicker({
-	        dateFormat: 'dd/mm/yy',
-	        closeText:"Fechar",
-	        prevText:"Anterior",
-	        nextText:"Próximo",
-	        currentText:"Hoje",
-	        monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
-	        monthNamesShort:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
-				dayNames:["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],
-				dayNamesShort:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
-	        dayNamesMin:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
-	        weekHeader:"Sm",
-	        firstDay:1
-	    });
-	});
+  	data();
 
 	// Mascaras
 	mascaras();
@@ -458,14 +443,19 @@ $(document).ready(function(){
 
 // Função de Alerta
 // @params tipo = azul/amarelo/vermelho
-function alerta(mensagem, tipo, time){
+function alerta(mensagem, tipo, time, titulo){
 	if(!time){
 		time = 5000;
+	}
+
+	if(!titulo){
+		titulo = 'Atenção';
 	}
 
 	$('.alerta').show('fast');
 	$('.alerta').find('.bg_tipo_alerta').addClass(tipo);
 	$('.alerta').find('.toast-body').html(mensagem);
+	$('.alerta').find('.me-auto').html(titulo);
 
 	setTimeout(function(){
 		$('.alerta').hide('fast');
@@ -530,10 +520,29 @@ function data_hora_para_br(data){
 function data_para_us(data){
 	if(data){
 		var data = data.split('/')
-		var data_formatada = `${data[0]}-${data[1]}-${data[2]}`;
+		var data_formatada = `${data[2]}-${data[1]}-${data[0]}`;
 		return data_formatada;
 
 	}else{
 		return '';
 	}
+}
+
+function data(){
+	$(function(){
+	    $(".date, .data").datepicker({
+	        dateFormat: 'dd/mm/yy',
+	        closeText:"Fechar",
+	        prevText:"Anterior",
+	        nextText:"Próximo",
+	        currentText:"Hoje",
+	        monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
+	        monthNamesShort:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+				dayNames:["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],
+				dayNamesShort:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
+	        dayNamesMin:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
+	        weekHeader:"Sm",
+	        firstDay:1
+	    });
+	});
 }
