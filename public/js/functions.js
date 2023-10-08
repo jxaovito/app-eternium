@@ -466,6 +466,18 @@ function alerta(mensagem, tipo, time, titulo){
 	});
 }
 
+// Função para destar elemento html
+function destacar(element){
+	if(element){
+		element.addClass('destacar_elemento');
+
+		setTimeout(function(){
+			element.removeClass('destacar_elemento');
+			element.focus();
+		}, 2000);
+	}
+}
+
 // function mostrar_loading(){
 // 	$('body').append('<div class="loading-spinner"><div class="custom-loader"></div></div>');
 // }

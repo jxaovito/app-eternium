@@ -4928,6 +4928,14 @@ select {
   cursor: pointer !important;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
 a {
   text-decoration: none !important;
   color: var(--font-color);
@@ -5275,6 +5283,33 @@ a {
 
 .pagamento_pago {
   background-color: rgba(76, 175, 80, 0.2901960784);
+}
+
+.destacar_elemento {
+  animation: destacar_elemento 1s infinite;
+}
+
+@keyframes destacar_elemento {
+  0% {
+    opacity: 0.5;
+    box-shadow: 0px 0px 0px;
+  }
+  25% {
+    opacity: 0.5;
+    box-shadow: 0px 0px 5px #000;
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0px 0px 0px;
+  }
+  75% {
+    opacity: 0.5;
+    box-shadow: 0px 0px 5px #000;
+  }
+  100% {
+    opacity: 0.5;
+    box-shadow: 0px 0px 0px;
+  }
 }
 
 /*# sourceMappingURL=default.css.map */

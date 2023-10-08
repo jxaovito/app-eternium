@@ -760,6 +760,95 @@ $(document).ready(function(){
             alerta('Ativado envio de lembrete automático para este agendamento.', 'azul');
         }
     });
+
+    // Criar Tratamento através da agenda
+    $(document).on('click', '.btn_criar_tratamento_ag', function(){
+        const element = $(this);
+        const container = $(this).parents('form');
+
+        if(!container.find('[name="paciente"]').val() || !container.find('[name="paciente_id"]').val()){
+            alerta('Você deve selecionar um <b>paciente</b> antes de criar um <b>tratamento</b>', 'amarelo');
+            destacar(container.find('[name="paciente"]'));
+
+            return false;
+        }
+
+        container.find('[name="tratamento_id"]').val('');
+        container.find('[name="tratamento_id"]').find('option').removeAttr('selected');
+        container.find('[name="tratamento_id"]').parent('div').find('.select2').hide();
+        container.find('[name="tratamento_id"]').parent('div').find('span').removeClass('d-none');
+        element.addClass('d-none');
+
+        $('.modal-criar-tratamento').removeClass('d-none');
+        $('#calendar').css('width', '40%');
+        $('#calendar').addClass('pointer-events-none');
+        $('#calendar').addClass('opacity-05');
+        $('.btn-acoes-agenda').addClass('pointer-events-none');
+        $('.btn-acoes-agenda').addClass('opacity-05');
+        $('.contents-modal').addClass('d-flex');
+        $('.contents-modal').css('width', '60%');
+        $('.criar-agendamento').css('width', '50%');
+        $('.criar-agendamento').addClass('opacity-05');
+        $('.criar-agendamento').addClass('pointer-events-none');
+    });
+
+    // Cancelar criação de tratamento
+    $(document).on('click', '.close-modal-criar-tratamento', function(){
+        const container = $('.criar-agendamento').find('form');
+
+        if(container.find('[name="tratamento_id"]').find('option').length == 2){
+            var id_select_tratamento = '';
+            $.each(container.find('[name="tratamento_id"]').find('option'), function(i,v){
+                if($(this).attr('value')){
+                    $(this).attr('selected', 'selected');
+                    id_select_tratamento = $(this).val();
+                }
+            });
+
+            container.find('[name="tratamento_id"]').val(id_select_tratamento);
+        }
+
+        container.find('[name="tratamento_id"]').parent('div').find('span').addClass('d-none');
+        container.find('[name="tratamento_id"]').parent('div').find('.select2').show();
+        container.find('[name="tratamento_id"]').parent('div').find('.select2').removeClass('d-none');
+        container.find('[name="tratamento_id"]').parent('div').find('.select2').find('span').removeClass('d-none');
+        $('.btn_criar_tratamento_ag').removeClass('d-none');
+
+        $('.modal-criar-tratamento').addClass('d-none');
+        $('#calendar').css('width', '70%');
+        $('#calendar').removeClass('pointer-events-none');
+        $('#calendar').removeClass('opacity-05');
+        $('.btn-acoes-agenda').removeClass('pointer-events-none');
+        $('.btn-acoes-agenda').removeClass('opacity-05');
+        $('.contents-modal').removeClass('d-flex');
+        $('.contents-modal').css('width', '30%');
+        $('.criar-agendamento').css('width', '100%');
+        $('.criar-agendamento').removeClass('opacity-05');
+        $('.criar-agendamento').removeClass('pointer-events-none');
+    });
+
+    // Adicionar procedimentos no cadastro de tratamento através da agenda
+    $(document).on('click', '.adicionar_procedimento', function(){
+        const container = $(this).parents('form');
+        var element = container.find('.clone_procedimento_agenda.first_procedimento').clone();
+
+        element.removeClass('first_procedimento');
+
+        container.find('.lista_procedimentos').append(element);
+        element.find('[data-bs-title="adicionar_procedimento"]').tooltip();
+    });
+
+    // Remove procedimentos adicionados no cadastro de tratamento através da agenda
+    $(document).on('click', '.lista_procedimentos [data-bs-title="Remover Procedimento"]', function(){
+        const container = $(this).parents('.clone_procedimento_agenda');
+
+        if(container.hasClass('first_procedimento')){
+            container.find('input').val('');
+
+        }else{
+            container.remove();
+        }
+    });
 });
 
 function visualizar_agendamento(agenda_id){
