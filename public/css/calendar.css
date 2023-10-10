@@ -111,11 +111,14 @@
   z-index: 9;
 }
 .container-agenda .contents-modal .modal-criar-tratamento {
-  width: 47%;
-  margin-left: 2%;
-  margin-right: 1%;
+  width: 99%;
 }
-.container-agenda .contents-modal .modal-criar-tratamento .clone_procedimento_agenda {
+.container-agenda .contents-modal .modal-criar-tratamento .lista_procedimentos {
+  max-height: 360px;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+.container-agenda .contents-modal .modal-criar-tratamento .lista_procedimentos .clone_procedimento_agenda {
   border: solid 2px var(--cor-logo-cliente-transp);
   border-radius: 5px;
   padding: 5px;

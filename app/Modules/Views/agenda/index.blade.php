@@ -245,18 +245,6 @@
 						</div>
 					@php endif @endphp
 
-					<div class="w-100 d-none flex-wrap mgt-px-5 mgb-px-5">
-						<label class="w-100" for="convenio">Convenio</label>
-						<select class="select2 convenio" id="convenio" name="convenio">
-							<option value="">Selecione...</option>
-							@if($convenios)
-								@foreach($convenios as $registro)
-									<option value="{{$registro['id']}}">{{$registro['nome']}}</option>
-								@endforeach
-							@endif
-						</select>
-					</div>
-
 					<div class="form-floating w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 h-120px">
 						<textarea class="form-control w-100 h-120px" placeholder="Observações" id="observacoes" name="observacoes"></textarea>
 						<label class="w-100" for="observacoes">Observações</label>
@@ -414,8 +402,8 @@
 		</div>
 		<div class="modal-criar-tratamento d-none">
 			<div class="header-modal d-flex justify-content-between align-items-center relative">
-				<div class="d-flex align-items-start editar_dados_agendamento">
-					<h4>Criar Tratamento</h4>
+				<div class="d-flex align-items-start">
+					<h4 class="criar-tratamento-agenda-header">Criando tratamento para</h4>
 				</div>
 				<span>
 					<i
@@ -427,94 +415,19 @@
 					></i>
 				</span>
 			</div>
-			<div class="content-modal">
-				<form class="d-flex flex-wrap w-100 justify-content-between">
-					@csrf
-					<div class="w-49 flex-wrap mgt-px-5 mgb-px-5">
-						<label class="w-100" for="convenio">Convenio</label>
-						<select class="select2 convenio" id="convenio" name="convenio">
-							<option value="">Selecione...</option>
-							@if($convenios)
-								@foreach($convenios as $registro)
-									<option value="{{$registro['id']}}">{{$registro['nome']}}</option>
-								@endforeach
-							@endif
-						</select>
-					</div>
-
-					<div class="w-49 d-flex flex-wrap mgt-px-5 mgb-px-5">
-						<label class="w-100" for="especialidade">Especialidade</label>
-						<select class="select2 especialidade" id="especialidade" name="especialidade">
-							<option value="">Selecione...</option>
-							@if($especialidades)
-								@foreach($especialidades as $key => $registro)
-									<option value="{{$registro['id']}}">{{$registro['nome']}}</option>
-								@endforeach
-							@endif
-						</select>
-					</div>
-
-					<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 mgt-px-10">
-						<h6>Procedimentos</h6>
-					</div>
-
-					<div class="lista_procedimentos">
-						<div class="d-flex flex-wrap justify-content-between mgb-px-10 clone_procedimento_agenda first_procedimento">
-							<div class="form-floating w-75">
-							  	<input type="text" class="form-control mgb-px-5" id="procedimento" placeholder="" value="" name="procedimento_nome[]">
-							  	<input type="hidden" name="procedimento[]">
-							  	<label for="procedimento" required>Procedimento</label>
-							</div>
-
-							<div class="form-floating w-24">
-							  	<input type="text" class="form-control mgb-px-5" id="sessao" placeholder="" value="" name="sessao[]">
-							  	<label for="sessao" required>Sessões</label>
-							</div>
-
-							<div class="w-32">
-							  	<label for="valor_procedimento" class="form-label mgb-px-0" required>Valor</label>
-				  	            <div class="div-money">
-				  	                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-				  	                <input type="text" id="valor_procedimento" name="valor_procedimento[]" class="form-control money" autocomplete="off">
-				  	            </div>
-							</div>
-
-							<div class="w-32">
-								<label for="valor_procedimento" class="form-label mgb-px-0" required>Desconto</label>
-							  	<div class="div-money-opc">
-					    	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
-					    	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto" autocomplete="off">
-					    	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="real">
-					    	    </div>
-							</div>
-
-							<div class="w-32">
-								<label for="valor_procedimento" class="form-label mgb-px-0">Total</label>
-							  	<div class="div-money-opc">
-					    	    	<input type="text" name="desconto_procedimento[]" readonly readonly-disabled class="form-control money" id="valor_desconto" autocomplete="off">
-					    	    </div>
-							</div>
-
-							<div class="w-100 mgt-px-10 d-flex justify-content-center align-items-center">
-								<span class="opacity-06 w-100 text-align-center pointer" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Remover Procedimento">
-									<i class="ph ph-x relative top-px-2"></i> Remover
-								</span>
-								{{-- <span type="submit" class="btn btn-success w-100 opacity-05 border-none" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Remover">
-									<i class="ph ph-x"></i>
-								</span> --}}
-							</div>
-						</div>
-					</div>
-
-					<span type="submit" class="btn btn-success bg-transp-cor-logo-cliente w-100 adicionar_procedimento" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Adicionar Procedimento">
-						<i class="ph ph-plus"></i>
-					</span>
-
-					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-criar-tratamento"><i class="ph ph-x"></i> Cancelar</span>
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Criar Tratamento <i class="ph ph-check"></i></span>
-					</div>
+			<div class="content-modal container-tratamento-novo">
+				<form class="d-flex flex-wrap justify-content-between">
+					@include('tratamento.form_novo')
 				</form>
+
+				<div class="d-none">
+					@include('tratamento.form_novo_clone')
+				</div>
+
+				<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
+					<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-criar-tratamento"><i class="ph ph-x"></i> Cancelar</span>
+					<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Criar Tratamento <i class="ph ph-check"></i></span>
+				</div>
 			</div>
 		</div>
 	</div>

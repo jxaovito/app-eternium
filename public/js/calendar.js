@@ -780,16 +780,12 @@ $(document).ready(function(){
         element.addClass('d-none');
 
         $('.modal-criar-tratamento').removeClass('d-none');
-        $('#calendar').css('width', '40%');
-        $('#calendar').addClass('pointer-events-none');
-        $('#calendar').addClass('opacity-05');
+        $('#calendar').addClass('d-none');
         $('.btn-acoes-agenda').addClass('pointer-events-none');
         $('.btn-acoes-agenda').addClass('opacity-05');
-        $('.contents-modal').addClass('d-flex');
-        $('.contents-modal').css('width', '60%');
-        $('.criar-agendamento').css('width', '50%');
-        $('.criar-agendamento').addClass('opacity-05');
-        $('.criar-agendamento').addClass('pointer-events-none');
+        $('.contents-modal').css('width', '100%');
+        $('.criar-agendamento').addClass('d-none');
+        $('.criar-tratamento-agenda-header').html(`Criando Tratamento para <b>${container.find('[id="busca_paciente_tratamento"]').val()}</b>`);
     });
 
     // Cancelar criação de tratamento
@@ -815,16 +811,11 @@ $(document).ready(function(){
         $('.btn_criar_tratamento_ag').removeClass('d-none');
 
         $('.modal-criar-tratamento').addClass('d-none');
-        $('#calendar').css('width', '70%');
-        $('#calendar').removeClass('pointer-events-none');
-        $('#calendar').removeClass('opacity-05');
+        $('#calendar').removeClass('d-none');
         $('.btn-acoes-agenda').removeClass('pointer-events-none');
         $('.btn-acoes-agenda').removeClass('opacity-05');
-        $('.contents-modal').removeClass('d-flex');
         $('.contents-modal').css('width', '30%');
-        $('.criar-agendamento').css('width', '100%');
-        $('.criar-agendamento').removeClass('opacity-05');
-        $('.criar-agendamento').removeClass('pointer-events-none');
+        $('.criar-agendamento').removeClass('d-none');
     });
 
     // Adicionar procedimentos no cadastro de tratamento através da agenda
@@ -833,9 +824,13 @@ $(document).ready(function(){
         var element = container.find('.clone_procedimento_agenda.first_procedimento').clone();
 
         element.removeClass('first_procedimento');
+        var id_element = $('[name="desconto_procedimento[]"]').length - 1;
+        element.find('[name="desconto_procedimento[]"]').attr('id', `valor_desconto_${id_element}`);
+        element.find('[for="valor_desconto"]').attr('for', `valor_desconto_${id_element}`);
 
         container.find('.lista_procedimentos').append(element);
         element.find('[data-bs-title="adicionar_procedimento"]').tooltip();
+        container.find('.lista_procedimentos').css('padding-bottom', '60px');
     });
 
     // Remove procedimentos adicionados no cadastro de tratamento através da agenda
@@ -847,6 +842,10 @@ $(document).ready(function(){
 
         }else{
             container.remove();
+        }
+
+        if($('.clone_procedimento_agenda').length == 1){
+            $('.lista_procedimentos').css('padding-bottom', '10px');
         }
     });
 });

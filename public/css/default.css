@@ -177,6 +177,7 @@ body table.table tbody tr td {
 body .div-money {
   display: flex;
   align-items: center;
+  position: relative;
 }
 body .div-money .moeda {
   position: absolute;
@@ -189,6 +190,7 @@ body .div-money input.money {
 body .div-money-opc {
   display: flex;
   align-items: center;
+  position: relative;
 }
 body .div-money-opc .moeda {
   position: absolute;
@@ -4928,6 +4930,10 @@ select {
   cursor: pointer !important;
 }
 
+.no-drop {
+  cursor: no-drop;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -5258,6 +5264,9 @@ a {
   color: red;
 }
 
+.alerta {
+  z-index: 99999999;
+}
 .alerta .bg_tipo_alerta {
   width: 25px;
   height: 25px;

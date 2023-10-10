@@ -199,6 +199,7 @@ body{
     .div-money{
         display: flex;
         align-items: center;
+        position: relative;
 
         .moeda{
             position: absolute;
@@ -216,6 +217,7 @@ body{
     .div-money-opc{
         display: flex;
         align-items: center;
+        position: relative;
 
         .moeda{
             position: absolute;
@@ -1770,6 +1772,7 @@ select{
 .color-000{color: #000;}
 
 .pointer{cursor: pointer!important;}
+.no-drop{cursor: no-drop;}
 .pointer-events-none{pointer-events: none;}
 .pointer-events-auto{pointer-events: auto;}
 a{text-decoration: none!important;color: var(--font-color);}
@@ -1943,6 +1946,8 @@ a{text-decoration: none!important;color: var(--font-color);}
 }
 
 .alerta{
+    z-index: 99999999;
+
     .bg_tipo_alerta{
         width: 25px;
         height: 25px;

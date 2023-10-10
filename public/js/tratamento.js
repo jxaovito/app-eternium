@@ -221,7 +221,7 @@ $(document).ready(function(){
 	$(document).on('input', '[name="total_procedimento[]"]', function(){
 		var subtotal = 0;
 		$.each($('.container-tratamento-novo form [name="total_procedimento[]"]'), function(){
-			var val = $(this).val() ? parseInt($(this).val()) : 0;
+			var val = $(this).val() ? real_para_float($(this).val()) : 0;
 			subtotal = subtotal + val;
 		});
 

@@ -29,9 +29,14 @@ function autocomplete(dados, elemento, classe_div){
 		var html = `
 			<ul class="autocomplete">
 		`;
-		$.each(dados, function(i,v){
-			html += `<li class="autocomplete_procedimento_tratamento" codigo="${v.codigo}" valor="${v.valor}" id="${v.id ? v.id : ''}">${v.nome}</li>`;
-		});
+
+		if(dados.length){
+			$.each(dados, function(i,v){
+				html += `<li class="autocomplete_procedimento_tratamento" codigo="${v.codigo}" valor="${v.valor}" id="${v.id ? v.id : ''}">${v.nome}</li>`;
+			});
+		}else{
+			html += `<li class="autocomplete_procedimento_tratamento pointer-events-none no-drop" codigo="" valor="" id="">Nenhum procedimento encontrado...</li>`;
+		}
 
 		html += `</ul>`;
 		$('.autocomplete li').remove();

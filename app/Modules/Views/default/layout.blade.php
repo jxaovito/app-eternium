@@ -78,7 +78,7 @@
         <script type="text/javascript" src="{{ asset('js/procedimento.js') }}"></script>
         @endif
 
-        @if(isset($pagina) && $pagina == 'tratamento')
+        @if(isset($pagina) && ($pagina == 'tratamento' || $pagina == 'agenda'))
         <script type="text/javascript" src="{{ asset('js/tratamento.js') }}"></script>
         <link rel="stylesheet" href="{{ asset('css/tratamento.css') }}">
         @endif

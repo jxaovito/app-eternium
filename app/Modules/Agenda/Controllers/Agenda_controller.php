@@ -127,6 +127,13 @@ class Agenda_controller extends Controller{
         $_dados['profissionais'] = $profissionais;
         $_dados['especialidades'] = $this->Agenda_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['convenios'] = $this->Agenda_model->get_all_table('convenio', array('deletado' => '0'));
+
+        // Opções para cadastro de Novo Tratamento
+        $_dados['forma_pagamento'] = $this->Agenda_model->get_all_table('fin_forma_pagamento', array('deletado' => '0'), 'nome');
+        $_dados['parcelas_pagamento'] = $this->Agenda_model->get_all_table('fin_parcelas_pagamento', null, 'parcela');
+        $_dados['contas'] = $this->Agenda_model->get_all_table('fin_conta', null, 'nome');
+        $_dados['categorias'] = $this->Agenda_model->get_all_table('fin_categoria', array('deletado' => '0'), 'nome');
+        
         $_dados['pagina'] = 'agenda';
 
         return view('agenda.index', $_dados);
