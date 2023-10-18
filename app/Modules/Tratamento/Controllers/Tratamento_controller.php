@@ -221,13 +221,35 @@ class Tratamento_controller extends Controller{
         }
         
         if($tratamento_id){
-            session(['tipo_mensagem' => 'success']);
-            session(['mensagem' => 'Tratamento cadastrado com sucesso!']);
+            if($request['origem'] == 'agenda'){
+                $tratamento['status'] = true;
+                $tratamento['profissional'] = $this->Tratamento_model->get_all_table('profissional', array('id' => $tratamento['profissional_id']))[0]['nome'];
+                $tratamento['especialidade'] = $this->Tratamento_model->get_all_table('especialidade', array('id' => $tratamento['especialidade_id']))[0]['nome'];
+
+                $tratamento['retorno'] = date('d/m/Y') . ' ' . $tratamento['profissional'] . '(' . $tratamento['especialidade'] . ')' . ' - ' . $tratamento['sessoes_consumida'] . '/' . $tratamento['sessoes_contratada'];
+                $tratamento['tratamento_id'] = $tratamento_id;
+
+                echo json_encode($tratamento);
+
+            }else{
+                session(['tipo_mensagem' => 'success']);
+                session(['mensagem' => 'Tratamento cadastrado com sucesso!']);
+            }
+
         }else{
-            session(['tipo_mensagem' => 'danger']);
-            session(['mensagem' => 'Houve um erro ao cadsatrar o tratamento. Entre em contato com o suporte.']);
+            if($request['origem'] == 'agenda'){
+                $tratamento['status'] = false;
+                echo json_encode($tratamento);
+            
+            }else{
+                session(['tipo_mensagem' => 'danger']);
+                session(['mensagem' => 'Houve um erro ao cadsatrar o tratamento. Entre em contato com o suporte.']);
+            }
         }
-        return redirect()->route('tratamento');
+
+        if(!$request['origem']){
+            return redirect()->route('tratamento');
+        }
     }
 
     public function get_subcategoria(Request $request){
@@ -276,9 +298,6 @@ class Tratamento_controller extends Controller{
             $registros[$key]['procedimentos'] = $this->Tratamento_model->get_procedimentos_tratamento($registro['id']);
             $registros[$key]['parcelas'] = $this->Tratamento_model->get_all_table('fin_lancamento_parcela', array('fin_lancamento_financeiro_id' => $registro['fin_lancamento_financeiro_id']));
         }
-        // echo '<pre>';
-        // var_dump($registros);
-        // exit;
         
         $_dados['registros'] = $registros;
         $_dados['pagina'] = 'tratamento';

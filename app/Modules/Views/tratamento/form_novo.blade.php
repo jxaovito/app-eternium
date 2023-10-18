@@ -1,3 +1,5 @@
+@csrf
+
 @if($pagina == 'tratamento')
     <div class="mb-3 w-40">
         <label for="busca_paciente_tratamento" class="form-label" required>Paciente</label>
@@ -45,7 +47,7 @@
 </div>
 
 <div class="w-100 mgb-px-30">
-    <h5 class="mgt-px-30 mgb-px-10">Procedimentos</h5>
+    <h5 class="mgt-px-30 mgb-px-10" required>Procedimentos</h5>
     <div class="w-100 d-flex flex-wrap justify-content-between mgb-px-10">
         <div class="w-15">
             <label>Código</label>

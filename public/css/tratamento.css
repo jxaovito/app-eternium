@@ -12,16 +12,16 @@
   color: #fff;
 }
 
-.container-tratamento-novo form h5 label {
+.container-tratamento-novo form h5 label, .modal-criar-tratamento form h5 label {
   font-size: 20px !important;
 }
-.container-tratamento-novo form .pagamentos-tratamento {
+.container-tratamento-novo form .pagamentos-tratamento, .modal-criar-tratamento form .pagamentos-tratamento {
   display: none;
 }
-.container-tratamento-novo form .pagamentos-tratamento .select2-container {
+.container-tratamento-novo form .pagamentos-tratamento .select2-container, .modal-criar-tratamento form .pagamentos-tratamento .select2-container {
   width: 100% !important;
 }
-.container-tratamento-novo form .credito-paciente {
+.container-tratamento-novo form .credito-paciente, .modal-criar-tratamento form .credito-paciente {
   background-color: var(--cor-logo-cliente);
   color: #fff !important;
   padding: 10px;

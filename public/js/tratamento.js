@@ -214,13 +214,17 @@ $(document).ready(function(){
 
 			}else{
 				alerta('O valor do Procedimento não pode ser Negativo', 'vermelho');
+
+				$('.salvar-novo-tratamento').attr('readonly-disabled');
 			}
 		}
 	});
 
 	$(document).on('input', '[name="total_procedimento[]"]', function(){
+		const container = $(this).parents('form');
 		var subtotal = 0;
-		$.each($('.container-tratamento-novo form [name="total_procedimento[]"]'), function(){
+
+		$.each(container.find('[name="total_procedimento[]"]'), function(){
 			var val = $(this).val() ? real_para_float($(this).val()) : 0;
 			subtotal = subtotal + val;
 		});
@@ -229,12 +233,16 @@ $(document).ready(function(){
 
 		if(subtotal < 0){
 			alerta('O valor do tratamento não pode ser Negativo', 'vermelho');
+
+			$('.salvar-novo-tratamento').attr('readonly-disabled');
 		}
 	});
 
 	$(document).on('input', '[name="sessoes_procedimento[]"]', function(){
+		const container = $(this).parents('form');
 		var total_sessoes = 0;
-		$.each($('.container-tratamento-novo form [name="sessoes_procedimento[]"]'), function(){
+
+		$.each(container.find('[name="sessoes_procedimento[]"]'), function(){
 			var val = $(this).val() ? parseInt($(this).val()) : 0;
 			total_sessoes = total_sessoes + val;
 		});

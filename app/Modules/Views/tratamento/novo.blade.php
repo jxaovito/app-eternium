@@ -6,8 +6,6 @@
 	</div>
 
 	<form action="/tratamento/novo_salvar/" method="post" class="d-flex flex-wrap justify-content-between" enctype="multipart/form-data">
-		@csrf
-
         {{-- Chama View do Form --}}
         @include('tratamento.form_novo')
         

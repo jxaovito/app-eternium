@@ -771,21 +771,22 @@ $(document).ready(function(){
             destacar(container.find('[name="paciente"]'));
 
             return false;
+        }else{
+            container.find('[name="tratamento_id"]').val('');
+            container.find('[name="tratamento_id"]').find('option').removeAttr('selected');
+            container.find('[name="tratamento_id"]').parent('div').find('.select2').hide();
+            container.find('[name="tratamento_id"]').parent('div').find('span').removeClass('d-none');
+            $('.criar-tratamento-agenda-header').html(`Criando Tratamento para <b>${container.find('[id="busca_paciente_tratamento"]').val()}</b>`);
+            $('#modal-criar-tratamento').modal('show');
+            $('#modal-criar-tratamento').modal({backdrop:'static', keyboard:false});
+            $('#modal-criar-tratamento').find('[name="paciente_id"]').val(container.find('[name="paciente_id"]').val());
+
+            setTimeout(function(){
+                if(!$('.modal-criar-tratamento').find('.content-procedimentos').find('div').length){
+                    $('.modal-criar-tratamento').find('.add_procedimento').trigger('click');
+                }
+            }, 500);
         }
-
-        container.find('[name="tratamento_id"]').val('');
-        container.find('[name="tratamento_id"]').find('option').removeAttr('selected');
-        container.find('[name="tratamento_id"]').parent('div').find('.select2').hide();
-        container.find('[name="tratamento_id"]').parent('div').find('span').removeClass('d-none');
-        element.addClass('d-none');
-
-        $('.modal-criar-tratamento').removeClass('d-none');
-        $('#calendar').addClass('d-none');
-        $('.btn-acoes-agenda').addClass('pointer-events-none');
-        $('.btn-acoes-agenda').addClass('opacity-05');
-        $('.contents-modal').css('width', '100%');
-        $('.criar-agendamento').addClass('d-none');
-        $('.criar-tratamento-agenda-header').html(`Criando Tratamento para <b>${container.find('[id="busca_paciente_tratamento"]').val()}</b>`);
     });
 
     // Cancelar criação de tratamento
@@ -809,13 +810,7 @@ $(document).ready(function(){
         container.find('[name="tratamento_id"]').parent('div').find('.select2').removeClass('d-none');
         container.find('[name="tratamento_id"]').parent('div').find('.select2').find('span').removeClass('d-none');
         $('.btn_criar_tratamento_ag').removeClass('d-none');
-
-        $('.modal-criar-tratamento').addClass('d-none');
-        $('#calendar').removeClass('d-none');
-        $('.btn-acoes-agenda').removeClass('pointer-events-none');
-        $('.btn-acoes-agenda').removeClass('opacity-05');
-        $('.contents-modal').css('width', '30%');
-        $('.criar-agendamento').removeClass('d-none');
+        $('#modal-criar-tratamento').modal('hide');
     });
 
     // Adicionar procedimentos no cadastro de tratamento através da agenda
@@ -847,6 +842,70 @@ $(document).ready(function(){
         if($('.clone_procedimento_agenda').length == 1){
             $('.lista_procedimentos').css('padding-bottom', '10px');
         }
+    });
+
+    // Salvar Novo Tratamento através da agenda
+    $(document).on('click', '.salvar-novo-tratamento', function(){
+        var retorno = true;
+        const element = $(this);
+        const container = $(this).parents('.modal-criar-tratamento');
+        
+        if(element.attr('readonly-disabled')){
+            retorno = false;
+        }
+
+        if(!container.find('[name="procedimento_id[]"]').val()){
+            retorno = false;
+        }
+
+        if(!container.find('[name="convenio"]').val()){
+            retorno = false;
+        }
+
+        if(!container.find('[name="especialidade"]').val()){
+            retorno = false;
+        }
+
+        if(!retorno){
+            alerta('Existe campos pendentes para serem preenchidos.', 'vermelho');
+            return false;
+        }
+
+        const data = container.find('form').serialize();
+        
+        $.ajax({
+            url: '/tratamento/novo_salvar',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function(data){
+                if(data.status){
+                    const container_agenda = $('.criar-agendamento').find('form');
+
+                    $.each(container_agenda.find('[name="tratamento_id"] option'), function(){
+                        if($(this).attr('selected')){
+                            $(this).removeAttr('selected');
+                        }
+                    });
+
+                    container_agenda.find('[name="tratamento_id"]').append(`
+                        <option value="${data.tratamento_id}" selected="selected">${data.retorno}</option>
+                    `);
+
+                    alerta('Tratamento cadastrado com sucesso!', 'azul');
+
+                    container_agenda.find('[name="tratamento_id"]').parent('div').find('span').addClass('d-none');
+                    container_agenda.find('[name="tratamento_id"]').parent('div').find('.select2').show();
+                    container_agenda.find('[name="tratamento_id"]').parent('div').find('.select2').removeClass('d-none');
+                    container_agenda.find('[name="tratamento_id"]').parent('div').find('.select2').find('span').removeClass('d-none');
+                    $('.btn_criar_tratamento_ag').removeClass('d-none');
+                    $('#modal-criar-tratamento').modal('hide');
+
+                }else{
+                    alerta('Houve um erro ao criar Tratamento. Entre em contato com o Suporte.', 'vermelho');
+                }
+            },
+        });
     });
 });
 

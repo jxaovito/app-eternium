@@ -134,22 +134,6 @@
 			background-color: #fff0;
 			z-index: 9;
 		}
-
-		.modal-criar-tratamento{
-			width: 99%;
-
-			.lista_procedimentos{
-				max-height: 360px;
-				overflow-y: auto;
-				padding-bottom: 10px;
-
-				.clone_procedimento_agenda{
-					border: solid 2px var(--cor-logo-cliente-transp);
-					border-radius: 5px;
-					padding: 5px;
-				}
-			}
-		}
 	}
 
 	.modal-agendamento{
@@ -212,6 +196,24 @@
 					color: #000;
 				}
 			}
+		}
+	}
+}
+
+.modal-criar-tratamento{
+	.modal-xl{
+		--bs-modal-width: 90%!important;
+	}
+
+	.lista_procedimentos{
+		max-height: 360px;
+		overflow-y: auto;
+		padding-bottom: 10px;
+
+		.clone_procedimento_agenda{
+			border: solid 2px var(--cor-logo-cliente-transp);
+			border-radius: 5px;
+			padding: 5px;
 		}
 	}
 }

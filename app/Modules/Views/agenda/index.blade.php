@@ -239,7 +239,7 @@
 					    }))>0):
 					@endphp
 						<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 align-items-center">
-							<sup class="w-100 d-flex align-items-center font-weight-bold pointer mgt-px-5 btn_criar_tratamento_ag user-select-none">
+							<sup class="w-100 d-flex align-items-center font-weight-bold pointer mgt-px-5 btn_criar_tratamento_ag user-select-none" data-bs-toggle="modal">
 								<i class="ph ph-plus mgr-px-5"></i> Criar tratamento
 							</sup>
 						</div>
@@ -400,34 +400,32 @@
 				</div> --}}
 			</div>
 		</div>
-		<div class="modal-criar-tratamento d-none">
-			<div class="header-modal d-flex justify-content-between align-items-center relative">
-				<div class="d-flex align-items-start">
-					<h4 class="criar-tratamento-agenda-header">Criando tratamento para</h4>
-				</div>
-				<span>
-					<i
-						class="ph ph-x pointer close-modal-criar-tratamento"
-						data-bs-toggle="tooltip"
-		                data-bs-placement="bottom"
-		                data-bs-custom-class="custom-tooltip"
-		                data-bs-title="Fechar"
-					></i>
-				</span>
+	</div>
+</div>
+
+{{-- Modal para criar tratamento através da agenda --}}
+<div class="modal fade modal-criar-tratamento" id="modal-criar-tratamento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5 criar-tratamento-agenda-header">Criando Tratamento para </h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="content-modal container-tratamento-novo">
+			<div class="modal-body">
 				<form class="d-flex flex-wrap justify-content-between">
+					<input type="hidden" name="origem" value="agenda">
+					<input type="hidden" name="paciente_id" value="">
+					<input type="hidden" name="profissional" value="{{$profissional_id}}">
 					@include('tratamento.form_novo')
 				</form>
 
 				<div class="d-none">
 					@include('tratamento.form_novo_clone')
 				</div>
-
-				<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
-					<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-criar-tratamento"><i class="ph ph-x"></i> Cancelar</span>
-					<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Criar Tratamento <i class="ph ph-check"></i></span>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-criar-tratamento"><i class="ph ph-x"></i> Cancelar</span>
+				<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-tratamento">Criar Tratamento <i class="ph ph-check"></i></span>
 			</div>
 		</div>
 	</div>

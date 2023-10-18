@@ -110,19 +110,6 @@
   background-color: rgba(255, 255, 255, 0);
   z-index: 9;
 }
-.container-agenda .contents-modal .modal-criar-tratamento {
-  width: 99%;
-}
-.container-agenda .contents-modal .modal-criar-tratamento .lista_procedimentos {
-  max-height: 360px;
-  overflow-y: auto;
-  padding-bottom: 10px;
-}
-.container-agenda .contents-modal .modal-criar-tratamento .lista_procedimentos .clone_procedimento_agenda {
-  border: solid 2px var(--cor-logo-cliente-transp);
-  border-radius: 5px;
-  padding: 5px;
-}
 .container-agenda .modal-agendamento {
   width: 100%;
   height: 70%;
@@ -173,6 +160,20 @@
 }
 .container-agenda .modal-agendamento .content-modal .btn_criar_tratamento_ag:hover {
   color: #000;
+}
+
+.modal-criar-tratamento .modal-xl {
+  --bs-modal-width: 90%!important;
+}
+.modal-criar-tratamento .lista_procedimentos {
+  max-height: 360px;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+.modal-criar-tratamento .lista_procedimentos .clone_procedimento_agenda {
+  border: solid 2px var(--cor-logo-cliente-transp);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 /*# sourceMappingURL=calendar.css.map */
