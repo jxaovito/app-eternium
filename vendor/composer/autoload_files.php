@@ -35,4 +35,7 @@ return array(
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     '320163ac6b93aebe3dc25b60a0533d56' => $vendorDir . '/spatie/laravel-ignition/src/helpers.php',
     '0df9ad278f7a9f27dc91a8f5ed3400bc' => $baseDir . '/app/Helpers/Auth_helper.php',
+    '835bcf7a7f2af1f2eefb0715feb284a1' => $baseDir . '/app/Helpers/lang/Lang_helper.php',
+    'ca31e1b838e31ac1984051ca9785026a' => $baseDir . '/app/Helpers/lang/Portugues_br_helper.php',
+    '05240b18ca76a40bcebe579a95be4580' => $baseDir . '/app/Helpers/lang/Ingles_us_helper.php',
 );

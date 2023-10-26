@@ -168,7 +168,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Agenda"
             >
                 <i class="ph ph-calendar-blank"></i>
-                <span>Agenda</span>
+                <span>{{mensagem('menu_msg1')}}</span>
             </a>
             <?php endif; ?>
 

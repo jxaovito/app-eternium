@@ -62,6 +62,13 @@ class Auth_controller extends Controller {
             $config_dados = $this->Auth_model->get_all_table('configuracao', array('tipo' => 'dados'));
             $config_preferencias = $this->Auth_model->get_all_table('configuracao', array('tipo' => 'preferencias'));
 
+            // Busca de Idioma do Sistema para salvar em Sessão
+            foreach($config_dados as $key => $dados){
+                if($dados['variavel'] == 'idioma'){
+                    $idioma = $dados['valor'];
+                }
+            }
+
             session(['permissoes' => $permissoes]);
             session(['permissoes_all' => $permissoes_all]);
     		session(['usuario_id' => $usuario['id']]);
@@ -69,6 +76,7 @@ class Auth_controller extends Controller {
             session(['usuario_email' => $usuario['email']]);
             session(['config_dados' => $config_dados]);
             session(['config_preferencias' => $config_preferencias]);
+            session(['idioma' => $idioma]);
             session(['menu' => 'mostrar']);
 
     		return redirect()->route('agenda');

@@ -50,6 +50,7 @@ class Configuracao_controller extends Controller{
 
         $request = $request->all();
         $dados = array();
+        $dados[] = array('tipo' => 'dados', 'variavel' => 'idioma', 'nome' => 'Idioma', 'valor' => $request['idioma']);
         $dados[] = array('tipo' => 'dados', 'variavel' => 'nome_empresa', 'nome' => 'Nome da Empresa', 'valor' => $request['nome_empresa']);
         $dados[] = array('tipo' => 'dados', 'variavel' => 'cpf', 'nome' => 'CPF', 'valor' => $request['cpf']);
         $dados[] = array('tipo' => 'dados', 'variavel' => 'cnpj', 'nome' => 'CNPJ', 'valor' => $request['cnpj']);
@@ -76,6 +77,7 @@ class Configuracao_controller extends Controller{
 
         $config_dados = $this->Configuracao_model->get_all_table('configuracao', array('tipo' => 'dados'));
         session(['config_dados' => $config_dados]);
+        session(['idioma' => $request['idioma']]);
 
         session(['tipo_mensagem' => 'success']);
         session(['mensagem' => 'Configurações Atualizadas com sucesso!']);

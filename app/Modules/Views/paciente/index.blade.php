@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-paciente">
 	<div class="header mgb-px-30 d-flex justify-content-between">
-		<h2>Pacientes</h2>
+		<h2>{{mensagem('msg1')}}</h2>
 
 		<div>
 			<a href="paciente/novo"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-plus"></i> Adicionar Paciente</button></a>

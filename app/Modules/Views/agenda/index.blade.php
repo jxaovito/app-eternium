@@ -9,7 +9,7 @@
 						<i class="ph ph-caret-left"></i>
 					</div>
 					<div class="w-60 text-center hoje">
-						Hoje
+						{{mensagem('msg1')}}
 					</div>
 					<div class="w-20 text-center avancar-datas">
 						<i class="ph ph-caret-right"></i>
@@ -29,7 +29,7 @@
 				  	tipo="day"
 				  	style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
 				>
-					Dia
+					{{mensagem('msg2')}}
 				</button>
 				<button
 					type="button"
@@ -37,7 +37,7 @@
 					tipo="week"
 					style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
 				>
-					Semana
+					{{mensagem('msg3')}}
 				</button>
 				<button
 					type="button"
@@ -45,13 +45,13 @@
 					tipo="month"
 					style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
 				>
-					Mês
+					{{mensagem('msg4')}}
 				</button>
 			</div>
 		</div>
 
 		<div class="w-45">
-			<h6 class="opacity-05 user-select-none">Profissionais</h6>
+			<h6 class="opacity-05 user-select-none">{{mensagem('msg5')}}</h6>
 			<div class="d-flex flex-wrap justify-content-start align-items-center">
 				@if($profissionais)
 					@foreach($profissionais as $prof)

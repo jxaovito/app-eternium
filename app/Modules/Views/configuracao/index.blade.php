@@ -21,6 +21,14 @@
 			@csrf
 			<div class="w-48">
 				<div class="mgb-px-10">
+					<label>Idioma</label>
+					<select class="select2" name="idioma">
+						<option value="portugues_br" <?=($dados['idioma']['valor'] == 'portugues_br' ? 'selected="selected"' : '')?>>Português Brasileiro</option>
+						<option value="ingles_us" <?=($dados['idioma']['valor'] == 'ingles_us' ? 'selected="selected"' : '')?>>Inglês</option>
+					</select>
+				</div>
+
+				<div class="mgb-px-10">
 					<label>Nome da Empresa</label>
 					<input type="text" class="form-control" name="nome_empresa" value="{{$dados['nome_empresa']['valor']}}">
 				</div>
