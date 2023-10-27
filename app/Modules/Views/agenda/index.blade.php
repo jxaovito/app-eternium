@@ -93,7 +93,7 @@
 		</div>
 
 		<div class="w-35">
-			<h6 class="opacity-05 user-select-none">Especialidades</h6>
+			<h6 class="opacity-05 user-select-none">{{mensagem('msg6')}}</h6>
 			<div class="d-flex flex-wrap justify-content-start align-items-center">
 				@if($especialidades)
 					@foreach($especialidades as $key => $esp)
@@ -108,18 +108,18 @@
 			</div>
 			@if($whatsapp_automatico)
 				<div class="w-70 d-flex flex-wrap mgt-px-20 mgb-px-10 justify-content-between user-select-none">
-					<sup class="w-100 mgb-px-5">Status de envio dos Lembretes dos agendamentos</sup>
+					<sup class="w-100 mgb-px-5">{{mensagem('msg7')}}</sup>
 					<div class="legendas-whatsapp-agenda">
 						<span class="font-13">
-							<svg class="w-13px h-13px relative top-px--1 wp-branco"><use xlink:href="#whatsapp"></use></svg> Enviar
+							<svg class="w-13px h-13px relative top-px--1 wp-branco"><use xlink:href="#whatsapp"></use></svg> {{mensagem('msg8')}}
 						</span>
 						<span class="font-13">
-							<svg class="w-13px h-13px relative top-px--1 wp-verde"><use xlink:href="#whatsapp"></use></svg> Enviado
+							<svg class="w-13px h-13px relative top-px--1 wp-verde"><use xlink:href="#whatsapp"></use></svg> {{mensagem('msg9')}}
 						</span>
 						<span class="font-13">
-							<svg class="w-13px h-13px relative top-px--1 wp-vermelho"><use xlink:href="#whatsapp"></use></svg> Erro ao Enviar
+							<svg class="w-13px h-13px relative top-px--1 wp-vermelho"><use xlink:href="#whatsapp"></use></svg> {{mensagem('msg10')}}
 						</span>
-						{{-- <span class="font-13">🔵 Respondido</span> --}}
+						{{-- <span class="font-13">🔵 {{mensagem('msg11')}}</span> --}}
 					</div>
 				</div>
 			@endif
@@ -156,14 +156,14 @@
 	<div class="contents-modal">
 		<div class="modal-agendamento criar-agendamento">
 			<div class="header-modal d-flex justify-content-between align-items-center">
-				<h4>Novo Agendamento</h4>
+				<h4>{{mensagem('msg12')}}</h4>
 				<span>
 					<i
 						class="ph ph-x pointer close-modal-agenda"
 						data-bs-toggle="tooltip"
 		                data-bs-placement="bottom"
 		                data-bs-custom-class="custom-tooltip"
-		                data-bs-title="Fechar"
+		                data-bs-title="{{mensagem('msg13')}}"
 					></i>
 				</span>
 			</div>
@@ -175,7 +175,7 @@
 							data-bs-toggle="tooltip"
 			                data-bs-placement="bottom"
 			                data-bs-custom-class="custom-tooltip"
-			                data-bs-title="Clique para ativar/desativar envio de lembrete automático deste agendamento."
+			                data-bs-title="{{mensagem('msg14')}}"
 						>
 							<label for="redefinicao_senha" class="form-label user-select-none mgb-px-0 d-flex align-items-center pointer">
 								@if($envio_lembrete_para_todos == 'sim')
@@ -183,7 +183,7 @@
 								@else
 									<i class="ph ph-check mgr-px-5 d-none"></i>
 								@endif
-								Enviar Lembrete <svg class="w-13px h-13px relative top-px--1 wp-verde mgl-px-5"><use xlink:href="#whatsapp"></use></svg>
+								{{mensagem('msg15')}} <svg class="w-13px h-13px relative top-px--1 wp-verde mgl-px-5"><use xlink:href="#whatsapp"></use></svg>
 								<input type="hidden" name="whatsapp" value="{{$envio_lembrete_para_todos == 'sim' ? 'enviar' : ''}}">
 							</label>
 						</div>
@@ -195,41 +195,41 @@
 					@csrf
 					<div class="form-floating w-49">
 					  	<input type="text" class="form-control mgb-px-5 date" id="data_inicial" placeholder="{{date('d/m/Y')}}" value="" name="data_inicio">
-					  	<label for="data_inicial">Data Inicial</label>
+					  	<label for="data_inicial">{{mensagem('msg16')}}</label>
 					</div>
 
 					<div class="form-floating w-49">
 					  	<input type="text" class="form-control mgb-px-5 date" id="data_fim" placeholder="{{date('d/m/Y')}}" value="" name="data_fim">
-					  	<label for="data_fim">Data Fim</label>
+					  	<label for="data_fim">{{mensagem('msg17')}}</label>
 					</div>
 
 					<div class="form-floating w-49">
 					  	<input type="text" class="form-control mgb-px-5 time" id="hora_inicial" placeholder="00:00" value="" name="hora_inicio">
-					  	<label for="hora_inicial">Hora Inicial</label>
+					  	<label for="hora_inicial">{{mensagem('msg18')}}</label>
 					</div>
 
 					<div class="form-floating w-49">
 					  	<input type="text" class="form-control mgb-px-5 time" id="hora_fim" placeholder="00:00" value="" name="hora_fim">
-					  	<label for="hora_fim">Hora Final</label>
+					  	<label for="hora_fim">{{mensagem('msg19')}}</label>
 					</div>
 
 					<div class="w-100 mgb-px-5 d-flex justify-content-between align-items-center mgt-px-5 tipo-agendamento">
-						<span class="w-48 text-center active" tipo="1">Agendamento</span>
-						<span class="w-48 text-center" tipo="2">Bloquear Horário</span>
+						<span class="w-48 text-center active" tipo="1">{{mensagem('msg20')}}</span>
+						<span class="w-48 text-center" tipo="2">{{mensagem('msg58')}}</span>
 						<input type="hidden" name="tipo-agendamento" value="1">
 					</div>
 
 					<div class="form-floating w-100">
-						<input type="text" class="form-control mgb-px-5" id="busca_paciente_tratamento" placeholder="Paciente" name="paciente" autocomplete="off">
-						<label for="busca_paciente_tratamento">Paciente</label>
+						<input type="text" class="form-control mgb-px-5" id="busca_paciente_tratamento" placeholder="{{mensagem('msg49')}}" name="paciente" autocomplete="off">
+						<label for="busca_paciente_tratamento">{{mensagem('msg21')}}</label>
 						<input type="hidden" class="autocomplete_paciente_id" name="paciente_id">
 					</div>
 
 					<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5">
-						<label class="w-100" for="tratamento">Tratamento</label>
+						<label class="w-100" for="tratamento">{{mensagem('msg22')}}</label>
 						<span class="user-select-none opacity-05 font-weight-bold d-none font-12">Criando tratamento...</span>
 						<select class="select2 tratamento" id="tratamento" name="tratamento_id">
-							<option value="">Selecione...</option>
+							<option value="">{{mensagem('msg23')}}</option>
 						</select>
 					</div>
 
@@ -240,19 +240,19 @@
 					@endphp
 						<div class="w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 align-items-center">
 							<sup class="w-100 d-flex align-items-center font-weight-bold pointer mgt-px-5 btn_criar_tratamento_ag user-select-none" data-bs-toggle="modal">
-								<i class="ph ph-plus mgr-px-5"></i> Criar tratamento
+								<i class="ph ph-plus mgr-px-5"></i> {{mensagem('msg24')}}
 							</sup>
 						</div>
 					@php endif @endphp
 
 					<div class="form-floating w-100 d-flex flex-wrap mgt-px-5 mgb-px-5 h-120px">
-						<textarea class="form-control w-100 h-120px" placeholder="Observações" id="observacoes" name="observacoes"></textarea>
-						<label class="w-100" for="observacoes">Observações</label>
+						<textarea class="form-control w-100 h-120px" placeholder="{{mensagem('msg50')}}" id="observacoes" name="observacoes"></textarea>
+						<label class="w-100" for="observacoes">{{mensagem('msg25')}}</label>
 					</div>
 
 					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> Cancelar</span>
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">Salvar <i class="ph ph-check"></i></span>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> {{mensagem('msg26')}}</span>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-agendamento">{{mensagem('msg59')}} <i class="ph ph-check"></i></span>
 					</div>
 				</form>
 			</div>
@@ -260,13 +260,13 @@
 		<div class="modal-agendamento visualizar-agendamento relative">
 			<div class="header-modal d-flex justify-content-between align-items-center relative">
 				<div class="d-flex align-items-start editar_dados_agendamento">
-					<h4>Visualizar Agendamento</h4>
+					<h4>{{mensagem('msg27')}}</h4>
 					<i
 						class="ph ph-pencil-simple mgl-px-5 pointer btn_editar_dados_agendamento"
 						data-bs-toggle="tooltip"
 		                data-bs-placement="bottom"
 		                data-bs-custom-class="custom-tooltip"
-		                data-bs-title="Editar Agendamento"
+		                data-bs-title="{{mensagem('msg28')}}"
 		                style="background-color: var(--cor-logo-cliente-transp)!important;color: var(--cor-font-cliente)!important;"
 		                background-cliente="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>"
 		                background-cliente-transp="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>36"
@@ -276,7 +276,7 @@
 						data-bs-toggle="tooltip"
 		                data-bs-placement="bottom"
 		                data-bs-custom-class="custom-tooltip"
-		                data-bs-title="Cancelar Edição"
+		                data-bs-title="{{mensagem('msg29')}}"
 		                style="background-color: var(--cor-logo-cliente)!important;color: var(--cor-font-cliente)!important;"
 					></i>
 				</div>
@@ -286,7 +286,7 @@
 						data-bs-toggle="tooltip"
 		                data-bs-placement="bottom"
 		                data-bs-custom-class="custom-tooltip"
-		                data-bs-title="Fechar"
+		                data-bs-title="{{mensagem('msg30')}}"
 					></i>
 				</span>
 			</div>
@@ -296,31 +296,31 @@
 						<div class="form-floating w-49">
 						  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_inicial_visualizar" placeholder="{{date('d/m/Y')}}" value="" name="data_inicio">
 						  	<input type="hidden" name="agenda_id" value="">
-						  	<label for="data_inicial">Data Inicial</label>
+						  	<label for="data_inicial">{{mensagem('msg31')}}</label>
 						</div>
 
 						<div class="form-floating w-49">
 						  	<input type="text" class="form-control border-none mgb-px-5" readonly id="data_fim_visualizar" placeholder="{{date('d/m/Y')}}" value="" name="data_fim">
-						  	<label for="data_fim">Data Fim</label>
+						  	<label for="data_fim">{{mensagem('msg32')}}</label>
 						</div>
 
 						<div class="form-floating w-49">
 						  	<input type="text" class="form-control border-none mgb-px-5 hora" readonly id="hora_inicial" placeholder="00:00" value="" name="hora_inicio">
-						  	<label for="hora_inicial">Hora Inicial</label>
+						  	<label for="hora_inicial">{{mensagem('msg33')}}</label>
 						</div>
 
 						<div class="form-floating w-49">
 						  	<input type="text" class="form-control border-none mgb-px-5 hora" readonly id="hora_fim" placeholder="00:00" value="" name="hora_fim">
-						  	<label for="hora_fim">Hora Final</label>
+						  	<label for="hora_fim">{{mensagem('msg34')}}</label>
 						</div>
 
 						<div class="form-floating w-100">
-							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Paciente" name="paciente" autocomplete="off">
-							<label>Paciente</label>
+							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="{{mensagem('msg51')}}" name="paciente" autocomplete="off">
+							<label>{{mensagem('msg35')}}</label>
 						</div>
 
 						<div class="form-floating w-100">
-							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Profissional" name="profissional_label" autocomplete="off">
+							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="{{mensagem('msg52')}}" name="profissional_label" autocomplete="off">
 							<div class="select_profissional d-none mgt-px-30">
 								<select class="select2" name="profissional">
 									@foreach($profissionais as $profissional)
@@ -328,19 +328,19 @@
 									@endforeach;
 								</select>
 							</div>
-							<label>Profissional</label>
+							<label>{{mensagem('msg36')}}</label>
 							<input type="hidden" name="profissional_id">
 						</div>
 
 						<div class="form-floating w-100">
-							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="Tratamento" name="tratamento" autocomplete="off">
-							<label>Tratamento</label>
+							<input type="text" class="form-control border-none mgb-px-5" readonly placeholder="{{mensagem('msg53')}}" name="tratamento" autocomplete="off">
+							<label>{{mensagem('msg37')}}</label>
 							<input type="hidden" name="tratamento_id">
 						</div>
 
 						<div class="form-floating w-100 observacoes-agendamento d-none">
-							<textarea class="form-control w-100 border-none" readonly placeholder="Observações" id="observacoes" name="observacoes" rows="2"></textarea>
-							<label>Observações</label>
+							<textarea class="form-control w-100 border-none" readonly placeholder="{{mensagem('msg54')}}" id="observacoes" name="observacoes" rows="2"></textarea>
+							<label>{{mensagem('msg55')}}</label>
 						</div>
 					</div>
 
@@ -349,11 +349,11 @@
 					</div>
 
 					<div class="w-80">
-					  	<label>Procedimento</label>
+					  	<label>{{mensagem('msg38')}}</label>
 					</div>
 
 					<div class="w-19">
-					  	<label>Sessão</label>
+					  	<label>{{mensagem('msg39')}}</label>
 					</div>
 
 					<div class="w-100 d-flex flex-wrap procedimentos">
@@ -362,19 +362,19 @@
 
 					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
 						<div>
-							<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> Cancelar</span>
+							<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> {{mensagem('msg40')}}</span>
 							<span
 								type="submit"
 								class="btn btn-success bg-cor-logo-cliente remover remover_agendamento"
 								link="/agenda/remover_agendamento/"
-								titulo="Remover Convênio"
-								texto="Você tem certeza que deseja <b>Remover</b> este agendamento?"
-								btn-texto="Remover"
+								titulo="{{mensagem('msg41')}}"
+								texto="{{mensagem('msg42')}}"
+								btn-texto="{{mensagem('msg43')}}"
 							>
-								<i class="ph ph-trash"></i> Remover
+								<i class="ph ph-trash"></i> {{mensagem('msg44')}}
 						</span>
 						</div>
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-editar-agendamento">Salvar <i class="ph ph-check"></i></span>
+						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-editar-agendamento">{{mensagem('msg45')}} <i class="ph ph-check"></i></span>
 					</div>
 				</form>
 
@@ -382,7 +382,7 @@
 				<div class="w-100 procedimento_clone d-none">
 					<div class="w-100 d-flex justify-content-between mgb-px-5">
 						<div class="form-floating w-80">
-						  	<input type="text" class="form-control w-100" readonly placeholder="Procedimento" name="procedimento[]" autocomplete="off">
+						  	<input type="text" class="form-control w-100" readonly placeholder="{{mensagem('msg56')}}" name="procedimento[]" autocomplete="off">
 						  	<label></label>
 						</div>
 						<input type="hidden" name="tratamento_has_procedimento_id[]">
@@ -392,7 +392,7 @@
 				</div>
 				{{-- <div class="w-100 procedimento_clone d-none">
 					<div class="w-100 d-flex justify-content-between mgb-px-5">
-						<input type="text" class="form-control w-80" readonly placeholder="Procedimento" name="procedimento[]" autocomplete="off">
+						<input type="text" class="form-control w-80" readonly placeholder="{{mensagem('msg57')}}" name="procedimento[]" autocomplete="off">
 						<input type="hidden" name="tratamento_has_procedimento_id[]">
 						<input type="hidden" name="procedimento_id[]">
 						<input type="text" name="sessao[]" class="form-control w-19">
@@ -408,7 +408,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1 class="modal-title fs-5 criar-tratamento-agenda-header">Criando Tratamento para </h1>
+				<h1 class="modal-title fs-5 criar-tratamento-agenda-header">{{mensagem('msg46')}} </h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -424,8 +424,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-criar-tratamento"><i class="ph ph-x"></i> Cancelar</span>
-				<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-tratamento">Criar Tratamento <i class="ph ph-check"></i></span>
+				<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-criar-tratamento"><i class="ph ph-x"></i> {{mensagem('msg47')}}</span>
+				<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-novo-tratamento">{{mensagem('msg48')}} <i class="ph ph-check"></i></span>
 			</div>
 		</div>
 	</div>
