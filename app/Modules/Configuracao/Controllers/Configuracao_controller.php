@@ -51,6 +51,7 @@ class Configuracao_controller extends Controller{
         $request = $request->all();
         $dados = array();
         $dados[] = array('tipo' => 'dados', 'variavel' => 'idioma', 'nome' => 'Idioma', 'valor' => $request['idioma']);
+        $dados[] = array('tipo' => 'dados', 'variavel' => 'moeda', 'nome' => 'Moeda', 'valor' => $request['moeda']);
         $dados[] = array('tipo' => 'dados', 'variavel' => 'nome_empresa', 'nome' => 'Nome da Empresa', 'valor' => $request['nome_empresa']);
         $dados[] = array('tipo' => 'dados', 'variavel' => 'cpf', 'nome' => 'CPF', 'valor' => $request['cpf']);
         $dados[] = array('tipo' => 'dados', 'variavel' => 'cnpj', 'nome' => 'CNPJ', 'valor' => $request['cnpj']);
@@ -78,10 +79,22 @@ class Configuracao_controller extends Controller{
         $config_dados = $this->Configuracao_model->get_all_table('configuracao', array('tipo' => 'dados'));
         session(['config_dados' => $config_dados]);
         session(['idioma' => $request['idioma']]);
+        session(['moeda' => $request['moeda']]);
+        $this->converter_textos_db_idioma();
 
         session(['tipo_mensagem' => 'success']);
         session(['mensagem' => 'Configurações Atualizadas com sucesso!']);
         return redirect()->route('configuracao');
+    }
+
+    // Conversão de textos padrões do Banco de Dados
+    private function converter_textos_db_idioma(){
+        // agenda_tipo_agendamento
+        $dados_agenda_tipo_agendamento = $this->Configuracao_model->get_all_table('agenda_tipo_agendamento');
+        foreach($dados_agenda_tipo_agendamento as $key => $val){
+            $this->Configuracao_model->update_table('agenda_tipo_agendamento', array('identificador' => 'agendamento'), array('nome' => mensagem('msg1')));
+            $this->Configuracao_model->update_table('agenda_tipo_agendamento', array('identificador' => 'bloqueio_horario'), array('nome' => mensagem('msg2')));
+        }
     }
 
     public function salvar_sistema(Request $request){

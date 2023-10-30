@@ -10,7 +10,7 @@ const calendar = new tui.Calendar('#calendar', {
     },
     language: 'pt-BR',
     week: {
-        dayNames: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        dayNames: [mensagem('msg1'), mensagem('msg2'), mensagem('msg3'), mensagem('msg4'), mensagem('msg5'), mensagem('msg6'), mensagem('msg7')],
     },
     week: {
         startDayOfWeek: 1,
@@ -49,7 +49,7 @@ $(document).ready(function(){
     // Nomeando os dias da semana
     calendar.setOptions({
         week: {
-            dayNames: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+            dayNames: [mensagem('msg1'), mensagem('msg2'), mensagem('msg3'), mensagem('msg4'), mensagem('msg5'), mensagem('msg6'), mensagem('msg7')],
         },
     });
 
@@ -222,10 +222,11 @@ $(document).ready(function(){
     $(document).on('change', '.container-agenda .selecionar-data .date', function(){
         var tipo_agenda = $('.calendar-visualizacao.active').attr('tipo');
         var date = $(this).val();
-        date = date.split('/');
+        date = data_para_db(date);
+        date = date.split('-');
 
-        if((date[0] && date[1] && date[2]) && (date[2].length == 4)){
-            data_selecionada = date[2]+'-'+date[1]+'-'+date[0];
+        if((date[0] && date[1] && date[2]) && (date[0].length == 4)){
+            data_selecionada = date[0]+'-'+date[1]+'-'+date[2];
 
             if(tipo_agenda == 'month'){
                 var data = new Date(data_selecionada);
@@ -281,7 +282,7 @@ $(document).ready(function(){
             calendar.setDate(data_selecionada);
 
         }else{
-            alerta('Data inválida!', 'vermelho');
+            alerta(mensagem('msg8'), 'vermelho');
         }
     });
 
@@ -404,14 +405,14 @@ $(document).ready(function(){
                 if(data.tratamento){
                     $('[name="tratamento_id"]').val('');
                     $('[name="tratamento_id"]').find('option').remove();
-                    $('[name="tratamento_id"]').append(`<option value="">Selecione...</option>`);
+                    $('[name="tratamento_id"]').append(`<option value="">${mensagem('msg9')}...</option>`);
 
                     $.each(data.tratamento, function(index, value){
                         if(value.sessoes_consumida != value.sessoes_contratada){
                             if(data.tratamento.length > 1){
-                                $('[name="tratamento_id"]').append(`<option value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
+                                $('[name="tratamento_id"]').append(`<option value="${value.tratamento_id}">${data_para_view(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
                             }else{
-                                $('[name="tratamento_id"]').append(`<option selected="selected" value="${value.tratamento_id}">${data_para_br(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
+                                $('[name="tratamento_id"]').append(`<option selected="selected" value="${value.tratamento_id}">${data_para_view(value.data_hora.split(' ')[0])} ${value.profissional} (${value.especialidade}) - ${value.sessoes_consumida}/${value.sessoes_contratada}</option>`);
                             }
                         }
                     });
@@ -435,20 +436,22 @@ $(document).ready(function(){
             dados[pair[0]] = decodeURIComponent(pair[1]);
         }
 
-        var data_parts = dados.data_inicio.split("/");
-        var dia = data_parts[0];
+        var data_parts = data_para_db(dados.data_inicio);
+        data_parts = data_parts.split('-');
+        var dia = data_parts[2];
         var mes = data_parts[1];
-        var ano = data_parts[2];
+        var ano = data_parts[0];
         var hora_parts = dados.hora_inicio.split(":");
         var horas = hora_parts[0];
         var minutos = hora_parts[1];
 
         var data_hora_inicio = ano+'-'+mes+'-'+dia+'T'+horas+':'+minutos+':00';
 
-        var data_parts = dados.data_fim.split("/");
-        var dia = data_parts[0];
+        var data_parts = data_para_db(dados.data_fim);
+        data_parts = data_parts.split('-');
+        var dia = data_parts[2];
         var mes = data_parts[1];
-        var ano = data_parts[2];
+        var ano = data_parts[0];
         var hora_parts = dados.hora_fim.split(":");
         var horas = hora_parts[0];
         var minutos = hora_parts[1];
@@ -509,7 +512,7 @@ $(document).ready(function(){
                 $('#modal_deletar').find('.modal-footer').find('[data-bs-dismiss="modal"]').click();
                 $('.visualizar-agendamento').find('.close-modal-agenda').click();
 
-                alerta('Removido com sucesso!', 'azul')
+                alerta(mensagem('msg10'), 'azul')
             },
         });
     });
@@ -546,8 +549,8 @@ $(document).ready(function(){
 
         var modal = $('.criar-agendamento');
 
-        modal.find('[name="data_inicio"]').val(data_para_br(data_inicio));
-        modal.find('[name="data_fim"]').val(data_para_br(data_fim));
+        modal.find('[name="data_inicio"]').val(data_para_view(data_inicio));
+        modal.find('[name="data_fim"]').val(data_para_view(data_fim));
         modal.find('[name="hora_inicio"]').val(hora_inicio);
         modal.find('[name="hora_fim"]').val(hora_fim);
         modal.show();
@@ -605,7 +608,7 @@ $(document).ready(function(){
             element.css('background-color', element.attr('background-cliente')+'!important');
 
             element.tooltip('dispose');
-            element.attr('data-bs-title', 'Salvar Edição');
+            element.attr('data-bs-title', mensagem('msg28'));
             element.tooltip();
 
             // Btn de Remover Agendamento
@@ -655,8 +658,8 @@ $(document).ready(function(){
             // Salvar edição de dados do agendamento
             if(self.hasClass('btn_editar_dados_agendamento')){
                 agenda_id = container.find('[name="agenda_id"]').val();
-                data_inicio = data_para_us(container.find('[name="data_inicio"]').val());
-                data_fim = data_para_us(container.find('[name="data_fim"]').val());
+                data_inicio = data_para_view(container.find('[name="data_inicio"]').val(), 'ingles_us');
+                data_fim = data_para_view(container.find('[name="data_fim"]').val(), 'ingles_us');
                 hora_inicio = container.find('[name="hora_inicio"]').val();
                 hora_fim = container.find('[name="hora_fim"]').val();
                 profissional_id = container.find('[name="profissional"]').val();
@@ -679,7 +682,7 @@ $(document).ready(function(){
             element.css('background-color', element.attr('background-cliente-transp')+'!important');
 
             element.tooltip('dispose');
-            element.attr('data-bs-title', 'Editar Agendamento');
+            element.attr('data-bs-title', mensagem('msg30'));
             element.tooltip();
 
             // Btn de Remover Agendamento
@@ -742,7 +745,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.bg_modal_editar_agendamento', function(){
-        alerta('Salve ou cancele a edição do agendamento!', 'azul')
+        alerta(mensagem('msg11'), 'azul')
     });
 
     // Ativa/desativa envio de lembrete automático para agendamento
@@ -751,13 +754,13 @@ $(document).ready(function(){
             $(this).addClass('opacity-05');
             $(this).find('.ph-check').addClass('d-none');
             $(this).parents('.criar-agendamento').find('[name="whatsapp"]').val('');
-            alerta('Desativado envio de lembrete automático para este agendamento.', 'azul');
+            alerta(mensagem('msg12'), 'azul');
 
         }else{
             $(this).removeClass('opacity-05');
             $(this).find('.ph-check').removeClass('d-none');
             $(this).parents('.criar-agendamento').find('[name="whatsapp"]').val('enviar');
-            alerta('Ativado envio de lembrete automático para este agendamento.', 'azul');
+            alerta(mensagem('msg13'), 'azul');
         }
     });
 
@@ -767,7 +770,7 @@ $(document).ready(function(){
         const container = $(this).parents('form');
 
         if(!container.find('[name="paciente"]').val() || !container.find('[name="paciente_id"]').val()){
-            alerta('Você deve selecionar um <b>paciente</b> antes de criar um <b>tratamento</b>', 'amarelo');
+            alerta(mensagem('msg14'), 'amarelo');
             destacar(container.find('[name="paciente"]'));
 
             return false;
@@ -776,7 +779,7 @@ $(document).ready(function(){
             container.find('[name="tratamento_id"]').find('option').removeAttr('selected');
             container.find('[name="tratamento_id"]').parent('div').find('.select2').hide();
             container.find('[name="tratamento_id"]').parent('div').find('span').removeClass('d-none');
-            $('.criar-tratamento-agenda-header').html(`Criando Tratamento para <b>${container.find('[id="busca_paciente_tratamento"]').val()}</b>`);
+            $('.criar-tratamento-agenda-header').html(`${mensagem('msg15')} <b>${container.find('[id="busca_paciente_tratamento"]').val()}</b>`);
             $('#modal-criar-tratamento').modal('show');
             $('#modal-criar-tratamento').modal({backdrop:'static', keyboard:false});
             $('#modal-criar-tratamento').find('[name="paciente_id"]').val(container.find('[name="paciente_id"]').val());
@@ -829,7 +832,7 @@ $(document).ready(function(){
     });
 
     // Remove procedimentos adicionados no cadastro de tratamento através da agenda
-    $(document).on('click', '.lista_procedimentos [data-bs-title="Remover Procedimento"]', function(){
+    $(document).on('click', `.lista_procedimentos [data-bs-title="${mensagem('msg16')}"]`, function(){
         const container = $(this).parents('.clone_procedimento_agenda');
 
         if(container.hasClass('first_procedimento')){
@@ -867,7 +870,7 @@ $(document).ready(function(){
         }
 
         if(!retorno){
-            alerta('Existe campos pendentes para serem preenchidos.', 'vermelho');
+            alerta(mensagem('msg17'), 'vermelho');
             return false;
         }
 
@@ -892,7 +895,7 @@ $(document).ready(function(){
                         <option value="${data.tratamento_id}" selected="selected">${data.retorno}</option>
                     `);
 
-                    alerta('Tratamento cadastrado com sucesso!', 'azul');
+                    alerta(mensagem('msg18'), 'azul');
 
                     container_agenda.find('[name="tratamento_id"]').parent('div').find('span').addClass('d-none');
                     container_agenda.find('[name="tratamento_id"]').parent('div').find('.select2').show();
@@ -902,7 +905,7 @@ $(document).ready(function(){
                     $('#modal-criar-tratamento').modal('hide');
 
                 }else{
-                    alerta('Houve um erro ao criar Tratamento. Entre em contato com o Suporte.', 'vermelho');
+                    alerta(mensagem('msg19'), 'vermelho');
                 }
             },
         });
@@ -933,10 +936,10 @@ function visualizar_agendamento(agenda_id){
 
                 modal.find('.header-modal').find('h4').text(dado.tipo_agendamento);
                 modal.find('[name="agenda_id"]').val(dado.id);
-                modal.find('[name="data_inicio"]').val(data_para_br(dado.data_inicio));
-                modal.find('[name="data_inicio"]').attr('value', data_para_br(dado.data_inicio));
-                modal.find('[name="data_fim"]').val(data_para_br(dado.data_fim));
-                modal.find('[name="data_fim"]').attr('value', data_para_br(dado.data_fim));
+                modal.find('[name="data_inicio"]').val(data_para_view(dado.data_inicio));
+                modal.find('[name="data_inicio"]').attr('value', data_para_view(dado.data_inicio));
+                modal.find('[name="data_fim"]').val(data_para_view(dado.data_fim));
+                modal.find('[name="data_fim"]').attr('value', data_para_view(dado.data_fim));
                 modal.find('[name="hora_inicio"]').val(hora_inicio);
                 modal.find('[name="hora_fim"]').val(hora_fim);
                 modal.find('[name="paciente"]').val(dado.paciente);
@@ -972,16 +975,16 @@ function visualizar_agendamento(agenda_id){
                     clone.find('[name="procedimento[]"]').val(val);
                     clone.find('[name="procedimento_id[]"').val(id_procedimentos[i]);
                     clone.find('[name="tratamento_has_procedimento_id[]"').val(tratamento_has_procedimento[i]);
-                    var label_sessao_consumida = 'Sessão consumida';
+                    var label_sessao_consumida = mensagem('msg20');
                     if(sessoes_consumida[i] > 1){
-                        label_sessao_consumida = 'Sessões consumidas';
+                        label_sessao_consumida = mensagem('msg21');
                     }
 
-                    var label_sessao_contratada = 'sessão contratada';
+                    var label_sessao_contratada = mensagem('msg22');
                     if(sessoes_contratada[i] > 1){
-                        label_sessao_contratada = 'sessões contratadas';
+                        label_sessao_contratada = mensagem('msg23');
                     }
-                    clone.find('label').text(`${sessoes_consumida[i]} ${label_sessao_consumida} de ${sessoes_contratada[i]} ${label_sessao_contratada}`);
+                    clone.find('label').text(`${sessoes_consumida[i]} ${label_sessao_consumida} ${mensagem('msg29')} ${sessoes_contratada[i]} ${label_sessao_contratada}`);
 
                     modal.find('.procedimentos').append(clone);
                 });
@@ -1058,7 +1061,7 @@ function atualizar_agenda(data_inicio = false, data_fim = false){
                     if(dado.sessao){
                         sessao = `${dado.sessao}/${dado.sessoes_contratada}`;
                     }else{
-                        sessao = 'Reserva';
+                        sessao = mensagem('msg24');
                         cor_fundo = cor_fundo+63;
                     }
 
@@ -1117,7 +1120,7 @@ function atualizar_agenda(data_inicio = false, data_fim = false){
                         $(this).html(`<svg class="w-13px h-13px relative top-px--1 wp-branco" data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Envio de Lembrete Pendente"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('⚪', '')}`);
+                            data-bs-title="${mensagem('msg25')}"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('⚪', '')}`);
                         $(this).find('svg').tooltip();
                     }
 
@@ -1125,7 +1128,7 @@ function atualizar_agenda(data_inicio = false, data_fim = false){
                         $(this).html(`<svg class="w-13px h-13px relative top-px--1 wp-verde" data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Envio de Lembrete Realizado"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('🟢', '')}`);
+                            data-bs-title="${mensagem('msg26')}"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('🟢', '')}`);
                         $(this).find('svg').tooltip();
                     }
 
@@ -1133,7 +1136,7 @@ function atualizar_agenda(data_inicio = false, data_fim = false){
                         $(this).html(`<svg class="w-13px h-13px relative top-px--1 wp-vermelho" data-bs-toggle="tooltip"
                             data-bs-placement="top"
                             data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Falha ao Enviar Lembrete"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('🔴', '')}`);
+                            data-bs-title="${mensagem('msg27')}"><use xlink:href="#whatsapp"></use></svg> ${$(this).text().replaceAll('🔴', '')}`);
                         $(this).find('svg').tooltip();
                     }
                 });

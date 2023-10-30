@@ -30,7 +30,8 @@
             "app/Helpers/Auth_helper.php",
             "app/Helpers/lang/Lang_helper.php",
             "app/Helpers/lang/Portugues_br_helper.php",
-            "app/Helpers/lang/Ingles_us_helper.php"
+            "app/Helpers/lang/Ingles_us_helper.php",
+            "app/Helpers/Data_helper.php"
         ]
     },
     "autoload-dev": {

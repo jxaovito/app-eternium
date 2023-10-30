@@ -172,7 +172,7 @@
 
         <div class="mb-3 w-15">
             <label for="data_vencimento" class="form-label">Data de Vencimento</label>
-            <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{date('d-m-Y')}}" name="data_vencimento">
+            <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{data()}}" name="data_vencimento">
         </div>
 
         <div class="mb-3 w-15">

@@ -145,8 +145,8 @@ class Agenda_controller extends Controller{
 
         $tratamento = $this->Agenda_model->get_all_table('tratamento', array('id' => $dados['tratamento_id']))[0];
 
-        $data_inicio = date_format(date_create_from_format('d/m/Y', $dados['data_inicio']), 'Y-m-d');
-        $data_fim = date_format(date_create_from_format('d/m/Y', $dados['data_fim']), 'Y-m-d');
+        $data_inicio = data_para_db($dados['data_inicio']);
+        $data_fim = data_para_db($dados['data_fim']);
 
         $dados_agendamento = array(
             'data_inicio' => $data_inicio,

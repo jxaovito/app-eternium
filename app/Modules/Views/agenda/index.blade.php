@@ -19,7 +19,7 @@
 
 			<div class="w-100 d-flex justify-content-center">
 				<div class="selecionar-data mgb-px-5 w-40">
-					<input type="text" class="date form-control" value="{{date('d-m-Y')}}">
+					<input type="text" class="date form-control" value="{{data()}}">
 				</div>
 			</div>
 			<div class="btn-group mgb-px-5" role="group">

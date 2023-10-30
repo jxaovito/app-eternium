@@ -6,7 +6,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
     $width_nav_lateral = '15%';
     $width_content_page = '82.5%';
     $btn_action_menu = 'ph-caret-left';
-    $tooltip = 'Ocultar Menu';
+    $tooltip = mensagem('menu_msg11');
 
 }else{
     $mostrar_menu = false;
@@ -15,7 +15,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
     $width_nav_lateral = '4%';
     $width_content_page = '92.5%';
     $btn_action_menu = 'ph-caret-right';
-    $tooltip = 'Mostrar Menu';
+    $tooltip = mensagem('menu_msg10');
 }
 @endphp
 <style>
@@ -43,7 +43,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
         <div class="content-search">
             @if(isset($pagina) && $pagina == 'agenda')
                 <div class="search-agenda">
-                    <input type="text" placeholder="Pesquise aqui...">
+                    <input type="text" placeholder="{{mensagem('menu_msg12')}}...">
                 </div>
             @endif
         </div>
@@ -52,7 +52,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-bs-toggle="tooltip" 
                 data-bs-placement="bottom"
                 data-bs-custom-class="custom-tooltip"
-                data-bs-title="Notificações"
+                data-bs-title="{{mensagem('menu_msg13')}}"
             >
                 <i class="ph ph-bell"></i>
             </div>
@@ -67,7 +67,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-bs-toggle="tooltip" 
                 data-bs-placement="bottom"
                 data-bs-custom-class="custom-tooltip"
-                data-bs-title="Configurações"
+                data-bs-title="{{mensagem('menu_msg14')}}"
             >
                 <i class="ph ph-gear"></i>
             </div>
@@ -76,12 +76,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 <div class="content">
                     <a href="/configuracao">
                         <i class="ph ph-user-gear"></i>
-                        Configurações da Empresa
+                        {{mensagem('menu_msg15')}}
                     </a>
 
                     <a href="/configuracao/agenda">
                         <i class="ph ph-calendar-blank"></i>
-                        Configurações da Agenda
+                        {{mensagem('menu_msg16')}}
                     </a>
                 </div>
             </div>
@@ -92,7 +92,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 <div class="content">
                     <a href="">
                         <i class="ph ph-user-gear"></i>
-                        Configurações do Perfil
+                        {{mensagem('menu_msg17')}}
                     </a>
 
                     @php
@@ -102,7 +102,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                     @endphp
                         <a href="/permissao">
                             <i class="ph ph-lock-key"></i>
-                            Permissões
+                            {{mensagem('menu_msg18')}}
                         </a>
                     @php endif @endphp
 
@@ -113,13 +113,13 @@ if(!session('menu') || session('menu') == 'mostrar'){
                     @endphp
                         <a href="/usuario">
                             <i class="ph ph-users"></i>
-                            Usuários
+                            {{mensagem('menu_msg19')}}
                         </a>
                     @php endif @endphp
 
                     <a href="/logout">
                         <i class="ph ph-sign-out"></i>
-                        Sair
+                        {{mensagem('menu_msg20')}}
                     </a>
                 </div>
             </div>
@@ -160,7 +160,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Agenda"
+                        data-bs-title="'.mensagem('menu_msg1').'"
                         '
                     :
                         ''
@@ -186,7 +186,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Pacientes"
+                        data-bs-title="'.mensagem('menu_msg2').'"
                         '
                     :
                         ''
@@ -194,7 +194,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Pacientes"
             >
                 <i class="ph ph-users-three"></i>
-                <span>Pacientes</span>
+                <span>{{mensagem('menu_msg2')}}</span>
             </a>
             <?php endif; ?>
 
@@ -212,7 +212,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Profissionais"
+                        data-bs-title="'.mensagem('menu_msg3').'"
                         '
                     :
                         ''
@@ -220,7 +220,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Profissionais"
             >
                 <i class="ph ph-user-list"></i>
-                <span>Profissionais</span>
+                <span>{{mensagem('menu_msg3')}}</span>
             </a>
             <?php endif; ?>
 
@@ -238,7 +238,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Convênios"
+                        data-bs-title="'.mensagem('menu_msg4').'"
                         '
                     :
                         ''
@@ -246,7 +246,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Convênios"
             >
                 <i class="ph ph-identification-card"></i>
-                <span>Convênios</span>
+                <span>{{mensagem('menu_msg4')}}</span>
             </a>
             <?php endif; ?>
 
@@ -264,7 +264,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Especialidades"
+                        data-bs-title="'.mensagem('menu_msg5').'"
                         '
                     :
                         ''
@@ -272,7 +272,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Especialidades"
             >
                 <i class="ph ph-bookmarks"></i>
-                <span>Especialidades</span>
+                <span>{{mensagem('menu_msg5')}}</span>
             </a>
             <?php endif; ?>
 
@@ -290,7 +290,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Procedimentos"
+                        data-bs-title="'.mensagem('menu_msg6').'"
                         '
                     :
                         ''
@@ -298,7 +298,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Procedimentos"
             >
                 <i class="ph ph-heart-half"></i>
-                <span>Procedimentos</span>
+                <span>{{mensagem('menu_msg6')}}</span>
             </a>
             <?php endif; ?>
 
@@ -316,7 +316,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Tratamentos"
+                        data-bs-title="'.mensagem('menu_msg7').'"
                         '
                     :
                         ''
@@ -324,7 +324,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Tratamentos"
             >
                 <i class="ph ph-hand-heart"></i>
-                <span>Tratamentos</span>
+                <span>{{mensagem('menu_msg7')}}</span>
             </a>
             <?php endif; ?>
 
@@ -342,7 +342,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Financeiro"
+                        data-bs-title="'.mensagem('menu_msg8').'"
                         '
                     :
                         ''
@@ -350,7 +350,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Financeiro"
             >
                 <i class="ph ph-currency-dollar"></i>
-                <span>Financeiro</span>
+                <span>{{mensagem('menu_msg8')}}</span>
             </a>
             <?php endif; ?>
 
@@ -368,7 +368,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-custom-class="custom-tooltip"
-                        data-bs-title="Relatórios"
+                        data-bs-title="'.mensagem('menu_msg9').'"
                         '
                     :
                         ''
@@ -376,7 +376,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
                 data-tooltip="Relatórios"
             >
                 <i class="ph ph-scroll"></i>
-                <span>Relatórios</span>
+                <span>{{mensagem('menu_msg9')}}</span>
             </a>
             <?php endif; ?>
         </div>

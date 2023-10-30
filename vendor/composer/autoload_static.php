@@ -39,6 +39,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         '835bcf7a7f2af1f2eefb0715feb284a1' => __DIR__ . '/../..' . '/app/Helpers/lang/Lang_helper.php',
         'ca31e1b838e31ac1984051ca9785026a' => __DIR__ . '/../..' . '/app/Helpers/lang/Portugues_br_helper.php',
         '05240b18ca76a40bcebe579a95be4580' => __DIR__ . '/../..' . '/app/Helpers/lang/Ingles_us_helper.php',
+        'bf589f01d6bbb2a2887d2e40a9a2dfa9' => __DIR__ . '/../..' . '/app/Helpers/Data_helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -106,6 +107,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
+            'Psr\\Clock\\' => 10,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
         ),
@@ -369,6 +371,10 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Psr\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/clock/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -594,6 +600,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'Brick\\Math\\Internal\\Calculator\\GmpCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/GmpCalculator.php',
         'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
+        'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Carbon\\AbstractTranslator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/AbstractTranslator.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonConverterInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonConverterInterface.php',
@@ -2739,6 +2746,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'Laravel\\Sanctum\\Guard' => __DIR__ . '/..' . '/laravel/sanctum/src/Guard.php',
         'Laravel\\Sanctum\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/HasApiTokens.php',
         'Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Controllers/CsrfCookieController.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\AuthenticateSession' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/AuthenticateSession.php',
         'Laravel\\Sanctum\\Http\\Middleware\\CheckAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckAbilities.php',
         'Laravel\\Sanctum\\Http\\Middleware\\CheckForAnyAbility' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckForAnyAbility.php',
         'Laravel\\Sanctum\\Http\\Middleware\\CheckForAnyScope' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckForAnyScope.php',
@@ -3094,6 +3102,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'League\\Flysystem\\PathTraversalDetected' => __DIR__ . '/..' . '/league/flysystem/src/PathTraversalDetected.php',
         'League\\Flysystem\\PortableVisibilityGuard' => __DIR__ . '/..' . '/league/flysystem/src/PortableVisibilityGuard.php',
         'League\\Flysystem\\ProxyArrayAccessToProperties' => __DIR__ . '/..' . '/league/flysystem/src/ProxyArrayAccessToProperties.php',
+        'League\\Flysystem\\ResolveIdenticalPathConflict' => __DIR__ . '/..' . '/league/flysystem/src/ResolveIdenticalPathConflict.php',
         'League\\Flysystem\\StorageAttributes' => __DIR__ . '/..' . '/league/flysystem/src/StorageAttributes.php',
         'League\\Flysystem\\SymbolicLinkEncountered' => __DIR__ . '/..' . '/league/flysystem/src/SymbolicLinkEncountered.php',
         'League\\Flysystem\\UnableToCheckDirectoryExistence' => __DIR__ . '/..' . '/league/flysystem/src/UnableToCheckDirectoryExistence.php',
@@ -3125,6 +3134,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'League\\Flysystem\\Visibility' => __DIR__ . '/..' . '/league/flysystem/src/Visibility.php',
         'League\\Flysystem\\WhitespacePathNormalizer' => __DIR__ . '/..' . '/league/flysystem/src/WhitespacePathNormalizer.php',
         'League\\MimeTypeDetection\\EmptyExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/EmptyExtensionToMimeTypeMap.php',
+        'League\\MimeTypeDetection\\ExtensionLookup' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionLookup.php',
         'League\\MimeTypeDetection\\ExtensionMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionMimeTypeDetector.php',
         'League\\MimeTypeDetection\\ExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\FinfoMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/FinfoMimeTypeDetector.php',
@@ -3382,6 +3392,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'Nette\\Utils\\IHtmlString' => __DIR__ . '/..' . '/nette/utils/src/compatibility.php',
         'Nette\\Utils\\Image' => __DIR__ . '/..' . '/nette/utils/src/Utils/Image.php',
         'Nette\\Utils\\ImageException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\Utils\\ImageType' => __DIR__ . '/..' . '/nette/utils/src/Utils/ImageType.php',
         'Nette\\Utils\\Json' => __DIR__ . '/..' . '/nette/utils/src/Utils/Json.php',
         'Nette\\Utils\\JsonException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\ObjectHelpers' => __DIR__ . '/..' . '/nette/utils/src/Utils/ObjectHelpers.php',
@@ -3477,6 +3488,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'PHPUnit\\Framework\\Constraint\\LogicalXor' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Operator/LogicalXor.php',
         'PHPUnit\\Framework\\Constraint\\ObjectEquals' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Object/ObjectEquals.php',
         'PHPUnit\\Framework\\Constraint\\ObjectHasAttribute' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Object/ObjectHasAttribute.php',
+        'PHPUnit\\Framework\\Constraint\\ObjectHasProperty' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Object/ObjectHasProperty.php',
         'PHPUnit\\Framework\\Constraint\\Operator' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Operator/Operator.php',
         'PHPUnit\\Framework\\Constraint\\RegularExpression' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/RegularExpression.php',
         'PHPUnit\\Framework\\Constraint\\SameSize' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Cardinality/SameSize.php',
@@ -4100,6 +4112,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'PhpParser\\PrettyPrinterAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php',
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Psr\\Clock\\ClockInterface' => __DIR__ . '/..' . '/psr/clock/src/ClockInterface.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -4166,6 +4179,7 @@ class ComposerStaticInit11b763ef8d8e4c8cf413707fb80be695
         'Psy\\CodeCleaner\\ValidFunctionNamePass' => __DIR__ . '/..' . '/psy/psysh/src/CodeCleaner/ValidFunctionNamePass.php',
         'Psy\\Command\\BufferCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/BufferCommand.php',
         'Psy\\Command\\ClearCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/ClearCommand.php',
+        'Psy\\Command\\CodeArgumentParser' => __DIR__ . '/..' . '/psy/psysh/src/Command/CodeArgumentParser.php',
         'Psy\\Command\\Command' => __DIR__ . '/..' . '/psy/psysh/src/Command/Command.php',
         'Psy\\Command\\DocCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/DocCommand.php',
         'Psy\\Command\\DumpCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/DumpCommand.php',

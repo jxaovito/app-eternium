@@ -156,7 +156,7 @@
 							</td>
 							<td>
 								<div class="row-table">
-								{{($registro['data_hora'] ? date_format(date_create_from_format('Y-m-d H:i:s', $registro['data_hora']), 'd/m/Y H:i:s') : null)}}
+								{{($registro['data_hora'] ? data(explode(' ', $registro['data_hora'])[0]) . ' ' . explode(' ', $registro['data_hora'])[1] : null)}}
 								</div>
 							</td>
 							<td>

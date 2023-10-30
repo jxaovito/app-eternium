@@ -14,7 +14,7 @@
 
 	    <div class="mb-3 w-32">
 	        <label for="data_nascimento_paciente" class="form-label">Data de Nascimento</label>
-	        <input type="text" class="form-control data" id="data_nascimento_paciente" placeholder="" name="data_nascimento" value="{{$registro['data_nascimento'] ? date_format(date_create_from_format('Y-m-d', $registro['data_nascimento']), 'd/m/Y') : ''}}">
+	        <input type="text" class="form-control data" id="data_nascimento_paciente" placeholder="" name="data_nascimento" value="{{$registro['data_nascimento'] ? data($registro['data_nascimento']) : ''}}">
 	    </div>
 
 	    <div class="mb-3 w-32">
@@ -122,7 +122,7 @@
 
 	    <div class="mb-3 w-32">
 	        <label for="data_vencimento_carteirinha_paciente" class="form-label">Data de vencimento</label>
-	        <input type="text" class="form-control data" id="data_vencimento_carteirinha_paciente" placeholder="" name="data_vencimento_carteirinha" value="{{$registro['data_vencimento_carteirinha'] ? date_format(date_create_from_format('Y-m-d', $registro['data_vencimento_carteirinha']), 'd/m/Y') : ''}}">
+	        <input type="text" class="form-control data" id="data_vencimento_carteirinha_paciente" placeholder="" name="data_vencimento_carteirinha" value="{{$registro['data_vencimento_carteirinha'] ? data($registro['data_vencimento_carteirinha']) : ''}}">
 	    </div>
 
 	    <div class="mb-3 w-32">

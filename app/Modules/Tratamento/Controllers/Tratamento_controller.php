@@ -130,7 +130,7 @@ class Tratamento_controller extends Controller{
 
         $perfil_criador_tratamento = $this->Tratamento_model->get_usuario_criador_tratamento(session('usuario_id'))[0]['nome'];
 
-        $data_vencimento = ($request['data_vencimento'] ? date_format(date_create_from_format('d/m/Y', $request['data_vencimento']), 'Y-m-d') : null);
+        $data_vencimento = ($request['data_vencimento'] ? data_para_db($request['data_vencimento']) : null);
 
         if(isset($request['pagamentos']) && $request['pagamentos']){
             $fin_lacamento_financeiro = array(
@@ -271,7 +271,7 @@ class Tratamento_controller extends Controller{
             $registros[$key]['procedimentos'] = $this->Tratamento_model->get_procedimentos_tratamento($registro['tratamento_id']);
             $registros[$key]['parcelas'] = $this->Tratamento_model->get_all_table('fin_lancamento_parcela', array('fin_lancamento_financeiro_id' => $registro['fin_lancamento_financeiro_id']));
             $registros[$key]['idade'] = (isset($registro['data_nascimento']) ? Carbon::parse($registro['data_nascimento'])->diffInYears(Carbon::now()) : 'Idade não cadastrada');
-            $registros[$key]['data_nascimento'] = (isset($registro['data_nascimento']) ? date_format(date_create_from_format('Y-m-d', $registro['data_nascimento']), 'd/m/Y') : '');
+            $registros[$key]['data_nascimento'] = (isset($registro['data_nascimento']) ? data($registro['data_nascimento']) : '');
         }
 
         $_dados['registros'] = $registros;

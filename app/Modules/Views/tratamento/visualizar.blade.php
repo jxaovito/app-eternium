@@ -32,7 +32,7 @@
 	<div class="content-principal d-flex flex-wrap justify-content-between align-items-start">
 		<div class="w-32 d-flex flex-wrap">
 			<label class="w-100 bold">Data de Cadastro:</label>
-			<span class="w-100">{{date_format(date_create_from_format('Y-m-d H:i:s', $registro['data_hora']), 'd/m/Y H:i:s')}}</span>
+			<span class="w-100">{{data(explode(' ', $registro['data_hora'])[0]) . ' ' . explode(' ', $registro['data_hora'])[1]}}</span>
 		</div>
 
 		<div class="w-32 d-flex flex-wrap">
@@ -232,7 +232,7 @@
 					</div>
 
 					<div class="w-24 d-flex flex-wrap text-align-center">
-						<span class="w-100">{{date_format(date_create_from_format('Y-m-d', $pacela['data_vencimento']), 'd/m/Y')}}</span>
+						<span class="w-100">{{data($pacela['data_vencimento'])}}</span>
 					</div>
 
 					<div class="w-24 d-flex flex-wrap text-align-center">

@@ -67,6 +67,10 @@ class Auth_controller extends Controller {
                 if($dados['variavel'] == 'idioma'){
                     $idioma = $dados['valor'];
                 }
+
+                if($dados['variavel'] == 'moeda'){
+                    $moeda = $dados['valor'];
+                }
             }
 
             session(['permissoes' => $permissoes]);
@@ -77,6 +81,7 @@ class Auth_controller extends Controller {
             session(['config_dados' => $config_dados]);
             session(['config_preferencias' => $config_preferencias]);
             session(['idioma' => $idioma]);
+            session(['moeda' => $moeda]);
             session(['menu' => 'mostrar']);
 
     		return redirect()->route('agenda');

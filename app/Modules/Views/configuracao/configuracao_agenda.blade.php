@@ -7,7 +7,7 @@
 			@foreach($configuracoes_agenda as $configuracao)
 				@if($configuracao['identificador'] == 'visualizacao_agenda')
 					<div class="w-32">
-						<h5 class="bold">Mode de visualização da Agenda</h5>
+						<h5 class="bold">{{mensagem('msg30')}}</h5>
 						<div class="form-check">
 						  	<input
 						  		class="form-check-input"
@@ -18,7 +18,7 @@
 						  		{{$configuracao['valor'] == 'day' ? 'checked="checked' : ''}}
 						  	>
 						  	<label class="form-check-label" for="dia">
-						    	Dia
+						    	{{mensagem('msg31')}}
 						  	</label>
 						</div>
 						<div class="form-check">
@@ -31,7 +31,7 @@
 						  		{{$configuracao['valor'] == 'week' ? 'checked="checked' : ''}}
 						  	>
 						  	<label class="form-check-label" for="semana">
-						    	Semana
+						    	{{mensagem('msg32')}}
 						  	</label>
 						</div>
 						<div class="form-check">
@@ -44,7 +44,7 @@
 						  		{{$configuracao['valor'] == 'month' ? 'checked="checked' : ''}}
 						  	>
 						  	<label class="form-check-label" for="mes">
-						    	Mes
+						    	{{mensagem('msg33')}}
 						  	</label>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 				@if($configuracao['identificador'] == 'envio_lembrete_para_todos')
 					@if($whatsapp_automatico)
 						<div class="w-32">
-							<h5 class="bold"><i class="ph ph-whatsapp-logo"></i> Ativar envio de lembrete automático para todos os agendamentos</h5>
+							<h5 class="bold"><i class="ph ph-whatsapp-logo"></i> {{mensagem('msg34')}}</h5>
 							<div class="form-check">
 							  	<input
 							  		class="form-check-input"
@@ -64,7 +64,7 @@
 							  		{{$configuracao['valor'] == 'sim' ? 'checked="checked' : ''}}
 							  	>
 							  	<label class="form-check-label" for="sim">
-							    	Sim
+							    	{{mensagem('msg35')}}
 							  	</label>
 							</div>
 							<div class="form-check">
@@ -77,7 +77,7 @@
 							  		{{$configuracao['valor'] == 'nao' ? 'checked="checked' : ''}}
 							  	>
 							  	<label class="form-check-label" for="nao">
-							    	Não
+							    	{{mensagem('msg36')}}
 							  	</label>
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 			@endforeach
 
 			<div class="w-100 d-flex justify-content-end">
-				<button class="btn btn-success bg-cor-logo-cliente" type="submit">Salvar <i class="ph ph-check"></i></button>
+				<button class="btn btn-success bg-cor-logo-cliente" type="submit">{{mensagem('msg37')}} <i class="ph ph-check"></i></button>
 			</div>
 		</form>
 	</div>

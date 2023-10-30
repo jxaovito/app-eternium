@@ -110,7 +110,7 @@
 									</span>
 								</div>
 							</td>
-							<td><div class="row-table">{{$registro['data_nascimento']}}</div></td>
+							<td><div class="row-table">{{data($registro['data_nascimento'])}}</div></td>
 							<td><div class="row-table">{{$registro['telefone_principal']}}</div></td>
 							<td>
 								<div class="row-table">

@@ -305,7 +305,7 @@
 
                 <div class="mb-3 w-15">
                     <label for="data_vencimento" class="form-label">Data de Vencimento</label>
-                    <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{$registro['data_vencimento'] ? date_format(date_create_from_format('Y-m-d', $registro['data_vencimento']), 'd/m/Y') : date('d-m-Y')}}" name="data_vencimento"  {{$registro['fin_lancamento'] ? 'disabled' : ''}}>
+                    <input type="text" name="data_vencimento" id="data_vencimento" class="form-control data" value="{{$registro['data_vencimento'] ? data($registro['data_vencimento']) : data()}}" name="data_vencimento"  {{$registro['fin_lancamento'] ? 'disabled' : ''}}>
                 </div>
 
                 <div class="mb-3 w-15">
@@ -403,7 +403,7 @@
                             </div>
 
                             <div class="w-24 d-flex flex-wrap text-align-center">
-                                <span class="w-100">{{date_format(date_create_from_format('Y-m-d', $pacela['data_vencimento']), 'd/m/Y')}}</span>
+                                <span class="w-100">{{data($pacela['data_vencimento'])}}</span>
                             </div>
 
                             <div class="w-24 d-flex flex-wrap text-align-center">

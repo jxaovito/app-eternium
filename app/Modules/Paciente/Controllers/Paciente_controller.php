@@ -104,7 +104,7 @@ class Paciente_controller extends Controller{
 
         $dados = array(
             'nome' => $request['nome'],
-            'data_nascimento' => ($request['data_nascimento'] ? date_format(date_create_from_format('d/m/Y', $request['data_nascimento']), 'Y-m-d') : null),
+            'data_nascimento' => ($request['data_nascimento'] ? data_para_db($request['data_nascimento']) : null),
             'genero_id' => $request['genero_id'],
             'imagem' => $imagem_nome,
             'email' => $request['email'],
@@ -118,7 +118,7 @@ class Paciente_controller extends Controller{
             'observacoes' => $request['observacoes'],
             'convenio_id' => $request['convenio_id'],
             'matricula' => $request['matricula'],
-            'data_vencimento_carteirinha' => ($request['data_vencimento_carteirinha'] ? date_format(date_create_from_format('d/m/Y', $request['data_vencimento_carteirinha']), 'Y-m-d') : null),
+            'data_vencimento_carteirinha' => ($request['data_vencimento_carteirinha'] ? data_para_db($request['data_vencimento_carteirinha']) : null),
             'cep' => $request['cep'],
             'rua' => $request['rua'],
             'endereco_bairro_id' => $bairro_id
@@ -205,7 +205,7 @@ class Paciente_controller extends Controller{
 
         $dados = array(
             'nome' => $request['nome'],
-            'data_nascimento' => ($request['data_nascimento'] ? date_format(date_create_from_format('d/m/Y', $request['data_nascimento']), 'Y-m-d') : null),
+            'data_nascimento' => ($request['data_nascimento'] ? data_para_db($request['data_nascimento']) : null),
             'genero_id' => $request['genero_id'],
             'imagem' => $imagem_nome,
             'email' => $request['email'],
@@ -219,7 +219,7 @@ class Paciente_controller extends Controller{
             'observacoes' => $request['observacoes'],
             'convenio_id' => $request['convenio_id'],
             'matricula' => $request['matricula'],
-            'data_vencimento_carteirinha' => ($request['data_vencimento_carteirinha'] ? date_format(date_create_from_format('d/m/Y', $request['data_vencimento_carteirinha']), 'Y-m-d') : ''),
+            'data_vencimento_carteirinha' => ($request['data_vencimento_carteirinha'] ? data_para_db($request['data_vencimento_carteirinha']) : ''),
             'cep' => $request['cep'],
             'rua' => $request['rua'],
             'endereco_bairro_id' => $bairro_id

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        {{-- Idioma --}}
+        <script>
+            let idioma = "{{session('idioma')}}";
+            let moeda = "{{session('moeda')}}";
+        </script>
+
         <title>{{array_column(session('config_dados'), 'valor', 'variavel')['nome_empresa']}} - Eternium</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -82,6 +88,11 @@
         <script type="text/javascript" src="{{ asset('js/tratamento.js') }}"></script>
         <link rel="stylesheet" href="{{ asset('css/tratamento.css') }}">
         @endif
+
+        {{-- JS de IDIOMAS --}}
+        <script type="text/javascript" src="{{ asset('js/lang/Lang_helper.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/lang/Portugues_br_helper.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/lang/Ingles_us_helper.js') }}"></script>
 
         <style>
             :root{

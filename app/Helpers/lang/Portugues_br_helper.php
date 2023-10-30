@@ -68,12 +68,73 @@ function portugues_br($class, $key){
             'msg1' => 'Pacientes',
         );
 
+    }else if($class == 'configuracao'){
+        $array_lang = array(
+            'msg1' => 'Agendamento',
+            'msg2' => 'Bloqueio de Horário',
+            'msg3' => 'Configurações da Empresa',
+            'msg4' => 'Dados da Empresa',
+            'msg5' => 'Sistema',
+            'msg6' => 'Idioma',
+            'msg7' => 'Português Brasileiro',
+            'msg8' => 'Inglês',
+            'msg9' => 'Nome da Empresa',
+            'msg10' => 'CPF',
+            'msg11' => 'CNPJ',
+            'msg12' => 'Telefone Principal',
+            'msg13' => 'Telefone Secundário',
+            'msg14' => 'Telefone Outros',
+            'msg15' => 'Nome do Proprietário',
+            'msg16' => 'Site',
+            'msg17' => 'Endereço',
+            'msg18' => 'Bairro',
+            'msg19' => 'Cidade',
+            'msg20' => 'Estado',
+            'msg21' => 'Logo',
+            'msg22' => 'Cor da Logo (Predominante)',
+            'msg23' => 'Selecionar Cor da Logo',
+            'msg24' => 'Cor da Fonte',
+            'msg25' => 'Selecionar Cor da Fonte',
+            'msg26' => 'Cor de Fundo do menu superior',
+            'msg27' => 'Cor do Centro',
+            'msg28' => 'Cor do Entorno',
+            'msg29' => 'Salvar',
+            'msg30' => 'Modo de visualização da Agenda',
+            'msg31' => 'Dia',
+            'msg32' => 'Semana',
+            'msg33' => 'Mes',
+            'msg34' => 'Ativar envio de lembrete automático para todos os agendamentos',
+            'msg35' => 'Sim',
+            'msg36' => 'Não',
+            'msg37' => 'Salvar',
+            'msg38' => 'Moeda',
+        );
+
     }
 
     // Padrões que aparecem em todas as telas ou não pertencem a um único módulo
     if(!isset($array_lang[$key])){
     	$array_lang = array(
             'menu_msg1' => 'Agenda',
+            'menu_msg2' => 'Pacientes',
+            'menu_msg3' => 'Profissionais',
+            'menu_msg4' => 'Convênios',
+            'menu_msg5' => 'Especialidades',
+            'menu_msg6' => 'Procedimentos',
+            'menu_msg7' => 'Tratamentos',
+            'menu_msg8' => 'Financeiro',
+            'menu_msg9' => 'Relatórios',
+            'menu_msg10' => 'Mostrar Menu',
+            'menu_msg11' => 'Ocultar Menu',
+            'menu_msg12' => 'Pesquise aqui',
+            'menu_msg13' => 'Notificações',
+            'menu_msg14' => 'Configurações',
+            'menu_msg15' => 'Configurações da Empresa',
+            'menu_msg16' => 'Configurações da Agenda',
+            'menu_msg17' => 'Configurações do Perfil',
+            'menu_msg18' => 'Permissões',
+            'menu_msg19' => 'Usuários',
+            'menu_msg20' => 'Sair',
         );
     }
 

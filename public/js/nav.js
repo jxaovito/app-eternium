@@ -41,7 +41,7 @@ $(document).ready(function(){
             $('.content-page').css('width', '92.5%');
             tipo = 'ocultar';
             element.tooltip('dispose');
-            element.attr('data-bs-title', 'Mostrar Menu');
+            element.attr('data-bs-title', mensagem('msg31'));
             element.tooltip();
 
             $.each(container.parent('a').find('i'), function(){
@@ -62,7 +62,7 @@ $(document).ready(function(){
             container.show('fast');
             tipo = 'mostrar';
             element.tooltip('dispose');
-            element.attr('data-bs-title', 'Ocultar Menu');
+            element.attr('data-bs-title', mensagem('msg32'));
             element.tooltip();
 
             $.each(container.parent('a').find('i'), function(){
