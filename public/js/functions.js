@@ -415,7 +415,7 @@ $(document).ready(function(){
 
 			var html = `
 			<ul class="money-opc">
-				<li value="real">R$</li>
+				<li value="real">${moeda_view()}</li>
 				<li value="porcentagem">%</li>
 			</ul>
 			<div class="bg-money-opc"></div>

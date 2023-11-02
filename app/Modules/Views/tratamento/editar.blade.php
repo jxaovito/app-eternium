@@ -111,7 +111,7 @@
 
                         <div class="w-10">
                             <div class="div-money">
-                                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                                 <input
                                     type="text"
                                     name="valor_procedimento[]"
@@ -137,7 +137,7 @@
                                     $desconto = $procedimento['desconto_porcento'];
                                 }
                                 @endphp
-                                <label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
+                                <label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>{{moeda()}}</span></label>
                                 <input
                                     type="text"
                                     name="desconto_procedimento[]"
@@ -153,15 +153,15 @@
 
                         <div class="w-10 text-center">
                             <div class="div-money">
-                                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                                <input type="text" class="form-control money" readonly readonly-disabled value="{{number_format($procedimento['total'] / $procedimento['sessoes_contratada'], 2)}}" autocomplete="off">
+                                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
+                                <input type="text" class="form-control money" readonly readonly-disabled value="{{valor($procedimento['total'] / $procedimento['sessoes_contratada'])}}" autocomplete="off">
                             </div>
                         </div>
 
                         <div class="w-10 text-center">
                             <div class="div-money">
-                                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
-                                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled value="{{$procedimento['total']}}" autocomplete="off">
+                                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
+                                <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled value="{{valor($procedimento['total'])}}" autocomplete="off">
                             </div>
                         </div>
 
@@ -197,15 +197,15 @@
         <div class="mb-3 w-10">
             <label for="" class="form-label" required>Subtotal</label>
             <div class="div-money">
-                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                 <input type="text" readonly readonly-disabled name="subtotal" class="form-control money" value="{{$registro['subtotal']}}">
             </div>
         </div>
 
         <div class="mb-3 w-10">
-            <label for="" class="form-label">Descontos em R$</label>
+            <label for="" class="form-label">Descontos em {{moeda()}}</label>
             <div class="div-money">
-                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                 @php
                 $desconto_real = '';
                 $desconto_porcento = '';
@@ -236,7 +236,7 @@
         <div class="mb-3 w-10">
             <label for="" class="form-label" required>Total</label>
             <div class="div-money">
-                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                 <input type="text" readonly readonly-disabled name="total" class="form-control money" value="{{$registro['total']}}">
             </div>
         </div>
@@ -253,7 +253,7 @@
                 <h5 class="mgt-px-10">
                      <label class="form-label">Crédito para o paciente</label>
                      <div class="div-money">
-                         <label for="valor_procedimento" class="moeda color-000"><span class="font-16">R$</span></label>
+                         <label for="valor_procedimento" class="moeda color-000"><span class="font-16">{{moeda()}}</span></label>
                          <input type="text" readonly name="credito_paciente" class="form-control money">
                      </div>
                  </h5>
@@ -275,7 +275,7 @@
              </h5>
         </div>
 
-        <div class="w-100 pagamentos-tratamento" style="{{$registro['fin_lancamento'] ? 'display:inline-block' : ''}}">
+        <div class="w-100 pagamentos-tratamento" style="<?= $registro['fin_lancamento'] ? 'display:inline-block' : ''?>">
             <div class="w-100 d-flex flex-wrap justify-content-between">
                 <div class="mb-3 w-15">
                     <label for="" class="form-label">Forma de Pagamento</label>
@@ -395,11 +395,11 @@
                             </div>
 
                             <div class="w-24 d-flex flex-wrap text-align-center">
-                                <span class="w-100">R$ {{number_format($pacela['valor'] ? $pacela['valor'] : '0', 2, ',', '.')}}</span>
+                                <span class="w-100">{{moeda()}} {{valor($pacela['valor'] ? $pacela['valor'] : '0')}}</span>
                             </div>
 
                             <div class="w-24 d-flex flex-wrap text-align-center">
-                                <span class="w-100">R$ {{number_format($pacela['valor_restante'] ? $pacela['valor_restante'] : '0', 2, ',', '.')}}</span>
+                                <span class="w-100">{{moeda()}} {{valor($pacela['valor_restante'] ? $pacela['valor_restante'] : '0')}}</span>
                             </div>
 
                             <div class="w-24 d-flex flex-wrap text-align-center">
@@ -450,14 +450,14 @@
 
     	<div class="w-10">
     		<div class="div-money">
-    	    	<label for="valor_procedimento" class="moeda"><span>R$</span></label>
+    	    	<label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
     	    	<input type="text" name="valor_procedimento[]" class="form-control money" autocomplete="off">
     	    </div>
     	</div>
 
     	<div class="w-10">
     		<div class="div-money-opc">
-    	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
+    	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>{{moeda()}}</span></label>
     	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto" autocomplete="off">
     	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="real">
     	    </div>
@@ -465,14 +465,14 @@
 
         <div class="w-10 text-center">
             <div class="div-money">
-                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                 <input type="text" class="form-control money" readonly readonly-disabled value="" autocomplete="off">
             </div>
         </div>
 
     	<div class="w-10 text-center">
             <div class="div-money">
-                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                 <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled autocomplete="off">
             </div>
     	</div>

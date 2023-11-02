@@ -24,10 +24,8 @@ function mascaras(){
 		$('.cnpj').mask('00.000.000/0000-00', {reverse: true});
 	});
 
-	$('.money').mask('000.000.000.000.000,00', {reverse: true});
-	$(document).on('focus', '.money', function(){
-		$('.money').mask('000.000.000.000.000,00', {reverse: true});
-	});
+	// Máscara de acordo com o idioma (Chamar função)
+	money();
 
 	$('.number').mask('#0', {reverse: true});
 	$(document).on('focus', '.number', function(){
