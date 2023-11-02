@@ -1,11 +1,11 @@
-@extends('default.layout')
+{{mensagem('msg33')}}@extends('default.layout')
 @section('content')
 <div class="container-paciente-visualizar">
 	<div class="header mgb-px-30 d-flex justify-content-between">
-		<h2>Visualizar Paciente</h2>
+		<h2>{{mensagem('msg92')}}</h2>
 		<div>
-			<a href="/paciente/editar/{{$registro['paciente_id']}}"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-pencil-simple"></i> Editar</button></a>
-			<a href="/paciente"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> Voltar</button></a>
+			<a href="/paciente/editar/{{$registro['paciente_id']}}"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-pencil-simple"></i> {{mensagem('msg94')}}</button></a>
+			<a href="/paciente"><button class="btn btn-success bg-cor-logo-cliente"><i class="ph ph-caret-left"></i> {{mensagem('msg93')}}</button></a>
 		</div>
 	</div>
 
@@ -29,12 +29,12 @@
 
 			<div class="informacoes">
 				<div class="info">
-					<span>Email</span>
+					<span>{{mensagem('msg95')}}</span>
 					<label>{{$registro['email']}}</label>
 				</div>
 
 				<div class="info telefone-info">
-					<span>Telefone</span>
+					<span>{{mensagem('msg96')}}</span>
 					@if($registro['telefone_principal'])
 						<label>{{$registro['telefone_principal']}}</label>
 						<a
@@ -42,7 +42,7 @@
 							data-bs-toggle="tooltip"
                             data-bs-placement="bottom"
                             data-bs-custom-class="custom-tooltip"
-                            data-bs-title="Abrir conversa no Whatsapp"
+                            data-bs-title="{{mensagem('msg97')}}"
                             target="_blank"
 						>
 							<i class="ph ph-whatsapp-logo"></i>
@@ -53,17 +53,17 @@
 				</div>
 
 				<div class="info">
-					<span>Gênero</span>
+					<span>{{mensagem('msg98')}}</span>
 					<label>{{$registro['genero']}}</label>
 				</div>
 
 				<div class="info">
-					<span>Convênio</span>
+					<span>{{mensagem('msg99')}}</span>
 					<label>{{$registro['convenio']}}</label>
 				</div>
 
 				<div class="info">
-					<span>Data de Nascimento</span>
+					<span>{{mensagem('msg100')}}</span>
 					<label>{{$registro['data_nascimento'] ? data($registro['data_nascimento']) : '00/00/0000'}}</label>
 				</div>
 			</div>
@@ -74,7 +74,7 @@
 				<div class="area-box">
 					<div class="left">
 						<h2>10</h2>
-						<span>Agendamentos</span>
+						<span>{{mensagem('msg101')}}</span>
 					</div>
 					<div class="right">
 						<i class="ph ph-calendar-blank"></i>
@@ -84,7 +84,7 @@
 				<div class="area-box">
 					<div class="left">
 						<h2>8</h2>
-						<span>Agendamentos Finalizados</span>
+						<span>{{mensagem('msg102')}}</span>
 					</div>
 					<div class="right">
 						<i class="ph ph-calendar-blank"></i>
@@ -94,7 +94,7 @@
 				<div class="area-box">
 					<div class="left">
 						<h2>2</h2>
-						<span>Agendamentos com Faltas Justificadas</span>
+						<span>{{mensagem('msg103')}}</span>
 					</div>
 					<div class="right">
 						<i class="ph ph-calendar-blank"></i>
@@ -104,7 +104,7 @@
 				<div class="area-box">
 					<div class="left">
 						<h2>0</h2>
-						<span>Agendamentos com Faltas</span>
+						<span>{{mensagem('msg104')}}</span>
 					</div>
 					<div class="right">
 						<i class="ph ph-calendar-blank"></i>
@@ -113,87 +113,87 @@
 			</div>
 			<div class="box-detalhes">
 				<div class="headers">
-					<span>Dados Cadastrais</span>
+					<span>{{mensagem('msg105')}}</span>
 				</div>
 
 				<div class="conteudo-detalhes">
 					<div class="conteudo-dados-cadastrais">
 						<div class="box w-32">
-							<label>Telefone Secundário</label>
+							<label>{{mensagem('msg106')}}</label>
 							<span>{{$registro['telefone_secundario']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>CPF</label>
+							<label>{{mensagem('msg107')}}</label>
 							<span>{{$registro['cpg']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>CNPJ</label>
+							<label>{{mensagem('msg108')}}</label>
 							<span>{{$registro['CNPJ']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Nome da Mãe</label>
+							<label>{{mensagem('msg109')}}</label>
 							<span>{{$registro['nome_mae']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Nome do Pai</label>
+							<label>{{mensagem('msg110')}}</label>
 							<span>{{$registro['nome_pai']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Nome do responsável</label>
+							<label>{{mensagem('msg111')}}</label>
 							<span>{{$registro['nome_responsavel']}}</span>
 						</div>
 
 						<div class="box w-100">
-							<label>Nome do Observações</label>
+							<label>{{mensagem('msg112')}}</label>
 							<span>{{$registro['observacoes']}}</span>
 						</div>
 
-						<h5>Dados do Convênio</h5>
+						<h5>{{mensagem('msg113')}}</h5>
 
 						<div class="box w-32">
-							<label>Convênio</label>
+							<label>{{mensagem('msg114')}}</label>
 							<span>{{$registro['convenio']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Matrícula (Carteirinha)</label>
+							<label>{{mensagem('msg115')}}</label>
 							<span>{{$registro['matricula']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Data de Vencimento</label>
+							<label>{{mensagem('msg116')}}</label>
 							<span>{{$registro['data_vencimento_carteirinha'] ? data($registro['data_vencimento_carteirinha']) : '00/00/0000'}}</span>
 						</div>
 
-						<h5>Endereço</h5>
+						<h5>{{mensagem('msg117')}}</h5>
 
 						<div class="box w-32">
-							<label>CEP</label>
+							<label>{{mensagem('msg118')}}</label>
 							<span>{{$registro['cep']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Estado</label>
+							<label>{{mensagem('msg119')}}</label>
 							<span>{{$registro['estado']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Cidade</label>
+							<label>{{mensagem('msg120')}}</label>
 							<span>{{$registro['cidade']}}</span>
 						</div>
 
 						<div class="box w-32">
-							<label>Bairro</label>
+							<label>{{mensagem('msg121')}}</label>
 							<span>{{$registro['bairro']}}</span>
 						</div>
 
 						<div class="box w-64">
-							<label>Rua</label>
+							<label>{{mensagem('msg122')}}</label>
 							<span>{{$registro['rua']}}</span>
 						</div>
 					</div>
