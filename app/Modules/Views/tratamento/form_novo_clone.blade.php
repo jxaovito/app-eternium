@@ -15,14 +15,14 @@
 
     	<div class="w-10">
     		<div class="div-money">
-    	    	<label for="valor_procedimento" class="moeda"><span>R$</span></label>
+    	    	<label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
     	    	<input type="text" name="valor_procedimento[]" class="form-control money" autocomplete="off">
     	    </div>
     	</div>
 
     	<div class="w-10">
     		<div class="div-money-opc">
-    	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>R$</span></label>
+    	    	<label for="valor_desconto" class="moeda"><i class="ph ph-caret-down"></i><span>{{moeda()}}</span></label>
     	    	<input type="text" name="desconto_procedimento[]" class="form-control money" id="valor_desconto" autocomplete="off">
     	    	<input type="hidden" name="tipo_desconto[]" class="form-control" receber-tipo-desconto="true" value="real">
     	    </div>
@@ -30,7 +30,7 @@
 
     	<div class="w-10 text-center">
             <div class="div-money">
-                <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+                <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
                 <input type="text" name="total_procedimento[]" class="form-control money" readonly readonly-disabled autocomplete="off">
             </div>
     	</div>

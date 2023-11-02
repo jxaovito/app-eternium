@@ -39,4 +39,5 @@ return array(
     'ca31e1b838e31ac1984051ca9785026a' => $baseDir . '/app/Helpers/lang/Portugues_br_helper.php',
     '05240b18ca76a40bcebe579a95be4580' => $baseDir . '/app/Helpers/lang/Ingles_us_helper.php',
     'bf589f01d6bbb2a2887d2e40a9a2dfa9' => $baseDir . '/app/Helpers/Data_helper.php',
+    '1d54e3449976b854665285c8cbe30719' => $baseDir . '/app/Helpers/Valor_helper.php',
 );

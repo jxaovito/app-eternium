@@ -99,15 +99,15 @@
 <div class="mb-3 w-10">
     <label for="" class="form-label" required>Subtotal</label>
     <div class="div-money">
-        <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+        <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
         <input type="text" readonly readonly-disabled name="subtotal" class="form-control money" autocomplete="off">
     </div>
 </div>
 
 <div class="mb-3 w-10">
-    <label for="" class="form-label">Descontos em R$</label>
+    <label for="" class="form-label">Descontos em {{moeda()}}</label>
     <div class="div-money">
-        <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+        <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
         <input type="text" name="desconto_real" class="form-control money" autocomplete="off">
     </div>
 </div>
@@ -123,7 +123,7 @@
 <div class="mb-3 w-10">
     <label for="" class="form-label" required>Total</label>
     <div class="div-money">
-        <label for="valor_procedimento" class="moeda"><span>R$</span></label>
+        <label for="valor_procedimento" class="moeda"><span>{{moeda()}}</span></label>
         <input type="text" readonly readonly-disabled name="total" class="form-control money" autocomplete="off">
     </div>
 </div>

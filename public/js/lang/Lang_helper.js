@@ -106,3 +106,25 @@ function data_hora_para_view(data){
 		return '';
 	}
 }
+
+function money(valor){
+	var mascara = '000.000.000.000.000,00';
+	if(moeda == '$'){
+		mascara = '000,000,000,000,000.00';
+	}
+
+	$('.money').mask(mascara, {reverse: true});
+	$(document).on('focus', '.money', function(){
+		$('.money').mask(mascara, {reverse: true});
+	});
+}
+
+function moeda_view(){
+	if(moeda == 'R$'){
+		return 'R$';
+
+	}else if(moeda == '$'){
+		return '$';
+
+	}
+}

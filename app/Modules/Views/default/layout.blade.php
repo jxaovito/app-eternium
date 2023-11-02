@@ -17,6 +17,11 @@
 
         <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+        {{-- JS de IDIOMAS --}}
+        <script type="text/javascript" src="{{ asset('js/lang/Lang_helper.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/lang/Portugues_br_helper.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/lang/Ingles_us_helper.js') }}"></script>
+
         <!-- baixar posteriormente -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -88,11 +93,6 @@
         <script type="text/javascript" src="{{ asset('js/tratamento.js') }}"></script>
         <link rel="stylesheet" href="{{ asset('css/tratamento.css') }}">
         @endif
-
-        {{-- JS de IDIOMAS --}}
-        <script type="text/javascript" src="{{ asset('js/lang/Lang_helper.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/lang/Portugues_br_helper.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/lang/Ingles_us_helper.js') }}"></script>
 
         <style>
             :root{
