@@ -30,6 +30,7 @@ class Tratamento_controller extends Controller{
         $_dados['profissional'] = $this->Tratamento_model->get_all_table('profissional');
         $_dados['especialidade'] = $this->Tratamento_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['pagina'] = 'tratamento';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('tratamento.index', $_dados);
     }
@@ -67,6 +68,7 @@ class Tratamento_controller extends Controller{
         $_dados['especialidades'] = $this->Tratamento_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['profissionais'] = $this->Tratamento_model->get_al_profissional();
         $_dados['pagina'] = 'tratamento';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('tratamento.novo', $_dados);
     }
@@ -276,6 +278,7 @@ class Tratamento_controller extends Controller{
 
         $_dados['registros'] = $registros;
         $_dados['pagina'] = 'tratamento';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('tratamento.visualizar', $_dados);
     }
@@ -301,6 +304,7 @@ class Tratamento_controller extends Controller{
         
         $_dados['registros'] = $registros;
         $_dados['pagina'] = 'tratamento';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('tratamento.editar', $_dados);
     }

@@ -111,7 +111,7 @@ body{
         background-color: #00000044;
         width: 100%;
         height: 100%;
-        z-index: 9;
+        z-index: 9999999;
     }
 
     [disabled]{
@@ -313,11 +313,11 @@ body{
     }
 
     .modal{
-        z-index: 999999!important;
+        z-index: 9999999!important;
     }
 
     .modal-backdrop{
-        z-index: 99999!important;
+        z-index: 999999!important;
     }
 }
 

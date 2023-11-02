@@ -28,6 +28,7 @@ class Convenio_controller extends Controller{
         $_dados['registros'] = $this->Convenio_model->get_all();
 
         $_dados['pagina'] = 'convenio';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('convenio.index', $_dados);
     }
@@ -52,6 +53,7 @@ class Convenio_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['pagina'] = 'convenio';
+        $_dados['funcao'] = __FUNCTION__;
         return view('convenio.novo', $_dados);
     }
 
@@ -88,6 +90,7 @@ class Convenio_controller extends Controller{
 
         $_dados['convenio'] = $this->Convenio_model->get_all_table('convenio', array('id' => $id));
         $_dados['pagina'] = 'convenio';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('convenio.editar', $_dados);
     }

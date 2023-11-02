@@ -156,7 +156,7 @@
 							</td>
 							<td>
 								<div class="row-table">
-								{{($registro['data_hora'] ? data(explode(' ', $registro['data_hora'])[0]) . ' ' . explode(' ', $registro['data_hora'])[1] : null)}}
+								{{($registro['data_hora'] ? data_hora($registro['data_hora']) : '')}}
 								</div>
 							</td>
 							<td>

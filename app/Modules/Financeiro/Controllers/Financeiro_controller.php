@@ -26,6 +26,7 @@ class Financeiro_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['pagina'] = 'financeiro';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('financeiro.index', $_dados);
     }

@@ -38,7 +38,7 @@ if(!session('menu') || session('menu') == 'mostrar'){
 <div class="top-nav">
     <div class="content-nav">
         <div class="content-logo">
-            <img src="{{asset('clientes/'.session('conexao_id').'/img/'.array_column(session('config_dados'), 'valor', 'variavel')['logo'])}}">
+            <a href="../"><img src="{{asset('clientes/'.session('conexao_id').'/img/'.array_column(session('config_dados'), 'valor', 'variavel')['logo'])}}"></a>
         </div>
         <div class="content-search">
             @if(isset($pagina) && $pagina == 'agenda')
@@ -58,8 +58,8 @@ if(!session('menu') || session('menu') == 'mostrar'){
             </div>
 
             @php
-                $modulo='configuracao';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='configuracao';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             @endphp
 
@@ -96,8 +96,8 @@ if(!session('menu') || session('menu') == 'mostrar'){
                     </a>
 
                     @php
-                        $modulo='permissao';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                            return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                        $modulo='permissao';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                            return$item['modulo']===$modulo&&$item['funcao']===$func;
                         }))>0):
                     @endphp
                         <a href="/permissao">
@@ -107,8 +107,8 @@ if(!session('menu') || session('menu') == 'mostrar'){
                     @php endif @endphp
 
                     @php
-                        $modulo='usuario';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                            return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                        $modulo='usuario';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                            return$item['modulo']===$modulo&&$item['funcao']===$func;
                         }))>0):
                     @endphp
                         <a href="/usuario">
@@ -147,12 +147,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
         </div>
         <div class="content-menus">
             <?php
-                $modulo='agenda';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='agenda';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'agenda' ? '/agenda' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'agenda' ? '/agenda' : ($funcao != 'index' ? '/agenda' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'agenda' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -173,12 +173,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='paciente';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='paciente';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'paciente' ? '/paciente' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'paciente' ? '/paciente' : ($funcao != 'index' ? '/paciente' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'paciente' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -199,12 +199,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='profissional';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='profissional';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'profissional' ? '/profissional' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'profissional' ? '/profissional' : ($funcao != 'index' ? '/profissional' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'profissional' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -225,12 +225,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='convenio';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='convenio';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'convenio' ? '/convenio' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'convenio' ? '/convenio' : ($funcao != 'index' ? '/convenio' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'convenio' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -251,12 +251,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='especialidade';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='especialidade';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'especialidade' ? '/especialidade' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'especialidade' ? '/especialidade' : ($funcao != 'index' ? '/especialidade' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'especialidade' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -277,12 +277,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='procedimento';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='procedimento';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'procedimento' ? '/procedimento' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'procedimento' ? '/procedimento' : ($funcao != 'index' ? '/procedimento' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'procedimento' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -303,12 +303,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='tratamento';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='tratamento';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'tratamento' ? '/tratamento' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'tratamento' ? '/tratamento' : ($funcao != 'index' ? '/tratamento' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'tratamento' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -329,12 +329,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='financeiro';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='financeiro';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'financeiro' ? '/financeiro' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'financeiro' ? '/financeiro' : ($funcao != 'index' ? '/financeiro' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'financeiro' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 
@@ -355,12 +355,12 @@ if(!session('menu') || session('menu') == 'mostrar'){
             <?php endif; ?>
 
             <?php
-                $modulo='relatorio';$funcao='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $funcao){
-                    return$item['modulo']===$modulo&&$item['funcao']===$funcao;
+                $modulo='relatorio';$func='index';if(count(array_filter(session('permissoes'),function($item)use($modulo, $func){
+                    return$item['modulo']===$modulo&&$item['funcao']===$func;
                 }))>0):
             ?>
             <a 
-                href="{{ isset($pagina) && $pagina != 'relatorio' ? '/relatorio' : '#' }}" 
+                href="{{ isset($pagina) && $pagina != 'relatorio' ? '/relatorio' : ($funcao != 'index' ? '/relatorio' : '#') }}" 
                 class="menu {{ isset($pagina) && $pagina == 'relatorio' ? 'active' : '' }}"
                 <?= !$mostrar_menu
                     ? 

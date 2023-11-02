@@ -135,6 +135,7 @@ class Agenda_controller extends Controller{
         $_dados['categorias'] = $this->Agenda_model->get_all_table('fin_categoria', array('deletado' => '0'), 'nome');
         
         $_dados['pagina'] = 'agenda';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('agenda.index', $_dados);
     }

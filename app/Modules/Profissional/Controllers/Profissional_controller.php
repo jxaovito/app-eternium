@@ -41,6 +41,7 @@ class Profissional_controller extends Controller{
 
         $_dados['adicionar_usuarios'] = $adicionar_usuarios;
         $_dados['pagina'] = 'profissional';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('profissional.index', $_dados);
     }
@@ -67,6 +68,7 @@ class Profissional_controller extends Controller{
 
         $_dados['especialidades'] = $this->Profissional_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['pagina'] = 'profissional';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('profissional.novo', $_dados);
     }
@@ -159,6 +161,7 @@ class Profissional_controller extends Controller{
         $_dados['especialidades'] = $this->Profissional_model->get_all_table('especialidade', array('deletado' => '0'));
         $_dados['usuario'] = $this->Profissional_db_model->get_all_table('usuario', array('id' => $_dados['registros'][0]['usuario_id']));
         $_dados['pagina'] = 'profissional';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('profissional.editar', $_dados);
     }
@@ -283,6 +286,8 @@ class Profissional_controller extends Controller{
         $_dados['horarios'] = $this->Profissional_model->get_all_table('profissional_horario', array('profissional_id' => $_dados['registros']['0']['profissional_id']));
         $_dados['id'] = $id;
         $_dados['pagina'] = 'profissional';
+        $_dados['funcao'] = __FUNCTION__;
+
         return view('profissional.horario', $_dados);
     }
 
