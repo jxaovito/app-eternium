@@ -3,7 +3,7 @@ function valor($valor = null){
 	$idioma = session('moeda');
 
 	if($idioma == 'R$'){
-		$valor = number_format($valor, 2, '.', ',');
+		$valor = number_format($valor, 2, ',', '');
 		return $valor;
 
 	}else if($idioma == '$'){
