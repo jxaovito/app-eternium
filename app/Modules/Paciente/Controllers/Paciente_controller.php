@@ -29,6 +29,7 @@ class Paciente_controller extends Controller{
         $_dados['convenios'] = $this->Paciente_model->get_all_table('convenio', array('deletado' => '0'));
 
         $_dados['pagina'] = 'paciente';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('paciente.index', $_dados);
     }
@@ -58,6 +59,7 @@ class Paciente_controller extends Controller{
         $_dados['convenios'] = $this->Paciente_model->get_all_table('convenio', array('deletado' => '0'));
         $_dados['generos'] = $this->Paciente_model->get_all_table('genero');
         $_dados['pagina'] = 'paciente';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('paciente.novo', $_dados);
     }
@@ -145,6 +147,7 @@ class Paciente_controller extends Controller{
         $_dados['generos'] = $this->Paciente_model->get_all_table('genero');
 
         $_dados['pagina'] = 'paciente';
+        $_dados['funcao'] = __FUNCTION__;
         return view('paciente.editar', $_dados);
     }
 
@@ -280,6 +283,7 @@ class Paciente_controller extends Controller{
         $_dados['registro'] = $this->Paciente_model->get_all_pacientes($id)[0];
 
         $_dados['pagina'] = 'paciente';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('paciente.visualizar', $_dados);
     }

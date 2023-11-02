@@ -30,6 +30,7 @@ class Configuracao_controller extends Controller{
         $_dados['sistema'] = $this->Configuracao_model->get_all_table('configuracao', array('tipo' => 'sistema'));
         $_dados['sistema'] = array_column($_dados['sistema'], null, 'variavel');
         $_dados['pagina'] = 'configuracao';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('configuracao.index', $_dados);
     }
@@ -124,6 +125,7 @@ class Configuracao_controller extends Controller{
         $_dados['configuracoes_agenda'] = $this->Configuracao_model->get_all_table('agenda_configuracao', array());
         $_dados['whatsapp_automatico'] = $this->Configuracao_model->get_all_table('configuracao', array('variavel' => 'whatsapp_automatico'))[0]['valor'];
         $_dados['pagina'] = 'configuracao';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('configuracao.configuracao_agenda', $_dados);
     }

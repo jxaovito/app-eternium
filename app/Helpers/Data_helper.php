@@ -19,6 +19,26 @@ function data($data = null){
     return $data;
 }
 
+function data_hora($data = null){
+	if(!$data){
+	    $data = new DateTime();
+	}else{
+	    $data = new DateTime($data);
+	}
+
+	$idioma = session('idioma');
+
+	if($idioma == 'portugues_br'){
+	    $data = $data->format('d/m/Y H:i:s');
+
+	}else if($idioma == 'ingles_us'){
+	    $data = $data->format('m/d/Y H:i:s');
+
+	}
+
+	return $data;
+}
+
 function data_para_db($data){
 	$idioma = session('idioma');
 	$data_formatada = '';

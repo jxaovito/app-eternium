@@ -48,6 +48,7 @@ class Usuario_controller extends Controller{
         $_dados['registros'] = $registros;
         $_dados['adicionar_usuarios'] = $adicionar_usuarios;
         $_dados['pagina'] = 'usuario';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('usuario.index', $_dados);
     }
@@ -83,6 +84,7 @@ class Usuario_controller extends Controller{
         $_dados['nivel_permissao'] = $this->Usuario_model->get_all_table('auth_nivel_permissao');
 
         $_dados['pagina'] = 'usuario';
+        $_dados['funcao'] = __FUNCTION__;
         return view('usuario.novo', $_dados);
     }
 
@@ -161,6 +163,7 @@ class Usuario_controller extends Controller{
         $_dados['nivel_permissao_user'] = $this->Usuario_model->get_all_table('usuario_has_nivel_permissao', array('usuario_id' => $id));
         $_dados['nivel_permissao'] = $this->Usuario_model->get_all_table('auth_nivel_permissao');
         $_dados['pagina'] = 'usuario';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('usuario.editar', $_dados);
     }

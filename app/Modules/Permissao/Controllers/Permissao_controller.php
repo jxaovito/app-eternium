@@ -46,6 +46,7 @@ class Permissao_controller extends Controller{
         }
         $_dados['niveis_permissao_utilizados'] = $niveis_permissao_utilizados;
         $_dados['pagina'] = 'permissoes';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('permissao.index', $_dados);
     }
@@ -55,6 +56,7 @@ class Permissao_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['pagina'] = 'permissoes';
+        $_dados['funcao'] = __FUNCTION__;
         return view('permissao.novo', $_dados);
     }
 
@@ -79,6 +81,7 @@ class Permissao_controller extends Controller{
         $_dados['nivel_permissao_id'] = $id;
         $_dados['nivel_permissao'] = $this->Permissao_model->get_all_table('auth_nivel_permissao', array('id' => $id));
         $_dados['pagina'] = 'permissoes';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('permissao.editar', $_dados);
     }

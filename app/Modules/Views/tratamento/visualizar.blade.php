@@ -32,7 +32,7 @@
 	<div class="content-principal d-flex flex-wrap justify-content-between align-items-start">
 		<div class="w-32 d-flex flex-wrap">
 			<label class="w-100 bold">Data de Cadastro:</label>
-			<span class="w-100">{{data(explode(' ', $registro['data_hora'])[0]) . ' ' . explode(' ', $registro['data_hora'])[1]}}</span>
+			<span class="w-100">{{data_hora($registro['data_hora'])}}</span>
 		</div>
 
 		<div class="w-32 d-flex flex-wrap">
@@ -112,21 +112,21 @@
 			</div>
 
 			<div class="w-10 d-flex flex-wrap">
-				<span class="w-100">{{moeda()}} {{number_format($procedimento['subtotal'] ? $procedimento['subtotal'] : '0', 2, ',', '.')}}</span>
+				<span class="w-100">{{moeda()}} {{valor($procedimento['subtotal'] ? $procedimento['subtotal'] : '0')}}</span>
 			</div>
 
 			@if($procedimento['tipo_desconto'] == '0')
 				<div class="w-14 d-flex flex-wrap">
-					<span class="w-100">{{moeda()}} {{number_format($procedimento['desconto_real'] ? $procedimento['desconto_real'] : '0', 2, ',', '.')}}</span>
+					<span class="w-100">{{moeda()}} {{valor($procedimento['desconto_real'] ? $procedimento['desconto_real'] : '0')}}</span>
 				</div>
 			@else
 				<div class="w-14 d-flex flex-wrap">
-					<span class="w-100">{{number_format($procedimento['desconto_porcento'] ? $procedimento['desconto_porcento'] : '0', 2, ',', '.')}} %</span>
+					<span class="w-100">{{valor($procedimento['desconto_porcento'] ? $procedimento['desconto_porcento'] : '0')}} %</span>
 				</div>
 			@endif
 
 			<div class="w-10 d-flex flex-wrap">
-				<span class="w-100">{{moeda()}} {{number_format($procedimento['total'] ? $procedimento['total'] : '0', 2, ',', '.')}}</span>
+				<span class="w-100">{{moeda()}} {{valor($procedimento['total'] ? $procedimento['total'] : '0')}}</span>
 			</div>
 		@endforeach
 
@@ -138,21 +138,21 @@
 
 			<div class="w-24 d-flex flex-wrap">
 				<label class="w-100 bold">Subtotal do Tratamento:</label>
-				<span class="w-100">{{moeda()}} {{number_format($registro['subtotal'] ? $registro['subtotal'] : '0', 2, ',', '.')}}</span>
+				<span class="w-100">{{moeda()}} {{valor($registro['subtotal'] ? $registro['subtotal'] : '0')}}</span>
 			</div>
 
 			<div class="w-24 d-flex flex-wrap">
 				<label class="w-100 bold">Desconto:</label>
 				@if(!$registro['desconto_porcento'])
-					<span class="w-100">{{moeda()}} {{number_format($registro['desconto_real'] ? $registro['desconto_real'] : '0', 2, ',', '.')}}</span>
+					<span class="w-100">{{moeda()}} {{valor($registro['desconto_real'] ? $registro['desconto_real'] : '0')}}</span>
 				@else
-					<span class="w-100">{{moeda()}} {{number_format($registro['desconto_porcento'] ? $registro['desconto_porcento'] : '0', 2, ',', '.')}}</span>
+					<span class="w-100">{{moeda()}} {{valor($registro['desconto_porcento'] ? $registro['desconto_porcento'] : '0')}}</span>
 				@endif
 			</div>
 
 			<div class="w-24 d-flex flex-wrap">
 				<label class="w-100 bold">Total do Tratamento:</label>
-				<span class="w-100">{{moeda()}} {{number_format($registro['total'] ? $registro['total'] : '0', 2, ',', '.')}}</span>
+				<span class="w-100">{{moeda()}} {{valor($registro['total'] ? $registro['total'] : '0')}}</span>
 			</div>
 		</div>
 
@@ -224,11 +224,11 @@
 					</div>
 
 					<div class="w-24 d-flex flex-wrap text-align-center">
-						<span class="w-100">{{moeda()}} {{number_format($pacela['valor'] ? $pacela['valor'] : '0', 2, ',', '.')}}</span>
+						<span class="w-100">{{moeda()}} {{valor($pacela['valor'] ? $pacela['valor'] : '0')}}</span>
 					</div>
 
 					<div class="w-24 d-flex flex-wrap text-align-center">
-						<span class="w-100">{{moeda()}} {{number_format($pacela['valor_restante'] ? $pacela['valor_restante'] : '0', 2, ',', '.')}}</span>
+						<span class="w-100">{{moeda()}} {{valor($pacela['valor_restante'] ? $pacela['valor_restante'] : '0')}}</span>
 					</div>
 
 					<div class="w-24 d-flex flex-wrap text-align-center">

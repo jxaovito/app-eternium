@@ -27,6 +27,7 @@ class Procedimento_controller extends Controller{
 
         $_dados['registros'] = $this->Procedimento_model->get_all();
         $_dados['pagina'] = 'procedimento';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('procedimento.index', $_dados);
     }
@@ -54,6 +55,7 @@ class Procedimento_controller extends Controller{
         $_dados['procedimentos'] = $this->Procedimento_model->get_all_table('convenio_procedimento', array('convenio_id' => $id, 'deletado' => '0'));
 
         $_dados['pagina'] = 'procedimento';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('procedimento.editar', $_dados);
     }

@@ -28,6 +28,7 @@ class Especialidade_controller extends Controller{
         $_dados['registros'] = $this->Especialidade_model->get_all();
 
         $_dados['pagina'] = 'especialidade';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('especialidade.index', $_dados);
     }
@@ -52,6 +53,7 @@ class Especialidade_controller extends Controller{
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
         $_dados['pagina'] = 'especialidade';
+        $_dados['funcao'] = __FUNCTION__;
         return view('especialidade.novo', $_dados);
     }
 
@@ -86,6 +88,7 @@ class Especialidade_controller extends Controller{
 
         $_dados['especialidade'] = $this->Especialidade_model->get_all_table('especialidade', array('id' => $id));
         $_dados['pagina'] = 'especialidade';
+        $_dados['funcao'] = __FUNCTION__;
 
         return view('especialidade.editar', $_dados);
     }
