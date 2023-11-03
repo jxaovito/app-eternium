@@ -38,8 +38,8 @@ class Auth_controller extends Controller {
 
         if ($usuario && password_verify($password, $usuario['password'])) {
             if ($email == 'administrador@eternium.com.br') {
-                if ($dados['con']) {
-                    session(['conexao_id' => base64_decode($dados['con'])]);
+                if (session('temp_conexao_id')) {
+                    session(['conexao_id' => base64_decode(session('temp_conexao_id'))]);
                     session(['usuario_id' => $usuario['id']]);
                     session(['usuario_email' => $usuario['email']]);
                 } else {

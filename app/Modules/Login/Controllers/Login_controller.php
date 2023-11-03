@@ -18,13 +18,10 @@ class Login_controller extends Controller{
     }
 
     public function index(Request $request){
-    	$dados = $request->all();
-        $_dados['conexao_id'] = (isset($dados['con']) ? base64_encode($dados['con']) : '');
+        $_dados['conexao_id'] = (session('temp_conexao_id') ? base64_encode(session('temp_conexao_id')) : '');
         if(!$_dados['conexao_id'] && session('usuario_id')){
             return redirect()->route('agenda');
 
-        }else if($_dados['conexao_id']){
-            session(['conexao_id' => $dados['con']]);
         }
 
         return view('login.index', $_dados);
@@ -37,5 +34,17 @@ class Login_controller extends Controller{
 
     public function permissao_negada(){
         return view('default.permissao_negada');
+    }
+
+    public function adm(Request $request){
+        $dados = $request->all();
+        $_dados['conexao_id'] = (isset($dados['con']) ? base64_encode($dados['con']) : '');
+
+        session()->flush();
+        if(isset($dados['con'])){
+            session(['temp_conexao_id' => base64_encode($dados['con'])]);
+        }
+
+        return redirect('/');
     }
 }
