@@ -27,6 +27,11 @@ class Agenda_controller extends Controller{
         $check_auth = checkAuthentication($this->class, __FUNCTION__, 'Agenda');
         if(!$check_auth){return redirect('/');}else if($check_auth === 'sp'){return redirect('/permissao_negada');}
 
+        // PERMISSÕES
+        $_dados['permissao_criar_agendamento'] = checkAuthentication($this->class, 'criar_agendamento', 'Criar Agendamento');
+        $_dados['permissao_remover_agendamento'] = checkAuthentication($this->class, 'remover_agendamento', 'Remover Agendamento');
+        $_dados['permissao_atender_agendamento'] = checkAuthentication($this->class, 'atender_agendamento', 'Atender Agendamento');
+
         $profissional_id = request()->route('id');
         $profissionais = $this->Agenda_model->get_profissionais();
         foreach($profissionais as $key => $prof){

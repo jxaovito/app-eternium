@@ -133,6 +133,8 @@
 		<input type="hidden" name="data_hoje_fim_agenda" value="{{$data_fim_agenda}}">
 		<input type="hidden" name="profissional_id" value="{{$profissional_id}}">
 		<input type="hidden" name="profissional_nome" value="{{$profissional_nome}}">
+		<input type="hidden" name="criar_agendamento" value="{{$permissao_criar_agendamento}}">
+		<input type="hidden" name="atender_agendamento" value="{{$permissao_atender_agendamento}}">
 	{{-- Final Hiddens --}}
 
 	{{-- Valores de datas para configuração do Calendar --}}
@@ -261,16 +263,18 @@
 			<div class="header-modal d-flex justify-content-between align-items-center relative">
 				<div class="d-flex align-items-start editar_dados_agendamento">
 					<h4>{{mensagem('msg27')}}</h4>
-					<i
-						class="ph ph-pencil-simple mgl-px-5 pointer btn_editar_dados_agendamento"
-						data-bs-toggle="tooltip"
-		                data-bs-placement="bottom"
-		                data-bs-custom-class="custom-tooltip"
-		                data-bs-title="{{mensagem('msg28')}}"
-		                style="background-color: var(--cor-logo-cliente-transp)!important;color: var(--cor-font-cliente)!important;"
-		                background-cliente="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>"
-		                background-cliente-transp="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>36"
-					></i>
+					@if($permissao_criar_agendamento === true)
+						<i
+							class="ph ph-pencil-simple mgl-px-5 pointer btn_editar_dados_agendamento"
+							data-bs-toggle="tooltip"
+			                data-bs-placement="bottom"
+			                data-bs-custom-class="custom-tooltip"
+			                data-bs-title="{{mensagem('msg28')}}"
+			                style="background-color: var(--cor-logo-cliente-transp)!important;color: var(--cor-font-cliente)!important;"
+			                background-cliente="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>"
+			                background-cliente-transp="<?= array_column(session('config_dados'), 'valor', 'variavel')['cor_logo'] ?>36"
+						></i>
+					@endif
 					<i
 						class="ph ph-x mgl-px-5 pointer d-none"
 						data-bs-toggle="tooltip"
@@ -348,12 +352,8 @@
 						<hr>
 					</div>
 
-					<div class="w-80">
+					<div class="w-100">
 					  	<label>{{mensagem('msg38')}}</label>
-					</div>
-
-					<div class="w-19">
-					  	<label>{{mensagem('msg39')}}</label>
 					</div>
 
 					<div class="w-100 d-flex flex-wrap procedimentos">
@@ -363,41 +363,36 @@
 					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
 						<div>
 							<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> {{mensagem('msg40')}}</span>
-							<span
-								type="submit"
-								class="btn btn-success bg-cor-logo-cliente remover remover_agendamento"
-								link="/agenda/remover_agendamento/"
-								titulo="{{mensagem('msg41')}}"
-								texto="{{mensagem('msg42')}}"
-								btn-texto="{{mensagem('msg43')}}"
-							>
-								<i class="ph ph-trash"></i> {{mensagem('msg44')}}
-						</span>
+							@if($permissao_remover_agendamento === true)
+								<span
+									type="submit"
+									class="btn btn-success bg-cor-logo-cliente remover remover_agendamento"
+									link="/agenda/remover_agendamento/"
+									titulo="{{mensagem('msg41')}}"
+									texto="{{mensagem('msg42')}}"
+									btn-texto="{{mensagem('msg43')}}"
+								>
+									<i class="ph ph-trash"></i> {{mensagem('msg44')}}
+								</span>
+							@endif
 						</div>
-						<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-editar-agendamento">{{mensagem('msg45')}} <i class="ph ph-check"></i></span>
+						@if($permissao_atender_agendamento === true)
+							<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-editar-agendamento">{{mensagem('msg45')}} <i class="ph ph-check"></i></span>
+						@endif
 					</div>
 				</form>
 
 				{{-- Clone --}}
 				<div class="w-100 procedimento_clone d-none">
 					<div class="w-100 d-flex justify-content-between mgb-px-5">
-						<div class="form-floating w-80">
+						<div class="form-floating w-100">
 						  	<input type="text" class="form-control w-100" readonly placeholder="{{mensagem('msg56')}}" name="procedimento[]" autocomplete="off">
 						  	<label></label>
 						</div>
 						<input type="hidden" name="tratamento_has_procedimento_id[]">
 						<input type="hidden" name="procedimento_id[]">
-						<input type="text" name="sessao[]" class="form-control w-19 number">
 					</div>
 				</div>
-				{{-- <div class="w-100 procedimento_clone d-none">
-					<div class="w-100 d-flex justify-content-between mgb-px-5">
-						<input type="text" class="form-control w-80" readonly placeholder="{{mensagem('msg57')}}" name="procedimento[]" autocomplete="off">
-						<input type="hidden" name="tratamento_has_procedimento_id[]">
-						<input type="hidden" name="procedimento_id[]">
-						<input type="text" name="sessao[]" class="form-control w-19">
-					</div>
-				</div> --}}
 			</div>
 		</div>
 	</div>

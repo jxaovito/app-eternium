@@ -4,7 +4,7 @@ const calendar = new tui.Calendar('#calendar', {
     defaultView: 'week', // Modo de exibição padrão (semana, mês, etc.)
     useCreationPopup: true, // Desativar pop-up para criar eventos
     useDetailPopup: true, // Desativar pop-up para detalhes de eventos
-    isReadOnly: false, //Ativa somente leitura no calendário
+    isReadOnly: ($('[name="criar_agendamento"]').val() != '1' ? true : false), //Ativa somente leitura no calendário
     scheduleFilter(schedule) {
         return schedule.category !== 'milestone' && schedule.category !== 'task';
     },

@@ -356,6 +356,11 @@ select{
         outline: none!important;
     }
 }
+.select2-container{
+    &.select2-container--open{
+        z-index: 99999999999!important;
+    }
+}
 .select2{
     .selection{
         .select2-selection{

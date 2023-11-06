@@ -201,6 +201,11 @@
 }
 
 .modal-criar-tratamento{
+
+	&.modal{
+		z-index: 999999999999!important;
+	}
+
 	.modal-xl{
 		--bs-modal-width: 90%!important;
 	}

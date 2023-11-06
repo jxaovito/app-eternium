@@ -162,6 +162,9 @@
   color: #000;
 }
 
+.modal-criar-tratamento.modal {
+  z-index: 999999999999 !important;
+}
 .modal-criar-tratamento .modal-xl {
   --bs-modal-width: 90%!important;
 }
