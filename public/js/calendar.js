@@ -619,10 +619,10 @@ $(document).ready(function(){
             container.find('.remover_agendamento').removeClass('remover_agendamento');
 
             // Btn de Salvar
-            container.find('.salvar-editar-agendamento').attr('readonly-disabled', 'readonly-disabled');
-            container.find('.salvar-editar-agendamento').attr('readonly', 'readonly');
-            container.find('.salvar-editar-agendamento').addClass('subclass_salvar-editar-agendamento');
-            container.find('.salvar-editar-agendamento').removeClass('salvar-editar-agendamento');
+            container.find('.atender-agendamento').attr('readonly-disabled', 'readonly-disabled');
+            container.find('.atender-agendamento').attr('readonly', 'readonly');
+            container.find('.atender-agendamento').addClass('subclass_atender-agendamento');
+            container.find('.atender-agendamento').removeClass('atender-agendamento');
 
             // Btn de Cancelar
             container.find('.close-modal-agenda').attr('readonly-disabled', 'readonly-disabled');
@@ -693,10 +693,10 @@ $(document).ready(function(){
             container.find('.subclass_remover_agendamento').removeClass('subclass_remover_agendamento');
 
             // Btn de Salvar
-            container.find('.subclass_salvar-editar-agendamento').removeAttr('readonly-disabled', 'readonly-disabled');
-            container.find('.subclass_salvar-editar-agendamento').removeAttr('readonly', 'readonly');
-            container.find('.subclass_salvar-editar-agendamento').addClass('salvar-editar-agendamento');
-            container.find('.subclass_salvar-editar-agendamento').removeClass('subclass_salvar-editar-agendamento');
+            container.find('.subclass_atender-agendamento').removeAttr('readonly-disabled', 'readonly-disabled');
+            container.find('.subclass_atender-agendamento').removeAttr('readonly', 'readonly');
+            container.find('.subclass_atender-agendamento').addClass('atender-agendamento');
+            container.find('.subclass_atender-agendamento').removeClass('subclass_atender-agendamento');
 
             // Btn de Cancelar
             container.find('.subclass_close-modal-agenda').removeAttr('readonly-disabled', 'readonly-disabled');
@@ -912,6 +912,7 @@ $(document).ready(function(){
     });
 });
 
+// Função para Visualizar Agendamento
 function visualizar_agendamento(agenda_id){
     $('#calendar').css('width', '70%');
     $('.contents-modal').show('fast');
@@ -953,6 +954,7 @@ function visualizar_agendamento(agenda_id){
                 modal.find('[name="tratamento_id"]').val(dado.tratamento_id);
                 modal.find('.remover_agendamento').attr('agenda_id', dado.id);
                 modal.find('.remover_agendamento').attr('tratamento_id', dado.tratamento_id);
+                modal.find('.atender-agendamento').attr('href', `/prontuario/atender/${dado.paciente_id}/${dado.id}`)
 
                 if(dado.observacoes){
                     modal.find('.observacoes-agendamento').removeClass('d-none');

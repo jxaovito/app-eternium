@@ -1,11 +1,11 @@
 <?php
 // Manipulação de Banco de dados Geral
-namespace App\Modules\Agenda\Models;
+namespace App\Modules\Prontuario\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Agenda_db_model extends Model {
+class Prontuario_db_model extends Model {
     protected $table = 'usuario';
     protected $connection = 'mysql';
 

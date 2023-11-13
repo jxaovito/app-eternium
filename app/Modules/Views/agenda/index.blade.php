@@ -362,7 +362,9 @@
 
 					<div class="w-100 d-flex flex-wrap mgt-px-30 mgb-px-5 justify-content-between">
 						<div>
-							<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda"><i class="ph ph-x"></i> {{mensagem('msg40')}}</span>
+							<span type="submit" class="btn btn-success bg-cor-logo-cliente close-modal-agenda">
+								<i class="ph ph-x"></i> {{mensagem('msg40')}}
+							</span>
 							@if($permissao_remover_agendamento === true)
 								<span
 									type="submit"
@@ -377,7 +379,9 @@
 							@endif
 						</div>
 						@if($permissao_atender_agendamento === true)
-							<span type="submit" class="btn btn-success bg-cor-logo-cliente salvar-editar-agendamento">{{mensagem('msg45')}} <i class="ph ph-check"></i></span>
+							<a href="" type="submit" class="btn btn-success bg-cor-logo-cliente atender-agendamento">
+								{{mensagem('msg45')}} <i class="ph ph-check"></i>
+							</a>
 						@endif
 					</div>
 				</form>

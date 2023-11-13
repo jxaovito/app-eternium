@@ -34,25 +34,25 @@
   background-position: right;
 }
 
-.container-tratamento-visualizar .content-principal {
+.container-tratamento-visualizar .content-principal, .container-atender-prontuario .content-principal {
   width: 78%;
   border-radius: 20px;
   box-shadow: 0px 0px 2px #9d9d9d;
   padding: 15px;
   min-height: 450px;
 }
-.container-tratamento-visualizar .content-principal .especialidade_list {
+.container-tratamento-visualizar .content-principal .especialidade_list, .container-atender-prontuario .content-principal .especialidade_list {
   padding: 5px 10px;
   border-radius: 4px;
 }
-.container-tratamento-visualizar .content-principal .div-resumo-tratamento {
+.container-tratamento-visualizar .content-principal .div-resumo-tratamento, .container-atender-prontuario .content-principal .div-resumo-tratamento {
   background-color: var(--cor-logo-cliente);
   color: #fff !important;
   padding: 10px;
   border-radius: 10px;
   margin-top: 20px;
 }
-.container-tratamento-visualizar .content-profile {
+.container-tratamento-visualizar .content-profile, .container-atender-prontuario .content-profile {
   width: 20%;
   display: flex;
   justify-content: center;
@@ -65,13 +65,13 @@
   align-items: start;
   flex-wrap: wrap;
 }
-.container-tratamento-visualizar .content-profile .data-user {
+.container-tratamento-visualizar .content-profile .data-user, .container-atender-prontuario .content-profile .data-user {
   width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
-.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle {
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle, .container-atender-prontuario .content-profile .data-user .imagem_paciente .circle {
   width: 170px;
   height: 170px;
   border-radius: 50%;
@@ -79,19 +79,19 @@
   border: 5px solid black;
   padding: 5px;
 }
-.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-inner {
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-inner, .container-atender-prontuario .content-profile .data-user .imagem_paciente .circle-inner {
   width: 150px;
   height: 150px;
   border-radius: 80%;
   background-color: white;
 }
-.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-inner img {
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-inner img, .container-atender-prontuario .content-profile .data-user .imagem_paciente .circle-inner img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
 }
-.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-half-black {
+.container-tratamento-visualizar .content-profile .data-user .imagem_paciente .circle-half-black, .container-atender-prontuario .content-profile .data-user .imagem_paciente .circle-half-black {
   border-left-color: #fff;
   border-right-color: #fff;
   border-top-color: #fff;

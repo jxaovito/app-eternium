@@ -57,6 +57,7 @@ class Auth_controller extends Controller {
             });
 
             $dados_usuario = $this->Auth_model->get_all_table('usuario', array('id' => $usuario['id']));
+            $profissional = $this->Auth_model->get_table('profissional', array('usuario_id' => $usuario['id']));
             $permissoes = $this->Auth_model->get_permissoes_usuario($usuario['id']);
             $permissoes_all = $this->Auth_model->get_permissoes();
             $config_dados = $this->Auth_model->get_all_table('configuracao', array('tipo' => 'dados'));
@@ -83,6 +84,14 @@ class Auth_controller extends Controller {
             session(['idioma' => $idioma]);
             session(['moeda' => $moeda]);
             session(['menu' => 'mostrar']);
+
+            if($profissional){
+                session(['profissional_nome' => $profissional['nome']]);
+                session(['profissional_id' => $profissional['id']]);
+            }else{
+                session(['profissional_nome' => null]);
+                session(['profissional_id' => null]);
+            }
 
     		return redirect()->route('agenda');
 

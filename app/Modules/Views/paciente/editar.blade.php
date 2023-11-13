@@ -1,4 +1,4 @@
-{{mensagem('msg33')}}@extends('default.layout')
+@extends('default.layout')
 @section('content')
 <div class="container-novo-paciente">
 	<div class="header mgb-px-30 d-flex justify-content-between">

@@ -5,6 +5,7 @@
         <script>
             let idioma = "{{session('idioma')}}";
             let moeda = "{{session('moeda')}}";
+            const base_url = "/";
         </script>
 
         <title>{{array_column(session('config_dados'), 'valor', 'variavel')['nome_empresa']}} - Eternium</title>
@@ -91,6 +92,12 @@
 
         @if(isset($pagina) && ($pagina == 'tratamento' || $pagina == 'agenda'))
         <script type="text/javascript" src="{{ asset('js/tratamento.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/tratamento.css') }}">
+        @endif
+
+        @if(isset($pagina) && $pagina == 'prontuario')
+        <script type="text/javascript" src="{{ asset('js/prontuario.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/prontuario.css') }}">
         <link rel="stylesheet" href="{{ asset('css/tratamento.css') }}">
         @endif
 

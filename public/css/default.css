@@ -136,6 +136,10 @@ body .bg-cor-logo-cliente {
 body .bg-cor-logo-cliente:hover {
   opacity: 0.9;
 }
+body .bg-cor-logo-cliente.active {
+  background: var(--cor-logo-cliente-transp) !important;
+  color: var(--cor-font-cliente) !important;
+}
 body .bg-transp-cor-logo-cliente {
   background: var(--cor-logo-cliente-transp) !important;
   color: var(--cor-font-cliente) !important;
@@ -144,6 +148,10 @@ body .bg-transp-cor-logo-cliente {
 }
 body .bg-transp-cor-logo-cliente:hover {
   opacity: 0.9;
+}
+body .bg-transp-cor-logo-cliente.active {
+  background: var(--cor-logo-cliente) !important;
+  color: var(--cor-font-cliente) !important;
 }
 body .aba {
   display: flex;
@@ -714,7 +722,7 @@ select {
 }
 
 .top--20px {
-  top: -20px;
+  top: -20px !important;
 }
 
 .w-13px {
@@ -745,15 +753,23 @@ select {
 }
 
 .relative {
-  position: relative;
+  position: relative !important;
 }
 
 .absolute {
-  position: absolute;
+  position: absolute !important;
+}
+
+.sticky {
+  position: sticky !important;
 }
 
 .border-radius-50 {
   border-radius: 50%;
+}
+
+.border-radius-20px {
+  border-radius: 20px !important;
 }
 
 .border-none {
@@ -774,6 +790,10 @@ select {
 
 .border-bottom-none {
   border-bottom: none !important;
+}
+
+.margin-8px {
+  margin: 8px !important;
 }
 
 .d-flex {
@@ -3030,6 +3050,10 @@ select {
 
 .right-px-100 {
   right: 100px;
+}
+
+.top-px-0 {
+  top: 0px !important;
 }
 
 .top-px-1 {

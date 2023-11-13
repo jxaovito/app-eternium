@@ -30,3 +30,4 @@ require __DIR__.'/../routes/app/financeiro.php';
 require __DIR__.'/../routes/app/relatorio.php';
 require __DIR__.'/../routes/app/usuario.php';
 require __DIR__.'/../routes/app/configuracao.php';
+require __DIR__.'/../routes/app/prontuario.php';

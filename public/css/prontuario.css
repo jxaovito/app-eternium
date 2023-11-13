@@ -1,0 +1,123 @@
+.container-atender-prontuario .content-principal {
+  min-height: 150px !important;
+}
+.container-atender-prontuario .content-principal .box-graficos {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 120px;
+  margin-bottom: 30px;
+}
+.container-atender-prontuario .content-principal .box-graficos .area-box {
+  width: 24%;
+  box-shadow: 0px 0px 6px #bbb;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.container-atender-prontuario .content-principal .box-graficos .area-box .left {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.container-atender-prontuario .content-principal .box-graficos .area-box .left h2, .container-atender-prontuario .content-principal .box-graficos .area-box .left span {
+  color: #535353;
+  width: 100%;
+}
+.container-atender-prontuario .content-principal .box-graficos .area-box .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+}
+.container-atender-prontuario .content-principal .box-graficos .area-box .right i {
+  font-size: 58px;
+  color: var(--cor-logo-cliente);
+}
+.container-atender-prontuario .navegacao {
+  margin-top: 20px;
+  background-color: #fff;
+  z-index: 9;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico {
+  width: 100%;
+  display: flex;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div {
+  width: 100%;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line {
+  display: flex;
+  width: 100%;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .data-time-line {
+  display: flex;
+  align-items: start;
+  width: 7%;
+  justify-content: center;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .data-time-line .data-line {
+  margin-top: 30px;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph {
+  width: 3%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .line {
+  width: 100%;
+  display: flex;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .line .line1 {
+  border-right: solid 2px var(--cor-logo-cliente-transp) !important;
+  min-height: 20px;
+  width: 50%;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .line .line2 {
+  min-height: 20px;
+  width: 50%;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .circle {
+  width: 100%;
+  display: flex;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .circle .line1 {
+  border-right: solid 2px var(--cor-logo-cliente-transp) !important;
+  min-height: 20px;
+  width: 50%;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .circle .area-circle {
+  display: flex;
+  height: 20px;
+  margin-left: -12px;
+  margin-top: 30px;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .circle .area-circle .col1 {
+  width: 44.2%;
+  height: 20px;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .circle .area-circle .circle-obj {
+  background-color: var(--cor-logo-cliente) !important;
+  border-radius: 50%;
+  padding: 12px;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .circle .area-circle .col2 {
+  width: 45%;
+  height: 20px;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .graph .time-line {
+  width: 100%;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .content {
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+}
+.container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .content p {
+  width: 100%;
+}
+
+/*# sourceMappingURL=prontuario.css.map */
