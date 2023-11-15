@@ -148,6 +148,16 @@
 					}
 				}
 			}
+
+			.container-atendimento{
+				.ck-editor__editable{
+				    min-height: 350px;
+				}
+
+				#ckeditor_atendimento{
+					height: 350px;
+				}
+			}
 		}
 	}
 }

@@ -119,5 +119,11 @@
 .container-atender-prontuario .container-content .content-submenu .container-historico .time-lide-div .time-line .content p {
   width: 100%;
 }
+.container-atender-prontuario .container-content .content-submenu .container-atendimento .ck-editor__editable {
+  min-height: 350px;
+}
+.container-atender-prontuario .container-content .content-submenu .container-atendimento #ckeditor_atendimento {
+  height: 350px;
+}
 
 /*# sourceMappingURL=prontuario.css.map */

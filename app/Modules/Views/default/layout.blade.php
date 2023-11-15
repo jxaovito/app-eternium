@@ -5,6 +5,7 @@
         <script>
             let idioma = "{{session('idioma')}}";
             let moeda = "{{session('moeda')}}";
+            let pagina = "{{isset($pagina) ? $pagina : ''}}";
             const base_url = "/";
         </script>
 
@@ -177,5 +178,11 @@
 
         {{-- Incluir Icons --}}
         @include('/default/icons')
+
+        {{-- Páginas que precisam de CKEditor --}}
+        @if(isset($pagina) && $pagina == 'prontuario')
+            <script type="text/javascript" src="{{ asset('vendor/ckeditor5/build/ckeditor.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+        @endif
     </body>
 </html>

@@ -5368,5 +5368,8 @@ a {
     box-shadow: 0px 0px 0px;
   }
 }
+.ck-powered-by {
+  display: none;
+}
 
 /*# sourceMappingURL=default.css.map */
